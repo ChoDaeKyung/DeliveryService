@@ -8,7 +8,7 @@ public class SelectController {
 
     @GetMapping
     public String select() {
-        return "select";
+        return "main";
     }
 
 }

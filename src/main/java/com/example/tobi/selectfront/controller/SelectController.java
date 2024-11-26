@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SelectController {
 
-    @GetMapping("/select")
-    public String select() {
-        return "select";
+    @GetMapping("/main")
+    public String main() {
+        return "main";
     }
 }
