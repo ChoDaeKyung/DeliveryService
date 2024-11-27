@@ -10,13 +10,13 @@
   <title>선택창</title>
 </head>
 <body>
-
+<input id="hiddenSectionId" type="hidden" th:value="${sectionId}">
 <div class="navbar">
   <!-- Rectangle 7 (background gradient) -->
   <div class="rectangle7"></div>
 
   <!-- Logo Image -->
-  <div class="logo"></div>
+  <a th:href="@{/main}" class="logo"></a>
 
   <!-- Menu Items -->
   <div class="menu-item menu-1" onclick="showSection('menu')">메뉴소개</div>
@@ -50,7 +50,7 @@
 <!-- Sections -->
 <main class="main-content">
 <section id="menu" style="display:none;">
-  <h2>메뉴 소개</h2>
+  <h2>&nbsp;&nbsp;&nbsp;메뉴 소개</h2>
   <div class="sandwich-container">
     <div class="sandwich-item">
       <img src="test.jpeg" alt="에그마요" class="sandwich-image">
@@ -92,7 +92,7 @@
       </div>
     </div>
 
-    <a class="sandwich-item">
+    <a th:href="@{/select}" class="sandwich-item">
       <img src="test.jpeg" alt="나만의 샌드위치" class="sandwich-image">
       <div class="sandwich-text">
         <h3>나만의 샌드위치</h3>
@@ -100,6 +100,7 @@
       </div>
     </a>
   </div>
+
 </section>
 
 <section id="howtouse" style="display:none;">

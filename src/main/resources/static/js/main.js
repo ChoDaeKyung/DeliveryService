@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    showSection();
+    checkModel();
 
     const modal = document.getElementById("modal");
     const closeButton = document.querySelector(".close-button");
@@ -31,4 +31,17 @@ function showSection(sectionId) {
     if (selectedSection) {
         selectedSection.style.display = 'block';
     }
+
+}
+
+function checkModel() {
+    let sectionId = $('#hiddenSectionId').val();
+    console.log('sectionId :: ', sectionId)
+    if(sectionId !== "" || sectionId !== null){
+        showSection(sectionId);
+    }else{
+        showSection('menu');
+    }
+
+
 }
