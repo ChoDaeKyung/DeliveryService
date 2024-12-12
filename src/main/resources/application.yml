@@ -4,3 +4,6 @@ spring:
 
 server:
   port: 7007
+
+swfm:
+  select-service-url: ${SELECT_SERVICE_URL:http://localhost:7001}/select
