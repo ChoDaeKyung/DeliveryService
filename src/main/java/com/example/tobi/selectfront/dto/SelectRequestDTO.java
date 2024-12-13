@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class SelectRequestDTO {
-    private List<List<ProductRequestDTO>> productsList;
+    private List<ProductRequestDTO> productsList;
     private String completeProduct;
     private int totalPrice;
     private String orderId;

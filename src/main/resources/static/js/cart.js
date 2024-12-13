@@ -2,55 +2,132 @@ $(document).ready(function () {
 
     getProducts();
 
-    let mainList = []; // 전체 상품 리스트 저장
+    let mainList = {}; // 전체 상품 리스트 저장
+    let activeSection = null; // 활성화된 choiceSection 추적 (초기값은 null)
+    let sectionCount = 0; // 각 choiceSection에 고유한 ID를 부여하기 위한 카운터
+    let activeSectionId = null;
+
+    // "추가주문" 버튼 클릭 이벤트
+    $(".addSelect").on("click", function () {
+        sectionCount++; // sectionCount 증가
+
+        const newSection = $(`
+        <div class="choiceSection choiceSection-${sectionCount}" data-sectionid="${sectionCount}">
+            <h4>추가주문 ${sectionCount}</h4>
+            <div class="breadSection">Bread :</div>
+            <div class="vegetableSection">Vegetable :</div>
+            <div class="meatSection">Meat :</div>
+            <div class="sourceSection">Source :</div>
+            <div class="drinkSection">Drink :</div>
+        </div>
+        `);
+
+        // 각 모달에 생성된 choiceSection 추가
+        $("#breadModal .choiceSectionContainer, #vegetableModal .choiceSectionContainer, #meatModal .choiceSectionContainer, #sourceModal .choiceSectionContainer, #drinkModal .choiceSectionContainer").append(newSection);
+
+        // mainList에 해당 섹션 ID 초기화
+        mainList[sectionCount] = [];
+    });
+
+    // 활성화된 영역 설정
+    function setActiveSection(section) {
+        if (activeSection) {
+            activeSection.removeClass("active");
+        }
+        activeSection = section; // 클릭한 section을 activeSection으로 설정
+        activeSection.addClass("active");
+    }
+
+    // 이벤트 위임 방식으로 choiceSection 클릭 이벤트 설정
+    $(document).on("click", ".choiceSection", function () {
+        $(".choiceSection").removeClass("active"); // 기존 활성화 제거
+        $(this).addClass("active"); // 클릭된 섹션 활성화
+        activeSectionId = $(this).data("sectionid"); // 활성화된 섹션 ID 저장
+        const sectionId = $(this).data('sectionid'); // 클릭된 choiceSection의 data-sectionId 추출
+        console.log("클릭된 sectionId:", sectionId); // sectionId가 정상적으로 출력되는지 확인
+        setActiveSection($(this)); // 해당 section을 활성화
+        // 선택된 섹션의 데이터 렌더링
+        renderSectionData(sectionId);
+    });
+
+    function restoreActiveSection() {
+        if (activeSectionId !== null) {
+            // 저장된 sectionId에 해당하는 choiceSection에 active 클래스 추가
+            $(`.choiceSection[data-sectionid="${activeSectionId}"]`).addClass("active");
+        }
+    }
 
     // 상품 클릭 이벤트
     $(document).on("click", ".sandwich-item", function () {
-        const itemName = $(this).find("h3").text();
-        const price = $(this).find("p").text();
-        const category = this.closest(".modal").id.replace("Modal", "");
+        const itemName = $(this).find("h3").text(); // 클릭한 상품 이름
+        const price = $(this).find("p").text(); // 클릭한 상품 이름
+        const category = this.closest(".modal").id.replace("Modal", ""); // 카테고리 추출
+        const choiceSection = activeSection; // 현재 활성화된 섹션
 
-        const isSelected = $(this).hasClass("selected");
+        if (!choiceSection) {
+            alert("주문란을 선택해주세요.");
+            return;
+        }
+
+        const sectionId = choiceSection.data("sectionid"); // 활성화된 섹션 ID
+        const isSelected = $(this).hasClass("selected"); // 선택 여부 확인
         if (isSelected) {
+            // 선택 해제
             $(this).removeClass("selected");
-            mainList = mainList.filter(
+            mainList[sectionId] = mainList[sectionId].filter(
                 item => item.name !== itemName || item.category !== category || item.price !== price
             );
         } else {
+            // 선택 추가
             $(this).addClass("selected");
-            mainList.push({ name: itemName, category: category, price: price });
+            if (!mainList[sectionId]) {
+                mainList[sectionId] = [];
+            }
+            mainList[sectionId].push({
+                name: itemName,
+                category: category,
+                price: price, // 가격 임시 값
+            });
         }
 
-        renderSectionData();
+        renderSectionData(sectionId);
+
         console.log("mainList", mainList);
     });
 
-    function renderSectionData() {
-        const choiceSection = $(".choiceSection");
-        const items = mainList;
+// renderSectionData 함수 개선
+    function renderSectionData(sectionId) {
+        const choiceSection = $(`.choiceSection[data-sectionid="${sectionId}"]`);
+        const items = mainList[sectionId] || [];
 
-        // 초기화
-        choiceSection.find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .drinkSection").html(function () {
-            const category = $(this).attr("class").replace("Section", "");
-            return `${category.charAt(0).toUpperCase() + category.slice(1)} :`;
+        // 모든 카테고리 섹션 초기화
+        choiceSection.find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .drinkSection").each(function () {
+            const category = $(this).attr('class').replace('Section', ''); // bread, vegetable 등 카테고리 추출
+            $(this).html(`${category.charAt(0).toUpperCase() + category.slice(1)} :`); // 기본 텍스트 유지
         });
 
-        // 렌더링
+        // 각 아이템 렌더링
         items.forEach(item => {
             const choiceHTML = `
-            <div class="choice-item" data-name="${item.name}" data-category="${item.category}">
-                ${item.name}
-            </div>`;
-            choiceSection.find(`.${item.category}Section`).append(choiceHTML);
+        <div class="choice-item" data-name="${item.name}" data-category="${item.category}">
+            ${item.name}
+        </div>`;
+            choiceSection.find(`.${item.category}Section`).append(choiceHTML); // 기본 텍스트 뒤에 추가
         });
 
-        // 선택 상태 반영
+        // 선택 상태를 상품에 반영
         $(".sandwich-item").each(function () {
             const itemName = $(this).find("h3").text();
-            const itemCategory = this.closest(".modal").id.replace("Modal", "");
-            const isSelected = items.some(item => item.name === itemName && item.category === itemCategory);
+            const itemCategory = this.closest(".modal").id.replace("Modal", ""); // 카테고리 추출
+            const isSelected = items.some(
+                item => item.name === itemName && item.category === itemCategory
+            );
 
-            $(this).toggleClass("selected", isSelected);
+            if (isSelected) {
+                $(this).addClass("selected");
+            } else {
+                $(this).removeClass("selected");
+            }
         });
     }
 
@@ -94,8 +171,8 @@ $(document).ready(function () {
     });
 
     $(".gotoBreadModal").on("click", function () {
-            vegetableModal.style.display = "none";
-            breadModal.style.display = "block";
+        vegetableModal.style.display = "none";
+        breadModal.style.display = "block";
         if (activeSection) {
             const sectionId = activeSection.data("sectionid");
             renderSectionData(sectionId);
@@ -149,8 +226,8 @@ $(document).ready(function () {
     });
 
     $(".gotoDrinkModal").on("click", function () {
-            sourceModal.style.display = "none";
-            drinkModal.style.display = "block";
+        sourceModal.style.display = "none";
+        drinkModal.style.display = "block";
         if (activeSection) {
             const sectionId = activeSection.data("sectionid");
             renderSectionData(sectionId);
@@ -209,23 +286,32 @@ $(document).ready(function () {
         // 모든 sectionId에 해당하는 모든 상품들의 가격 합을 계산
         const totalPrice = Object.values(mainList).flat().reduce((sum, product) => sum + parseInt(product.price, 10), 0);
 
-        const productsList = Object.values(mainList).flat().map(item => ({
-            name: item.name,
-            category: item.category,
-            price: parseInt(item.price, 10),
-            buyer: 'buyer',
-        }));
+        // 현재 날짜와 시간을 ISO 형식으로 생성하여 orderId에 사용
+        const orderId = new Date().toISOString() + 'buyer';
+
+        // mainList를 List<List> 형태로 변환
+        const productsList = Object.keys(mainList).map(sectionId => {
+            const sectionItems = mainList[sectionId]; // 각 섹션의 상품들
+
+            // 각 섹션의 아이템들에 대해 필요한 데이터를 반환
+            return sectionItems.map((item, index) => ({
+                name: item.name,
+                category: item.category,
+                price: parseInt(item.price, 10),
+                sectionId: sectionId,
+                buyer: 'buyer'
+            }));
+        });
 
         // AJAX 요청 보내기
         $.ajax({
             type: "POST",
-            url: "/webs/api/cart",
+            url: "/webs/api/select",
             data: JSON.stringify({
                 productsList: productsList,
-                name: '나만의 샌드위치',
+                completeProduct: '나만의 샌드위치',
                 totalPrice: totalPrice,
-                buyer:'buyer',
-                productId: new Date().toISOString() + 'buyer'
+                orderId: new Date().toISOString() + 'buyer'
             }),
             contentType: 'application/json',
             success: function (response) {
@@ -240,7 +326,11 @@ $(document).ready(function () {
         });
     });
 
-})
+});
+
+function showSection(sectionId) {
+    location.href='/main?sectionId=' + sectionId
+}
 
 let getProducts = () => {
     $.ajax({
@@ -285,7 +375,3 @@ let getProducts = () => {
         }
     });
 };
-
-function showSection(sectionId) {
-    location.href='/main?sectionId=' + sectionId
-}

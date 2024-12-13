@@ -86,23 +86,26 @@ body {
 .sandwich-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* 양쪽 정렬 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
     gap: 15px; /* 아이템 간격 */
-    padding: 10px; /* 전체 간격 줄임 */
+    padding: 10px;
 }
 
 .sandwich-item {
-    width: calc((100% - 30px) / 3); /* 한 줄에 3개로 배치 */
+    width: 33.33%; /* 한 줄에 3개씩 배치 */
     text-align: center;
-    flex-grow: 1;
+    box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
     cursor: pointer;
 }
 
+/* 이미지 크기 조정 */
 .sandwich-image {
-    width: 100%;
-    max-width: 150px; /* 이미지 최대 크기 제한 */
-    height: auto;
+    width: 150px;
+    max-width: 150px; /* 이미지 최대 크기 */
+    height: 150px;
     border-radius: 8px;
+    margin-top: 10px;
+    border: 2px solid gray; /* 검은색 테두리 추가 */
 }
 
 .sandwich-text {
@@ -224,3 +227,4 @@ body {
 .choiceSection.active {
     border-color: green;
 }
+

@@ -7,3 +7,4 @@ server:
 
 swfm:
   select-service-url: ${SELECT_SERVICE_URL:http://localhost:7001}/select
+  cart-service-url: ${CART_SERVICE_URL:http://localhost:7001}/cart

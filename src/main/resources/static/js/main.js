@@ -21,9 +21,11 @@ function checkModel() {
     let sectionId = $('#hiddenSectionId').val();
     console.log('sectionId :: ', sectionId)
     if(sectionId !== '' && sectionId !== null){
+        window.location.href('/main');
         showSection(sectionId);
     }else{
         showSection('menu');
     }
 
 }
+
