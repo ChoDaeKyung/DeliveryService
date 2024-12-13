@@ -1,0 +1,230 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.main-content {
+    position: relative;
+    top: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.rectangle {
+    width: 729px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.rectangle img {
+    height: 100%;
+    width: 70%;
+    object-fit: cover;
+}
+
+.text {
+    font-family: 'Irish Grover', sans-serif;
+    font-size: 35px;
+    color: #000;
+    text-align: center;
+    margin-right: 15px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto; /* 스크롤이 필요한 경우 사용 */
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%; /* 기본적으로 모달 크기를 80%로 설정 */
+    max-width: 800px; /* 최대 크기 제한 */
+    max-height: 90vh; /* 화면 높이의 90%로 제한 */
+    overflow-y: auto; /* 내용이 길어지면 스크롤이 생기도록 설정 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.sandwich-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 15px; /* 아이템 간격 */
+    padding: 10px;
+}
+
+.sandwich-item {
+    width: 33.33%; /* 한 줄에 3개씩 배치 */
+    text-align: center;
+    box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
+    cursor: pointer;
+}
+
+/* 이미지 크기 조정 */
+.sandwich-image {
+    width: 150px;
+    max-width: 150px; /* 이미지 최대 크기 */
+    height: 150px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 2px solid gray; /* 검은색 테두리 추가 */
+}
+
+.sandwich-text {
+    margin-top: 5px; /* 텍스트 위 여백 줄임 */
+}
+
+.sandwich-text h3 {
+    font-size: 16px; /* 제목 크기 줄임 */
+    font-weight: bold;
+}
+
+.sandwich-text p {
+    font-size: 12px; /* 설명 텍스트 크기 줄임 */
+    color: #555;
+}
+
+.sandwich-item.selected {
+    border: 2px solid #00b894; /* 선택된 상태에서 테두리 강조 */
+    background-color: #dfe6e9; /* 선택된 상태에서 배경색 변경 */
+    position: relative;
+}
+
+/* 선택된 상태에서 체크 표시 */
+.sandwich-item.selected::after {
+    content: '✔'; /* 체크 표시 */
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    color: #00b894;
+}
+
+/* 선택된 항목 표시 영역 */
+.choiceSection {
+    display: flex;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+    flex-direction: column; /* 세로 방향으로 배치 */
+}
+
+.newChoiceSection {
+    display: flex;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+    flex-direction: column; /* 세로 방향으로 배치 */
+}
+
+.breadSection {
+    display: flex;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+}
+
+.vegetableSection {
+    display: flex;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+}
+
+.meatSection {
+    display: flex;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+}
+
+.sourceSection {
+    display: flex;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+}
+
+.drinkSection {
+    display: flex;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+}
+
+.choice-item {
+    padding: 5px;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.choiceSection {
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.choiceSection.active {
+    border-color: green;
+}
+

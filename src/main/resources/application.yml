@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: select-front
+
+server:
+  port: 7007
+
+swfm:
+  select-service-url: ${SELECT_SERVICE_URL:http://localhost:7001}/select
+  cart-service-url: ${CART_SERVICE_URL:http://localhost:7001}/cart
+  news-list-service: ${NEWS_LIST_SERVICE_URL:http://localhost:7710}/news

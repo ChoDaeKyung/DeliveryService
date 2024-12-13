@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Details</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script th:src="@{/js/detailnews.js}"></script>
+  <script th:src="@{/js/select.js}"></script>
+  <link th:href="@{/css/main.css}" rel="stylesheet">
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/news.css}" rel="stylesheet">
+  <title>선택창</title>
+</head>
+<body>
+<input id="hiddenSectionId" type="hidden" th:value="${sectionId}">
+<div class="navbar">
+  <!-- Rectangle 7 (background gradient) -->
+  <div class="rectangle7"></div>
+
+  <!-- Logo Image -->
+  <a th:href="@{/main}" class="logo"></a>
+
+  <!-- Menu Items -->
+  <div class="menu-item menu-1" onclick="showSection('menu')">메뉴소개</div>
+  <div class="menu-item menu-2" onclick="showSection('howtouse')">이용방법</div>
+  <div class="menu-item menu-3" onclick="showSection('news')">새소식</div>
+  <div class="menu-item menu-4" onclick="showSection('market')">가맹점</div>
+  <div class="menu-item menu-5" onclick="showSection('online')">온라인 주문</div>
+
+  <!-- Additional Options -->
+  <div class="extra-item logout">로그아웃</div>
+  <div class="extra-item cart">장바구니</div>
+  <div class="extra-item mypage">마이페이지</div>
+</div>
+
+
+<main class="detail-news">
+  <section id="newsdetail">
+    <h1 id="newsTitle">뉴스 제목</h1>
+    <p id="newsContent">뉴스 내용</p>
+  </section>
+</main>
+
+
+
+</body>
+<footer>
+  <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
+</footer>
+</html>
