@@ -9,3 +9,6 @@ swfm:
   select-service-url: ${SELECT_SERVICE_URL:http://localhost:7001}/select
   cart-service-url: ${CART_SERVICE_URL:http://localhost:7001}/cart
   news-list-service: ${NEWS_LIST_SERVICE_URL:http://localhost:7710}/news
+
+user:
+  api-url: http://localhost:9010  # 백엔드 API URL 설정
