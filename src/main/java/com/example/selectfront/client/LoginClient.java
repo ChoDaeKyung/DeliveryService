@@ -2,13 +2,12 @@ package com.example.selectfront.client;
 
 
 import com.example.selectfront.dto.member.*;
-import com.example.tobi.selectfront.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "LoginClient", url = "${feign-data.url}")
+@FeignClient(name = "LoginClient", url = "${swfm.auth-url}")
 public interface LoginClient {
 
     //POST 데이터 요청 (데이터 생성)

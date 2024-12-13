@@ -1,3 +1,13 @@
+window.addEventListener('scroll', function () {
+    const menu = document.getElementById('menuList'); // 메뉴를 가져옴
+    const triggerPoint = 155; // 메뉴가 스크롤로 고정될 지점(px 단위)
+
+    if (window.scrollY >= triggerPoint) {
+        menu.classList.add('fixed'); // 고정 클래스 추가
+    } else {
+        menu.classList.remove('fixed'); // 고정 클래스 제거
+    }
+});
 let setupAjax = () => {
     $.ajaxSetup({
         beforeSend: (xhr) => {
@@ -57,7 +67,14 @@ let getUserInfo = () => {
     });
 }
 
+window.addEventListener('scroll', function () {
+    const menubackground = document.getElementById('menubackground'); // 메뉴를 가져옴
+    const triggerPoint = 155; // 메뉴가 스크롤로 고정될 지점(px 단위)
 
+    if (window.scrollY >= triggerPoint) {
+        menubackground.classList.add('fixed'); // 고정 클래스 추가
+    } else {
+        menubackground.classList.remove('fixed'); // 고정 클래스 제거
 $(window).on('unload', function(event) {
     // 로컬 스토리지나 세션 스토리지에서 카카오 엑세스 토큰 확인
     const kakaoAccessToken = sessionStorage.getItem('kakaoAccessToken');
@@ -74,5 +91,6 @@ $(window).on('unload', function(event) {
 $(document).ready(() => {
 
 Kakao.init('306fad2bdfd3b5c98b04d336d0fa10b7');
-}
-);
+
+
+})}

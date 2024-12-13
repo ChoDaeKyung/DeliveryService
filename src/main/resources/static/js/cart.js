@@ -60,6 +60,7 @@ $(document).ready(function () {
     // 상품 클릭 이벤트
     $(document).on("click", ".sandwich-item", function () {
         const itemName = $(this).find("h3").text(); // 클릭한 상품 이름
+        const price = $(this).find("p").text(); // 클릭한 상품 이름
         const category = this.closest(".modal").id.replace("Modal", ""); // 카테고리 추출
         const choiceSection = activeSection; // 현재 활성화된 섹션
 
@@ -74,7 +75,7 @@ $(document).ready(function () {
             // 선택 해제
             $(this).removeClass("selected");
             mainList[sectionId] = mainList[sectionId].filter(
-                item => item.name !== itemName || item.category !== category
+                item => item.name !== itemName || item.category !== category || item.price !== price
             );
         } else {
             // 선택 추가
@@ -85,7 +86,7 @@ $(document).ready(function () {
             mainList[sectionId].push({
                 name: itemName,
                 category: category,
-                price: 1, // 가격 임시 값
+                price: price, // 가격 임시 값
             });
         }
 
@@ -170,8 +171,8 @@ $(document).ready(function () {
     });
 
     $(".gotoBreadModal").on("click", function () {
-            vegetableModal.style.display = "none";
-            breadModal.style.display = "block";
+        vegetableModal.style.display = "none";
+        breadModal.style.display = "block";
         if (activeSection) {
             const sectionId = activeSection.data("sectionid");
             renderSectionData(sectionId);
@@ -225,8 +226,8 @@ $(document).ready(function () {
     });
 
     $(".gotoDrinkModal").on("click", function () {
-            sourceModal.style.display = "none";
-            drinkModal.style.display = "block";
+        sourceModal.style.display = "none";
+        drinkModal.style.display = "block";
         if (activeSection) {
             const sectionId = activeSection.data("sectionid");
             renderSectionData(sectionId);
