@@ -1,6 +1,9 @@
-package com.example.tobi.selectfront.dto;
+package com.example.selectfront.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 

@@ -1,9 +1,7 @@
-package com.example.tobi.selectfront.controller;
+package com.example.selectfront.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.ui.Model;
 
 @Controller
 public class FrontController {

@@ -1,9 +1,7 @@
-package com.example.tobi.selectfront.service;
+package com.example.selectfront.service;
 
-import com.example.tobi.selectfront.client.CartClient;
-import com.example.tobi.selectfront.client.SelectClient;
-import com.example.tobi.selectfront.dto.InsertCartRequestDTO;
-import com.example.tobi.selectfront.dto.SelectRequestDTO;
+import com.example.selectfront.client.CartClient;
+import com.example.selectfront.dto.InsertCartRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

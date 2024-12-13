@@ -1,8 +1,8 @@
-package com.example.tobi.selectfront.controller;
+package com.example.selectfront.controller;
 
-import com.example.tobi.selectfront.dto.GetSelectProductResponseDTO;
-import com.example.tobi.selectfront.dto.SelectRequestDTO;
-import com.example.tobi.selectfront.service.SelectService;
+import com.example.selectfront.dto.GetSelectProductResponseDTO;
+import com.example.selectfront.dto.SelectRequestDTO;
+import com.example.selectfront.service.SelectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

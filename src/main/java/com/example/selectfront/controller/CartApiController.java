@@ -1,8 +1,7 @@
-package com.example.tobi.selectfront.controller;
+package com.example.selectfront.controller;
 
-import com.example.tobi.selectfront.dto.InsertCartRequestDTO;
-import com.example.tobi.selectfront.dto.SelectRequestDTO;
-import com.example.tobi.selectfront.service.CartService;
+import com.example.selectfront.dto.InsertCartRequestDTO;
+import com.example.selectfront.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

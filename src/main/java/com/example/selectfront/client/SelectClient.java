@@ -1,7 +1,7 @@
-package com.example.tobi.selectfront.client;
+package com.example.selectfront.client;
 
-import com.example.tobi.selectfront.dto.GetSelectProductResponseDTO;
-import com.example.tobi.selectfront.dto.SelectRequestDTO;
+import com.example.selectfront.dto.GetSelectProductResponseDTO;
+import com.example.selectfront.dto.SelectRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

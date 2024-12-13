@@ -1,4 +1,4 @@
-package com.example.tobi.selectfront.dto;
+package com.example.selectfront.dto;
 
 import lombok.Builder;
 import lombok.Getter;
