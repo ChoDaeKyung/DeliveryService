@@ -18,7 +18,7 @@ public class SelectApiController {
     @PostMapping
     public String insertSelect(
             @RequestBody SelectRequestDTO selectRequestDTO
-            ){
+    ){
         System.out.println("selectRequestDTO: " + selectRequestDTO);
         return selectService.insertSelect(selectRequestDTO);
     }
