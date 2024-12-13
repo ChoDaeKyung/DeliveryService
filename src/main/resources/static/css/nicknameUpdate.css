@@ -1,0 +1,149 @@
+/* 전체 레이아웃 설정 */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto; /* main은 확장, footer는 고정 높이 */
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* main-wrapper 스타일 */
+#main-wrapper {
+    margin-top: 225px; /* 네브바 높이만큼 마진 추가 */
+    margin-bottom: 100px; /* 푸터 높이만큼 마진 추가 */
+    min-height: calc(100vh - 225px - 100px); /* 뷰포트 높이에서 네브바와 푸터 높이 차감 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* main 영역 */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* h1 스타일 */
+h1 {
+    margin-top: 20px; /* 상단 여백 */
+    margin-bottom: 20px; /* 하단 여백 */
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333; /* 제목 색상 */
+}
+
+/* container 클래스 스타일링 */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px; /* 최대 너비 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 30px; /* 내부 여백 */
+    background-color: #f9f9f9; /* 배경색 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    margin-top: 40px; /* 필요에 따라 조정 */
+}
+
+/* 폼 내부 요소 정렬 */
+#nickname-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 요소 간격 */
+}
+
+/* 폼 레이블 스타일 */
+label {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px; /* 레이블과 입력창 사이 여백 */
+    position: relative; /* 다른 위치 스타일에 영향받지 않음 */
+    display: block; /* 중앙 정렬을 위해 block으로 변경 */
+    margin-left: auto; /* 왼쪽 여백 자동 */
+    margin-right: auto; /* 오른쪽 여백 자동 */
+}
+
+/* 입력창 스타일 */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* 패딩 포함한 박스 크기 계산 */
+}
+
+/* 닉네임 입력 필드와 중복체크 버튼 컨테이너 */
+.nickname-input-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start; /* 필드 상단 정렬 */
+    margin-bottom: 20px;
+}
+
+/* 입력 필드 스타일 */
+#new-nickname {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 중복체크 버튼 스타일 */
+.check-duplicate {
+    position: absolute;
+    right: 1px;
+    top: -40px;
+    transform: translateY(-50%);
+    padding: 3px 6px;
+    font-size: 12px;
+    background-color: #057426;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 30px; /* 버튼 높이 설정 */
+    width: auto; /* 버튼의 너비를 내용에 맞춤 */
+    line-height: normal; /* 텍스트 정렬 조정 */
+}
+
+/*         .check-duplicate:hover {
+            background-color: #045b1f;
+        } */
+
+/* 버튼 스타일 */
+button {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #057426; /* 배경 색상 초록색 */
+    color: #FFFFFF; /* 텍스트 색상 흰색 */
+    border: none; /* 테두리 없애기 */
+    width: 160px; /* 버튼의 너비 설정 */
+    height: 50px; /* 버튼의 높이 설정 */
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s; /* 배경과 텍스트 색상 전환 */
+    margin-top: 20px; /* 버튼 상단 여백 */
+    position: relative; /* 다른 위치 스타일에 영향받지 않음 */
+    display: block; /* 중앙 정렬을 위해 block으로 변경 */
+    margin-left: auto; /* 왼쪽 여백 자동 */
+    margin-right: auto; /* 오른쪽 여백 자동 */
+}
+
+/* 버튼 hover 상태 */
+/* button:hover {
+    background-color: #045b1f;
+} */
