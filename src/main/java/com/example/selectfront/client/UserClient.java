@@ -1,7 +1,7 @@
 package com.example.selectfront.client;
 
-import com.example.tobi.selectfront.dto.CheckUserIdDTO;
-import com.example.tobi.selectfront.dto.UpdateNicknameDTO;
+import com.example.selectfront.dto.CheckUserIdDTO;
+import com.example.selectfront.dto.UpdateNicknameDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;

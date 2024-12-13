@@ -24,17 +24,9 @@ repositories {
 	maven { url 'https://repo.spring.io/milestone' }
 }
 
-ext {
-	set('springCloudVersion', "2024.0.0-RC1")
-}
 
 ext {
 	set('springCloudVersion', "2023.0.3")
-}
-
-ext {
-	springBootVersion = '3.3.6'  // Spring Boot 버전 설정 (Spring Boot 3.3.x)
-	springCloudVersion = '2023.0.3'  // Spring Cloud 버전 설정
 }
 
 dependencyManagement {
@@ -44,19 +36,23 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-starter-web'   // 웹 관련 의존성 (스타터)
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'   // Thymeleaf 관련 의존성
 
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'io.lettuce:lettuce-core:6.5.1.RELEASE'
+	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	compileOnly 'org.projectlombok:lombok'  // Lombok (컴파일 타임에만 필요)
+	annotationProcessor 'org.projectlombok:lombok'  // Lombok 어노테이션 프로세서
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'  // 테스트 관련 의존성
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'  // JUnit 런처
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'  // OpenFeign 관련 의존성
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'  // Spring Security와 통합된 Thymeleaf 확장
+
 }
-
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"

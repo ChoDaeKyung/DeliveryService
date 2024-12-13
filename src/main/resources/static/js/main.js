@@ -1,6 +1,24 @@
 $(document).ready(function () {
     checkModel();
+
+    const modal = document.getElementById("modal");
+    const closeButton = document.querySelector(".close-button");
+
+    $(".rectangle").on("click", function () {
+        modal.style.display = "block";
+    });
+
+    closeButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
 });
+
 let section = null;
 
 function showSection(sectionId) {
@@ -27,9 +45,14 @@ window.getSectionId = function () {
 function checkModel() {
     const sectionId = $('#hiddenSectionId').val();
     if (sectionId !== '' && sectionId !== null) {
+    let sectionId = $('#hiddenSectionId').val();
+    console.log('sectionId :: ', sectionId)
+    if(sectionId !== "" || sectionId !== null){
         showSection(sectionId);
     } else {
         showSection('menu'); // 기본 섹션 ID
+    }else{
+        showSection('menu');
     }
 
 }
@@ -40,3 +63,5 @@ window.getSectionId = function () {
 
 
 
+
+}

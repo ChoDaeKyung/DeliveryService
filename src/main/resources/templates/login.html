@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/select.js}"></script>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+<body data-login-service-url="/*[[${loginServiceUrl}]]*/">
+<script src="path/to/your/script.js"></script>
+</body>
+    <script th:src="@{/js/login.js}"></script>
+<body>
+
+
+<div class="navbar">
+    <!-- Rectangle 7 (background gradient) -->
+    <div class="rectangle7"></div>
+
+    <!-- Logo Image -->
+    <a th:href="@{/main}" class="logo"></a>
+
+    <!-- Menu Items -->
+    <div class="menu-item menu-1" onclick="showSection('menu')">메뉴소개</div>
+    <div class="menu-item menu-2" onclick="showSection('howtouse')">이용방법</div>
+    <div class="menu-item menu-3" onclick="showSection('news')">새소식</div>
+    <div class="menu-item menu-4" onclick="showSection('market')">가맹점</div>
+    <div class="menu-item menu-5" onclick="showSection('online')">온라인 주문</div>
+
+    <!-- Additional Options -->
+    <div class="extra-item login"  onclick="window.location.href='/login'">로그인</div>
+    <div class="extra-item cart">장바구니</div>
+    <div class="extra-item mypage">마이페이지</div>
+</div>
+<main class="main-content">
+    <div class="main">
+
+        <!-- ID and Password Section -->
+        <div class="login-form">
+            <h2 id="login-form-text">로그인</h2>
+            <!-- ID Input Box -->
+            <div class="id">
+                <label for="user-id"></label>
+                <input type="text" id="user-id" name="user-id" placeholder="Enter your ID" required>
+            </div>
+
+            <!-- Password Input Box -->
+            <div class="pw">
+                <label for="user-password"></label>
+                <input type="password" id="user-password" name="user-password" placeholder="Enter your password" required>
+            </div>
+
+            <!-- Login Button (Changed to button) -->
+            <div class="login-up">
+                <button class="login-button" style="border: 3px solid #96C15D;">
+                    <span class="login-text">로그인</span>
+                </button>
+            </div>
+
+            <!-- Find Password (Changed to button) -->
+            <div class="findPw">
+                <button onclick="location.href='join'" class="find-pw-button" style="border: 3px solid #96C15D;">
+                    <span class="findPw-text">아이디/비밀번호찾기</span>
+                </button>
+            </div>
+
+            <!-- Sign Up (Changed to button) -->
+            <div class="signup">
+                <button onclick="location.href='join'" class="join-button" style="border: 3px solid #96C15D;">
+                    <span class="signup-text">회원가입</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Social Login Section (Changed to button) -->
+        <div class="social-login">
+            <div class="rectangle-10">
+                <h2 id="social-test">소셜로그인 </h2>
+                <button class="naver"></button>
+                <button class="kakao-login"></button>
+                <button class="web-neutral"></button>
+            </div>
+        </div>
+    </div>
+    <div id="logout-button">로그아웃</div>
+    <footer>
+        <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
+    </footer>
+</main>
+
+</body>
+</html>

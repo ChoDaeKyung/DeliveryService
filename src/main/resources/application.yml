@@ -1,7 +1,19 @@
 spring:
   application:
     name: select-front
-
+  session:
+    store-type: redis  # Redis를 세션 저장소로 사용
+    redis:
+      host: localhost  # Redis 서버 호스트
+      port: 6379       # Redis 서버 포트
+      timeout: 10000   # Redis 연결 타임아웃 (밀리초 단위)
+      database: 0      # 사용할 Redis 데이터베이스 번호 (기본값은 0)
+    timeout: 600
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 10000
+    database: 0
 server:
   port: 7007
 
@@ -9,6 +21,9 @@ swfm:
   select-service-url: ${SELECT_SERVICE_URL:http://localhost:7001}/select
   cart-service-url: ${CART_SERVICE_URL:http://localhost:7001}/cart
   news-list-service: ${NEWS_LIST_SERVICE_URL:http://localhost:7710}/news
+  auth-url: ${auth_SERVICE_URL:http://localhost:7010}
+custom:
+  login-service-url: "http://localhost:7010"
 
 user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
