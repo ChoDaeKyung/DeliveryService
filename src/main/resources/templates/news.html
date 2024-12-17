@@ -6,8 +6,10 @@
   <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
   <script th:src="@{/js/main.js}"></script>
   <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/getnews.js}"></script>
   <link th:href="@{/css/main.css}" rel="stylesheet">
   <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/news.css}" rel="stylesheet">
   <title>선택창</title>
 </head>
 <body>
@@ -32,11 +34,35 @@
   <a th:href="@{/mypage}" class="extra-item mypage">마이페이지</a>
 </div>
 
+
+
 <main class="main-content">
 
-<section id="news">
-  <h2>여기에 새소식 작성</h2>
-</section>
+  <section id="news">
+    <h2>&nbsp;&nbsp;&nbsp;새소식</h2>
+    <div style="text-align: right; margin: 10px;">
+      <!-- 글 작성 버튼 (글쓰기 페이지로 이동) -->
+      <button class="news-button create-button" onclick="location.href='/news/create'">글 작성</button>
+      <!-- 선택 수정 버튼 -->
+      <button id="updateCheckboxes" class="news-button update-botton">선택 수정</button>
+      <!-- 수정 실행 버튼 (초기에는 숨김) -->
+      <button id="executeUpdate" class="news-button update-button" style="display: none;">수정 실행</button>
+      <!-- 선택 삭제 버튼 -->
+      <button id="toggleCheckboxes" class="news-button delete-button">선택 삭제</button>
+      <!-- 삭제 실행 버튼 (초기에는 숨김) -->
+      <button id="executeDelete" class="news-button delete-button" style="display: none;">삭제 실행</button>
+    </div>
+
+    <!-- 뉴스 리스트 렌더링 영역 -->
+    <div id="newsContainer">
+      <!-- 뉴스 목록이 여기에 AJAX를 통해 렌더링됩니다 -->
+    </div>
+
+    <!-- 페이지네이션 버튼 렌더링 영역 -->
+    <div id="paginationContainer">
+      <!-- 페이지네이션 버튼이 여기에 동적으로 렌더링됩니다 -->
+    </div>
+  </section>
 
   <footer>
     <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>

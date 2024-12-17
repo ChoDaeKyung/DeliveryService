@@ -18,8 +18,9 @@ public class CartApiController {
     @PostMapping
     public String insertSelect(
             @RequestBody InsertCartRequestDTO insertCartRequestDTO
-    ){
+    ) {
         System.out.println("insertCartRequestDTO: " + insertCartRequestDTO);
         return cartService.insertCart(insertCartRequestDTO);
     }
 }
+

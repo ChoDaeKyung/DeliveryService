@@ -1,7 +1,7 @@
 package com.example.selectfront.controller;
 
-import com.example.tobi.selectfront.dto.CheckUserIdDTO;
-import com.example.tobi.selectfront.dto.UpdateNicknameDTO;
+import com.example.selectfront.dto.CheckUserIdDTO;
+import com.example.selectfront.dto.UpdateNicknameDTO;
 import com.example.selectfront.service.MyPageUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

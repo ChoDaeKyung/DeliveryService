@@ -41,3 +41,7 @@ function fetchNewsDetails(newsId) {
         }
     });
 }
+
+
+
+

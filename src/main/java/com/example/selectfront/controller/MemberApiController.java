@@ -1,7 +1,7 @@
 package com.example.selectfront.controller;
 
 import com.example.selectfront.dto.member.*;
-import com.example.tobi.selectfront.dto.member.*;
+import com.example.selectfront.dto.member.*;
 import com.example.selectfront.service.EmailVerifyService;
 import com.example.selectfront.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
