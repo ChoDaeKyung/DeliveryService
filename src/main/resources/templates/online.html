@@ -19,13 +19,15 @@
   <!-- Logo Image -->
   <a th:href="@{/menu}" class="logo"></a>
 
+  <div class="menubackground" id="menubackground"></div>
   <!-- Menu Items -->
-  <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
-  <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
-  <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
-  <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
-  <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
-
+  <div class="menu" id="menuList">
+    <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
+    <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
+    <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+    <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
+    <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
+  </div>
   <!-- Additional Options -->
   <div class="extra-item logout">로그아웃</div>
   <a th:href="@{/cart}" class="extra-item cart">장바구니</a>
@@ -77,13 +79,13 @@
       </div>
     </div>
 
-    <a th:href="@{/select}" class="sandwich-item">
+    <div class="sandwich-item">
       <img src="test.jpeg" alt="나만의 샌드위치" class="sandwich-image">
       <div class="sandwich-text">
         <h3>나만의 샌드위치</h3>
         <p>당신만의 특별한 샌드위치를 만들어보세요!</p>
       </div>
-    </a>
+    </div>
   </div>
 
 </section>

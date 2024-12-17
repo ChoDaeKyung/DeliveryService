@@ -36,9 +36,15 @@ public class FrontController {
         return "select";
     }
 
-    @GetMapping("/admin/insertmenu")
-    public String insertmenu() {
-        return "insertmenu";
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
     }
+
+    @GetMapping("/admin/addproduct")
+    public String addproduct() {
+        return "addproduct";
+    }
+
 
 }
