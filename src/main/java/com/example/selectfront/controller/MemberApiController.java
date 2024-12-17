@@ -1,5 +1,7 @@
 package com.example.selectfront.controller;
 
+import com.example.selectfront.dto.ClaimsRequestDTO;
+import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.member.*;
 import com.example.selectfront.dto.member.*;
 import com.example.selectfront.service.EmailVerifyService;
@@ -84,6 +86,15 @@ public class MemberApiController {
 
         return emailVerifyService.verifyEmail(session.getId(),request);
      }
+
+
+
+    @PostMapping("/claims")
+    public ClaimsResponseDTO claims(@RequestBody ClaimsRequestDTO claimsRequestDTO) {
+        // 토큰 검증 및 사용자 정보 반환
+        System.out.println("token: "+claimsRequestDTO.getToken());
+        return memberService.verifyToken(claimsRequestDTO.getToken());
+    }
 
 
 }

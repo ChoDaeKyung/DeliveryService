@@ -38,7 +38,7 @@ let updateNews = () => {
 
                 alert(jsonResponse.message || '뉴스가 성공적으로 업데이트되었습니다.');
                 console.log('페이지 이동을 시작합니다.');
-                window.location.href = '/main';
+                window.location.href = '/news';
             } catch (e) {
                 console.error('응답 파싱 오류:', e);
                 alert('응답 처리 중 오류가 발생했습니다.');

@@ -9,7 +9,7 @@
     <link th:href="@{/css/common.css}" rel="stylesheet">
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
-<body data-login-service-url="/*[[${loginServiceUrl}]]*/">
+<body th:data-login-service-url="${loginServiceUrl}">
 <script src="path/to/your/script.js"></script>
 </body>
     <script th:src="@{/js/login.js}"></script>
