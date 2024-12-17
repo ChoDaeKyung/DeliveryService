@@ -1,8 +1,8 @@
 package com.example.selectfront.service;
 
 import com.example.selectfront.client.UserClient;
-import com.example.tobi.selectfront.dto.CheckUserIdDTO;
-import com.example.tobi.selectfront.dto.UpdateNicknameDTO;
+import com.example.selectfront.dto.CheckUserIdDTO;
+import com.example.selectfront.dto.UpdateNicknameDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

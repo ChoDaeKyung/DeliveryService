@@ -7,7 +7,17 @@
 
 /* Navbar */
 .navbar {
+    position: fixed; /* 스크롤 시에도 고정되도록 설정 */
+    top: 0;
     left: 0;
+    width: 100%; /* 화면 전체를 덮도록 설정 */
+    height: 200px; /* 네비게이션 바의 높이를 설정 */
+    background: #f0f0f0; /* 배경색 설정 */
+    z-index: 1000; /* 다른 요소 위에 위치 */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
 }
 
 /* Rectangle 7 (background gradient) */
