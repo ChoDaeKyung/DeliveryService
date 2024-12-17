@@ -9,14 +9,6 @@ import org.springframework.ui.Model;
 @Controller
 public class FrontController {
 
-    @GetMapping("/main")
-    public String main(
-            @RequestParam(name="sectionId",defaultValue = "") String sectionId,
-            Model model
-    ) {
-        model.addAttribute("sectionId", sectionId);
-        return "main";
-    }
     @GetMapping("/menu")
     public String menu() {
         return "menu";

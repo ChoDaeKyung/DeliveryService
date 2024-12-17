@@ -41,7 +41,7 @@ let createNews = () => {
             alert('뉴스가 성공적으로 생성되었습니다.');
 
             // 메인 페이지로 이동
-            window.location.href = '/main'; // 메인 페이지 URL로 수정
+            window.location.href = '/news'; // 메인 페이지 URL로 수정
         },
         error: (xhr) => {
             if (xhr.status === 419) {

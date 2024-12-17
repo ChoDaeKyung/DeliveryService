@@ -1,6 +1,8 @@
 package com.example.selectfront.client;
 
 
+import com.example.selectfront.dto.ClaimsRequestDTO;
+import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +31,8 @@ public interface LoginClient {
 
     @PostMapping("/verity/verify-email")
     EmailVerifyResponseDTO verifyEmail(@RequestBody EmailVerificationRequestDTO emailRequestDTO);
+
+
+    @PostMapping("/auths/claims")
+    ClaimsResponseDTO getClaims(@RequestBody ClaimsRequestDTO claimsRequestDTO);
 }
