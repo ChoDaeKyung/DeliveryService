@@ -18,8 +18,8 @@ $(document).ready(function () {
         }
     });
 });
-
 let section = null;
+
 
 function showSection(sectionId) {
     // 모든 section을 숨김
@@ -45,14 +45,9 @@ window.getSectionId = function () {
 function checkModel() {
     const sectionId = $('#hiddenSectionId').val();
     if (sectionId !== '' && sectionId !== null) {
-    let sectionId = $('#hiddenSectionId').val();
-    console.log('sectionId :: ', sectionId)
-    if(sectionId !== "" || sectionId !== null){
         showSection(sectionId);
     } else {
         showSection('menu'); // 기본 섹션 ID
-    }else{
-        showSection('menu');
     }
 
 }
@@ -61,7 +56,3 @@ window.getSectionId = function () {
     return section;
 };
 
-
-
-
-}

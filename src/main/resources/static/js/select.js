@@ -329,6 +329,15 @@ $(document).ready(function () {
 
 function showSection(sectionId) {
     location.href='/main?sectionId=' + sectionId
+        // $.ajax({
+        //     url: `/gotoMain`, // 환율 API URL
+        //     method: 'GET',
+        //     data: {sectionId: sectionId},
+        //     dataType: 'json',
+        //     // success:function (response){
+        //     //     window.location.href = response;
+        //     // }
+        // })
 }
 
 let getProducts = () => {
