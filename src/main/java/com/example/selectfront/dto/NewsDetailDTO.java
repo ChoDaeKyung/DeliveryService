@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Setter
 public class NewsDetailDTO {
 
-    private Long id;
     private String title;
     private String content;
     private String img;
