@@ -31,6 +31,14 @@ function fetchNewsDetails(newsId) {
             if (data && data.title && data.content) {
                 $("#newsTitle").text(data.title); // 제목 업데이트
                 $("#newsContent").text(data.content); // 내용 업데이트
+
+                // 이미지가 있을 경우, 이미지 추가
+                if (data.img) {
+                    const imageHtml = `<img src="${data.img}" alt="News Image" class="news-image">`;
+                    $("#newsImageContainer").html(imageHtml); // #newsImageContainer에 이미지 추가
+                } else {
+                    console.log("No image available for this news item.");
+                }
             } else {
                 alert("서버로부터 유효하지 않은 데이터를 수신했습니다.");
             }
@@ -41,6 +49,7 @@ function fetchNewsDetails(newsId) {
         }
     });
 }
+
 
 
 
