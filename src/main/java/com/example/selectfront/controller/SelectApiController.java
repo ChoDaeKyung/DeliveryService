@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/webs/api/select")
+@RequestMapping("/webs/api/sel ect")
 public class SelectApiController {
 
     private final SelectService selectService;

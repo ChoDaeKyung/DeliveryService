@@ -10,6 +10,7 @@ $(document).ready(function () {
     }
 });
 
+
 function fetchNewsDetails(newsId) {
     const token = localStorage.getItem("token"); // 로컬 스토리지에서 인증 토큰 가져오기
     const url = `/webs/api/news/detail`;
@@ -33,11 +34,13 @@ function fetchNewsDetails(newsId) {
                 $("#newsContent").text(data.content); // 내용 업데이트
 
                 // 이미지가 있을 경우, 이미지 추가
-                if (data.img) {
-                    const imageHtml = `<img src="${data.img}" alt="News Image" class="news-image">`;
-                    $("#newsImageContainer").html(imageHtml); // #newsImageContainer에 이미지 추가
+                if (Array.isArray(data.img) && data.img.length > 0) {
+                    data.img.forEach(function(imageUrl) {
+                        const imageHtml = `<img src="${imageUrl}" alt="News Image" class="news-image">`;
+                        $("#newsImageContainer").append(imageHtml); // #newsImageContainer에 이미지 추가
+                    });
                 } else {
-                    console.log("No image available for this news item.");
+                    console.log("No images available for this news item.");
                 }
             } else {
                 alert("서버로부터 유효하지 않은 데이터를 수신했습니다.");
@@ -49,7 +52,6 @@ function fetchNewsDetails(newsId) {
         }
     });
 }
-
 
 
 
