@@ -20,8 +20,8 @@ let createNews = () => {
     let content = $('#content').val();
     let files = $('#image')[0].files; // 선택된 파일들
 
-    if (files.length === 0) {
-        alert('이미지를 선택해주세요!');
+    if (!title || !content) {
+        alert('제목과 내용을 모두 입력해주세요!');
         return;
     }
 
@@ -29,9 +29,12 @@ let createNews = () => {
     formData.append('title', title);
     formData.append('content', content);
 
+    // 이미지가 선택되었을 때만 FormData에 추가
+    if (files.length > 0) {
         Array.from(files).forEach((file, index) => {
-        formData.append('images', file); // 여러 이미지 추가
-    });
+            formData.append('images', file); // 여러 이미지 추가
+        });
+    }
 
     $.ajax({
         method: 'POST',
@@ -56,3 +59,4 @@ let createNews = () => {
         }
     });
 };
+

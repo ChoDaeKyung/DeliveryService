@@ -34,7 +34,7 @@ function fetchNewsDetails(newsId) {
                 $("#newsContent").text(data.content); // 내용 업데이트
 
                 // 이미지가 있을 경우, 이미지 추가
-                if (Array.isArray(data.img) && data.img.length > 0) {
+                if (Array.isArray(data.img) && data.img.length > 0 && data.img[0]!==null) {
                     data.img.forEach(function(imageUrl) {
                         const imageHtml = `<img src="${imageUrl}" alt="News Image" class="news-image">`;
                         $("#newsImageContainer").append(imageHtml); // #newsImageContainer에 이미지 추가
