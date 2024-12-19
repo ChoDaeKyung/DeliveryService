@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+  <script th:src="@{/js/cartList.js}"></script>
+  <link th:href="@{/css/user.css}" rel="stylesheet">
+  <link th:href="@{/css/cartList.css}" rel="stylesheet">
+  <title>상품 추가</title>
+</head>
+<body>
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">SWFM</div>
+    <nav>
+      <ul>
+        <li><a href="#">봄날에 디자인연...</a></li>
+        <li><a href="#">디자인모드</a></li>
+        <li><a th:href="@{/menu}" class="active">사이트 바로가기</a></li>
+      </ul>
+      <h4>사이트 관리</h4>
+      <ul>
+        <li><a href="#" class="active">상품추가</a></li>
+        <li><a href="#">사용자 관리</a></li>
+        <li><a href="#">쇼핑</a></li>
+        <li><a href="#">컨텐츠 관리</a></li>
+        <li><a href="#">마케팅 관리</a></li>
+        <li><a href="#">통계</a></li>
+        <li><a href="#">환경설정</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+
+  <!--------------------------- 여기서부터 수정하면 됩니다 --------------------------->
+
+  <!-- Main Content -->
+  <main class="content">
+    <header>
+      <h1>장바구니</h1>
+    </header>
+
+    <section class="dashboard">
+      <div class="top-cards">
+        <div class="card">
+          <h3>오늘의 할 일</h3>
+          <p>담은 샌드위치 개수<strong>0</strong></p>
+        </div>
+      </div>
+
+      <div class="product-form-container">
+        <h3>목록</h3>
+        <form>
+          <div class="form-group">
+            <div class="getCartList">
+              <div id="cartContainer">
+                  <!-- 여기에 동적으로 상품을 보여줌 -->
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div id="addproductsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="addproductsClose">&times;</span>
+      <div class="rectangle" id="breadSelect">
+        <img src="bread.jpg" alt="Bread">
+        <div class="text">Bread&nbsp&nbsp</div>
+      </div>
+      <div class="rectangle" id="vegetableSelect">
+        <img src="vegetable.jpg" alt="Vegetable">
+        <div class="text">Vegetable&nbsp&nbsp</div>
+      </div>
+      <div class="rectangle" id="meatSelect">
+        <img src="meat.jpg" alt="Meat">
+        <div class="text">Meat&nbsp&nbsp</div>
+      </div>
+      <div class="rectangle" id="sourceSelect">
+        <img src="source.jpg" alt="Source">
+        <div class="text">Source&nbsp&nbsp</div>
+      </div>
+      <div class="rectangle" id="drinkSelect">
+        <img src="drink.jpg" alt="Drink">
+        <div class="text">Drink&nbsp&nbsp</div>
+      </div>
+    </div>
+    </div>
+
+    <div id="breadModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="breadClose">&times;</span>
+        <h2>빵 목록</h2>
+        <div class="sandwich-container">
+          <!-- 상품 목록은 동적으로 추가됩니다 -->
+        </div>
+        <div>
+          <button class="gotoVegetableModal alonenextbutton">다음</button>
+          <button class="completeaddproducts">선택완료</button>
+        </div>
+        <div class="choiceSectionContainer">
+          <!-- 초기 choiceSection -->
+          <div class="choiceSection">
+            <h4>선택창</h4>
+            <div class="breadSection">Bread :</div>
+            <div class="vegetableSection">Vegetable :</div>
+            <div class="meatSection">Meat :</div>
+            <div class="sourceSection">Source :</div>
+            <div class="drinkSection">Drink :</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="vegetableModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="vegetableClose">&times;</span>
+        <h2>채소 목록</h2>
+        <div class="sandwich-container">
+          <!-- 상품 목록은 동적으로 추가됩니다 -->
+        </div>
+        <div>
+          <button class="gotoBreadModal beforebutton">이전</button>
+          <button class="gotoMeatModal nextbutton">다음</button>
+          <button class="completeaddproducts">선택완료</button>
+        </div>
+        <div class="choiceSectionContainer">
+          <!-- 초기 choiceSection -->
+          <div class="choiceSection">
+            <h4>선택창</h4>
+            <div class="breadSection">Bread :</div>
+            <div class="vegetableSection">Vegetable :</div>
+            <div class="meatSection">Meat :</div>
+            <div class="sourceSection">Source :</div>
+            <div class="drinkSection">Drink :</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="meatModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="meatClose">&times;</span>
+        <h2>고기 목록</h2>
+        <div class="sandwich-container">
+          <!-- 상품 목록은 동적으로 추가됩니다 -->
+        </div>
+        <div>
+          <button class="gotoVegetableModal beforebutton">이전</button>
+          <button class="gotoSourceModal nextbutton">다음</button>
+          <button class="completeaddproducts">선택완료</button>
+        </div>
+        <div class="choiceSectionContainer">
+          <!-- 초기 choiceSection -->
+          <div class="choiceSection">
+            <h4>선택창</h4>
+            <div class="breadSection">Bread :</div>
+            <div class="vegetableSection">Vegetable :</div>
+            <div class="meatSection">Meat :</div>
+            <div class="sourceSection">Source :</div>
+            <div class="drinkSection">Drink :</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sourceModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="sourceClose">&times;</span>
+        <h2>소스 목록</h2>
+        <div class="sandwich-container">
+          <!-- 상품 목록은 동적으로 추가됩니다 -->
+        </div>
+        <div>
+          <button class="gotoMeatModal beforebutton">이전</button>
+          <button class="gotoDrinkModal nextbutton">다음</button>
+          <button class="completeaddproducts">선택완료</button>
+        </div>
+        <div class="choiceSectionContainer">
+          <!-- 초기 choiceSection -->
+          <div class="choiceSection">
+            <h4>선택창</h4>
+            <div class="breadSection">Bread :</div>
+            <div class="vegetableSection">Vegetable :</div>
+            <div class="meatSection">Meat :</div>
+            <div class="sourceSection">Source :</div>
+            <div class="drinkSection">Drink :</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="drinkModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="drinkClose">&times;</span>
+        <h2>음료 목록</h2>
+        <div class="sandwich-container">
+          <!-- 상품 목록은 동적으로 추가됩니다 -->
+        </div>
+        <div>
+          <button class="gotoSourceModal alonebeforebutton">이전</button>
+          <button class="completeaddproducts">선택완료</button>
+        </div>
+        <div class="choiceSectionContainer">
+          <!-- 초기 choiceSection -->
+          <div class="choiceSection">
+            <h4>선택창</h4>
+            <div class="breadSection">Bread :</div>
+            <div class="vegetableSection">Vegetable :</div>
+            <div class="meatSection">Meat :</div>
+            <div class="sourceSection">Source :</div>
+            <div class="drinkSection">Drink :</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--------------------------- 여기까지 수정하면 됩니다 --------------------------->
+
+  </main>
+</div>
+</body>
+</html>

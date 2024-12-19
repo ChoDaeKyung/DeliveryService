@@ -228,3 +228,24 @@ body {
     border-color: green;
 }
 
+.nextbutton {
+    margin-right: 250px;
+}
+
+.beforebutton {
+    margin-left: 8px;
+}
+
+.selectOrder {
+    margin-right: -300px;
+}
+
+.alonenextbutton {
+    margin-right: 250px;
+    margin-left: 40px;
+}
+
+.alonebeforebutton {
+    margin-left: 8.5px;
+    margin-right: 281.5px;
+}

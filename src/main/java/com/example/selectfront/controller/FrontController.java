@@ -1,7 +1,10 @@
 package com.example.selectfront.controller;
 
+import com.example.selectfront.dto.GoToMainResponseDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
 @Controller
 public class FrontController {
@@ -36,15 +39,13 @@ public class FrontController {
         return "select";
     }
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
+    @GetMapping("/admin/addCompleteProduct")
+    public String addCompleteProduct() {
+        return "addCompleteProduct";
     }
 
-    @GetMapping("/admin/addproduct")
-    public String addproduct() {
-        return "addproduct";
+    @GetMapping("/mypage/cartList")
+    public String cartList() {
+        return "cartList";
     }
-
-
 }

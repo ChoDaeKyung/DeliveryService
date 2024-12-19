@@ -1,0 +1,47 @@
+.form-container {
+    position: relative;
+    width: 631px;
+    margin: 100px auto;
+    background: #FDD20A;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+}
+
+.form-container h2 {
+    font-size: 30px;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+.form-group input,
+.form-group select {
+    width: 90%;
+    height: 50px;
+    font-size: 20px;
+    padding: 5px 10px;
+    background: #F3F3F3;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.form-group select {
+    font-size: 18px;
+    color: #000;
+}
+
+.form-group button {
+    width: 150px;
+    height: 50px;
+    background: #96C15C;
+    border: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+}

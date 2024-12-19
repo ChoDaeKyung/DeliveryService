@@ -1,0 +1,128 @@
+/* 뉴스 섹션 스타일 */
+#news {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 80%; /* 가로 크기를 80%로 고정 */
+    max-width: 1200px; /* 최대 폭 고정 */
+    min-width: 800px; /* 최소 폭 고정 */
+    margin-left: auto; /* 수평 중앙 정렬 */
+    margin-right: auto;
+}
+
+#news h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* 뉴스 리스트 테이블 스타일 */
+#newsContainer {
+    width: 100%;
+    margin-top: 15px;
+    overflow-x: auto; /* 내용이 넘칠 경우 스크롤 활성화 */
+}
+
+.news-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 테이블의 각 열 크기 고정 */
+}
+
+.news-table thead th {
+    background-color: #F3C444;
+    color: white;
+    text-align: center;
+}
+
+.news-table th,
+.news-table td {
+    border: 1px solid #ddd;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    padding: 8px;
+    font-size: 14px;
+    word-wrap: break-word; /* 텍스트 줄바꿈 처리 */
+    width: 150px; /* 열의 고정 너비 */
+    height: 40px; /* 행의 고정 높이 */
+}
+
+.news-table th {
+    font-weight: bold;
+}
+
+.news-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.news-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.pagination button {
+    padding: 6px 12px;
+    margin: 0 3px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination button.active {
+    background-color: #F3C444;
+    color: white;
+    border-color: #F3C444;
+}
+
+.pagination button:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    color: #aaa;
+    background-color: #e9ecef;
+}
+
+#newsdetail {
+    padding: 30px;
+}
+
+#newsTitle {
+    color: #1a1a1a;
+    font-size: 2.5rem;
+    font-weight: 700;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+#newsContent {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.8;
+}
+
+
+.detail-news {
+    position: relative;
+    margin-top: 200px; /* navbar의 높이만큼 아래에서 시작 */
+    padding: 20px;
+}
+

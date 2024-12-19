@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     function clearModalState() {
         $(".sandwich-item").removeClass("selected"); // 선택된 상품 초기화
-        mainList = {}; // mainList 초기화
+        mainList = []; // mainList를 빈 배열로 초기화
 
         // 각 choiceSection에서 상품 초기화
         $(".choiceSection").each(function () {
@@ -285,7 +285,3 @@ let getProducts = () => {
         }
     });
 };
-
-function showSection(sectionId) {
-    location.href='/main?sectionId=' + sectionId
-}

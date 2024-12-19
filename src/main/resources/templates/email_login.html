@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login Page</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/email.js}"></script>
+    <script th:src="@{/js/select.js}"></script>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/email.css}" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+    <!-- Rectangle 7 (background gradient) -->
+    <div class="rectangle7"></div>
+
+    <!-- Logo Image -->
+    <a th:href="@{/main}" class="logo"></a>
+
+    <!-- Menu Items -->
+    <div class="menu-item menu-1" onclick="showSection('menu')">메뉴소개</div>
+    <div class="menu-item menu-2" onclick="showSection('howtouse')">이용방법</div>
+    <div class="menu-item menu-3" onclick="showSection('news')">새소식</div>
+    <div class="menu-item menu-4" onclick="showSection('market')">가맹점</div>
+    <div class="menu-item menu-5" onclick="showSection('online')">온라인 주문</div>
+
+    <!-- Additional Options -->
+    <div class="extra-item login"  onclick="window.location.href='/login'">로그인</div>
+    <div class="extra-item cart">장바구니</div>
+    <div class="extra-item mypage">마이페이지</div>
+</div>
+<div class="main-content">
+<div class="form-container">
+    <h2>처음 이메일 로그인시 필요 정보</h2>
+    <form>
+        <div class="form-group">
+            <input type="text" placeholder="PHONE">
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="LOCATION">
+        </div>
+        <div class="form-group">
+            <select>
+                <option value="" disabled selected>ROLE</option>
+                <option value="user">기본 이용자</option>
+                <option value="delivery">배달무</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit">로그인</button>
+        </div>
+    </form>
+
+</div>
+    <footer>
+        <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
+    </footer>
+</div>
+</body>
+</html>

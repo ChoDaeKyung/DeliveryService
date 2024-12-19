@@ -1,0 +1,186 @@
+.main{
+    display: flex;
+}
+/* Social Login Section */
+.social-login {
+
+    width: 383px;
+    height: 309px;
+    left: 817px;
+    top: 358px;
+}
+
+.rectangle-10 {
+    align-items: center;
+    width: 383px;
+    height: 309px;
+    background: #FDD20A;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    justify-content: space-between; /* 요소 간의 간격을 균등하게 배치 */
+    padding: 10px; /* 내부 여백 추가 */
+}
+#social-test{
+   text-align: center;
+}
+/* Title */
+.naver {
+
+    width: 70%;
+    height: 64px;
+    background: url('https://github.com/user-attachments/assets/aecca769-fb5e-4551-812d-2270d90005b1');
+    border-radius: 15px;
+
+    background-repeat: no-repeat;
+    background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
+    background-position: center;
+}
+
+/* Kakao Login */
+.kakao-login {
+    width: 70%;
+    height: 70px;
+    background: url('https://github.com/user-attachments/assets/9d55f3dd-02cd-43d0-b4ec-6daf007f3b2f');
+    border-radius: 15px;
+
+    background-repeat: no-repeat;
+    background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
+    background-position: center;
+}
+
+/* Web Neutral */
+.web-neutral {
+    width: 70%;
+    height: 59px;
+    background: url('https://github.com/user-attachments/assets/1197048a-bf2a-45a9-8b6d-a7f43156c938');
+    border-radius: 15px;
+
+    background-repeat: no-repeat;
+    background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
+    background-position: center;
+}
+
+/* General Styling for Text Inside Boxes */
+.rectangle-12, .rectangle-13, .rectangle-15 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+/* Styling for Text Inside ID and Password Boxes */
+.id-text, .password-text, .login-text, .findPw-text, .signup-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #000;
+}
+
+/* ID Input Box */
+.rectangle-12 {
+    width: 330px;
+    height: 72px;
+    background: #F3F3F3;
+    border: 1px solid #000;
+}
+
+/* Password Input Box */
+.rectangle-13 {
+    width: 330px;
+    height: 72px;
+    background: #F3F3F3;
+    border: 1px solid #000;
+}
+
+
+.login-form{
+    position: relative;
+    width: 548px;
+    height: 309px;
+    background: #FDD20A;
+    border-radius: 15px;
+    display: flex
+;    margin: 0 50px 0 0;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}/* Buttons (Login, Find Password, Sign Up) */
+
+.join-button{
+    width: 100px;
+    position: absolute;
+    border: 3px solid #96C15D;
+    height: 50px;
+    top: 208px;
+    left: 33px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.find-pw-button{
+    width: 186px;
+    position: absolute;
+    border-radius: 15px;
+    border: 3px solid #96C15D;
+    height: 50px;
+    top: 208px;
+    left: 155px;
+    background: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-button{
+    width: 100px;
+    position: absolute;
+    border: 3px solid #96C15D;
+    border-radius: 15px;
+    height: 50px;
+    top: 105px;
+    right: 25px;
+    background: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#login-form-text{
+    text-align: center;
+}
+.login-form input {
+    font-size: 20px;
+    width: 370px;
+    height: 72px;
+    margin-left: 23px;
+}
+.login-form input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
+}
+.login-form input::placeholder {
+    color: #aaa;
+}
+.login-form label {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+.login-up, .findPw, .signup {
+    width: 330px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-text, .findPw-text, .signup-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #000;
+}

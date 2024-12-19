@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Page</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/join.js}"></script>
+    <script th:src="@{/js/select.js}"></script>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/join.css}" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+    <!-- Rectangle 7 (background gradient) -->
+    <div class="rectangle7"></div>
+
+    <!-- Logo Image -->
+    <a th:href="@{/main}" class="logo"></a>
+
+    <!-- Menu Items -->
+    <div class="menu" id="menuList">
+        <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
+        <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
+        <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+        <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
+        <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
+    </div>
+    <!-- Additional Options -->
+    <div class="extra-item login"  onclick="window.location.href='/login'">로그인</div>
+    <div class="extra-item cart">장바구니</div>
+    <div class="extra-item mypage">마이페이지</div>
+</div>
+
+<div class="main-content">
+    <div class="registration-box">
+        <h2 class="registration-title">회원가입</h2>
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="user-id">ID</label>
+                <input type="text" id="user-id" placeholder="ID" class="input-field" required />
+                <button type="button" id="check-id-btn" class="check-btn">중복 검사</button>
+                <p id="id-status"></p> <!-- ID 중복 검사 결과 표시 -->
+            </div>
+            <div class="form-group">
+                <label for="password">PASSWORD</label>
+                <input type="password" id="password" placeholder="PASSWORD" class="input-field" required />
+            </div>
+
+            <div class="form-group">
+                <label for="user-name">NAME</label>
+                <input type="text" id="user-name" placeholder="NAME" class="input-field" required />
+            </div>
+            <div class="form-group">
+                <label for="nick-name">NICKNAME</label>
+                <input type="text" id="nick-name" placeholder="NICKNAME" class="input-field" required />
+                <button type="button" id="check-nickname-btn" class="check-btn">중복 검사</button>
+                <p id="nickname-status"></p> <!-- 닉네임 중복 검사 결과 표시 -->
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" class="dropdown">
+                    <option value="ROLE_USER" selected>일반 유저</option>
+                    <option value="ROLE_RIDER">배달부</option>
+                    <option value="ROLE_MANAGER">점장</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="이메일" class="input-field" required />
+                <button type="button" id="send-verification-btn" class="check-btn">인증번호 전송</button>
+                <p id="email-status"></p> <!-- 이메일 인증 상태 표시 -->
+            </div>
+
+            <!-- 이메일 인증번호 입력 -->
+            <div class="form-group">
+                <label for="verification-code">인증번호</label>
+                <input type="text" id="verification-code" placeholder="인증번호" class="input-field" required />
+                <button type="button" id="verify-button" class="verify-button">인증번호 확인</button>
+            </div>
+            <input type="submit" id="submit-button" class="submit-button">
+        </form>
+
+    </div>
+
+    <footer>
+        <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
+    </footer>
+</div>
+
+
+</body>
+</html>

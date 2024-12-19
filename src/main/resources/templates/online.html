@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+  <script th:src="@{/js/online.js}"></script>
   <script th:src="@{/js/main.js}"></script>
   <script th:src="@{/js/common.js}"></script>
   <link th:href="@{/css/main.css}" rel="stylesheet">
   <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/online.css}" rel="stylesheet">
   <title>선택창</title>
 </head>
 <body>
@@ -35,60 +37,27 @@
 </div>
 
 <main class="main-content">
-
-<section id="online">
-  <h1 style="text-align: center">&nbsp;&nbsp;&nbsp;원하시는 상품을 선택해주세요!</h1>
+  <section id="online">
+  <h1 style="text-align: center"> &nbsp;&nbsp;&nbsp;원하시는 상품을 선택해주세요!</h1>
   <div class="sandwich-container">
-    <div class="sandwich-item">
-      <img src="test.jpeg" alt="에그마요" class="sandwich-image">
-      <div class="sandwich-text">
-        <h3>에그마요</h3>
-        <p>부드러운 달걀과 고소한 마요네즈가 만나 더 부드러운 맛을 자랑하는 샌드위치입니다.</p>
-      </div>
-    </div>
 
-    <div class="sandwich-item">
-      <img src="test.jpeg" alt="이탈리안 비엘티" class="sandwich-image">
-      <div class="sandwich-text">
-        <h3>이탈리안 비엘티</h3>
-        <p>피자소스, 살라미 그리고 햄이 들어가는 최상의 조화!</p>
-      </div>
-    </div>
-
-    <div class="sandwich-item">
-      <img src="test.jpeg" alt="비엘티" class="sandwich-image">
-      <div class="sandwich-text">
-        <h3>비엘티</h3>
-        <p>오리지널 애버린 스타일의 베이컨과 햄이 들어간 고소한 맛을 자랑합니다.</p>
-      </div>
-    </div>
-
-    <div class="sandwich-item">
-      <img src="test.jpeg" alt="햄" class="sandwich-image">
-      <div class="sandwich-text">
-        <h3>햄</h3>
-        <p>풍부한 햄이 들어간 담백한 맛의 샌드위치입니다.</p>
-      </div>
-    </div>
-
-    <div class="sandwich-item">
-      <img src="test.jpeg" alt="참치" class="sandwich-image">
-      <div class="sandwich-text">
-        <h3>참치</h3>
-        <p>참치와 신선한 채소가 어우러져 고소한 맛을 자랑하는 샌드위치입니다.</p>
-      </div>
-    </div>
-
-    <div class="sandwich-item">
-      <img src="test.jpeg" alt="나만의 샌드위치" class="sandwich-image">
-      <div class="sandwich-text">
-        <h3>나만의 샌드위치</h3>
-        <p>당신만의 특별한 샌드위치를 만들어보세요!</p>
-      </div>
-    </div>
   </div>
 
 </section>
+
+  <div id="Modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span> <!-- Close button -->
+      <div class="modal-body">
+        <img id="modal-image" src="" alt="Menu Image">
+        <h3 id="modal-title"></h3>
+        <p id="modal-price"></p>
+        <p id="modal-detail"></p>
+        <p id="modal-products"></p>
+        <button class="insertCartButton">장바구니</button><button class="orderButton">주문하기</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
