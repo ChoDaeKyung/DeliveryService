@@ -18,30 +18,35 @@ let createNews = () => {
 
     let title = $('#title').val();
     let content = $('#content').val();
-    let img = $('#image').val();
+    let files = $('#image')[0].files; // 선택된 파일들
 
-    let sendData = {
-        title: title,
-        content: content,
-        img: img
-    };
-    console.log('title ::' + title);
-    console.log('content ::' + content);
-    console.log('img ::' + img);
+    if (!title || !content) {
+        alert('제목과 내용을 모두 입력해주세요!');
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+
+    // 이미지가 선택되었을 때만 FormData에 추가
+    if (files.length > 0) {
+        Array.from(files).forEach((file, index) => {
+            formData.append('images', file); // 여러 이미지 추가
+        });
+    }
 
     $.ajax({
         method: 'POST',
         url: '/webs/api/news',
-        data: JSON.stringify(sendData),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
         success: (response) => {
             console.log('response :: ', response);
-            document.getElementById('newscreate').style.display = 'none'; // 완료 후 숨김 처리
+            document.getElementById('newscreate').style.display = 'none';
             alert('뉴스가 성공적으로 생성되었습니다.');
-
-            // 메인 페이지로 이동
-            window.location.href = '/news'; // 메인 페이지 URL로 수정
+            window.location.href = '/news';
         },
         error: (xhr) => {
             if (xhr.status === 419) {
@@ -54,3 +59,4 @@ let createNews = () => {
         }
     });
 };
+

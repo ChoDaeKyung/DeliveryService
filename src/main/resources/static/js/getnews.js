@@ -1,4 +1,40 @@
 $(document).ready(function () {
+    const token = localStorage.getItem("accessToken"); // 저장된 JWT 토큰 가져오기
+    console.log("token ::" + token);
+
+    fetch("/member/api/claims", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}` // JWT 토큰을 헤더에 포함
+        },
+        body: JSON.stringify({ token: token })
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.roles) {
+                console.log("User ID:", data.userId);
+                console.log("Roles:", data.roles);
+
+                // 권한에 따라 버튼 표시 (지금은 일단 USER 만 보이게 바꿔둠 추후에 변경 예정)
+                if (data.roles.includes("ROLE_USER")) {
+                    // 관리자 권한이 있을 경우 버튼 표시
+                    document.getElementById("createButton").style.display = "inline-block";
+                    document.getElementById("updateCheckboxes").style.display = "inline-block";
+                    document.getElementById("toggleCheckboxes").style.display = "inline-block";
+                }
+            } else {
+                console.error("Invalid token or unauthorized access");
+            }
+        })
+        .catch((error) => console.error("Error:", error));
+});
+
+
+
+
+
+$(document).ready(function () {
     const rowsPerPage = 10; // 한 페이지당 게시글 수
     let currentPage = 1; // 현재 페이지
     let totalPages = 1; // 총 페이지 수
