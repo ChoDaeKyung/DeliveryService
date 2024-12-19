@@ -1,4 +1,4 @@
-package com.example.selectfront.service;
+package com.example.selectfront.service.member;
 
 import com.example.selectfront.client.LoginClient;
 import com.example.selectfront.dto.member.RefreshTokenResponseDTO;

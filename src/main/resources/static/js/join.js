@@ -7,6 +7,14 @@ $(document).ready(function() {
     let nickName =  "";
     let email = "";
 
+    // 버튼 비활성화 및 색상 변경 함수
+    function disableButtonWithDelay(button, delay) {
+        button.prop("disabled", true).css('background-color', '#cccccc'); // 버튼 비활성화 및 색상 변경
+        setTimeout(function() {
+            button.prop("disabled", false).css('background-color', ''); // 5초 후 버튼 활성화 및 색상 원래대로
+        }, delay);
+    }
+
     $('#check-id-btn').click(function() {
         userId = $('#user-id').val().trim(); // 앞뒤 공백 제거
         if (userId.length < 7) {
@@ -15,14 +23,15 @@ $(document).ready(function() {
         }
         userId = userId.replace(/\s+/g, ''); // 띄어쓰기를 모두 제거
 
+        // 버튼 비활성화 및 색상 변경
+        disableButtonWithDelay($(this), 5000);
 
         $.ajax({
             type: 'POST',
-            url: '/member/api/check-id',  // 서버에서 처리하는 URL을 일치시켜야 함
-            data: JSON.stringify({id: userId}),  // userId를 서버로 보냄
-            contentType: 'application/json; charset=utf-8',  // JSON 형식으로 데이터 전송
+            url: '/member/api/check-id',
+            data: JSON.stringify({id: userId}),
+            contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                // 서버에서 반환한 isAvailable 값을 확인
                 if (response.available) {
                     $('#id-status').text('사용 가능한 아이디입니다.').css('color', 'green');
                     isIdAvailable = true;
@@ -32,14 +41,14 @@ $(document).ready(function() {
                 }
             },
             error: function (error) {
-                // 서버 오류 처리
                 console.log('아이디 중복 검사 실패', error);
                 $('#id-status').text('아이디 검사 중 오류가 발생했습니다.').css('color', 'red');
                 isIdAvailable = false;
             }
         });
     });
-        // 닉네임 중복 검사
+
+    // 닉네임 중복 검사
     $('#check-nickname-btn').click(function() {
         nickName = $('#nick-name').val();
 
@@ -47,6 +56,9 @@ $(document).ready(function() {
             $('#nickname-status').text('닉네임을 입력해주세요.');
             return;
         }
+
+        // 버튼 비활성화 및 색상 변경
+        disableButtonWithDelay($(this), 5000);
 
         $.ajax({
             type: 'POST',
@@ -69,6 +81,8 @@ $(document).ready(function() {
             }
         });
     });
+
+    // 이메일 인증 버튼 클릭 시
     $('#send-verification-btn').click(function() {
         email = $('#email').val();
 
@@ -76,24 +90,26 @@ $(document).ready(function() {
             $('#email-status').text('이메일을 입력해주세요.').css('color', 'red');
             return;
         }
+
+        // 버튼 비활성화 및 색상 변경
+        disableButtonWithDelay($(this), 5000);
+
         $.ajax({
             type: 'POST',
             url: '/member/api/send-verification-email',
-            headers: {
-                'JSESSIONID': getSessionIdFromCookie()  // 쿠키에서 현재 세션 ID 가져오기
-            },// 이메일 인증 번호 전송 API
+            credentials: 'include',
             data: JSON.stringify({ email: email }),
             contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 if (response.success) {
-                    $('#email-status').text('인증번호가 이메일로 전송되었습니다.').css('color', 'green');
+                    $('#email-status').text(response.message).css('color', 'green');
                 } else {
-                    $('#email-status').text('이메일 전송 실패. 다시 시도해 주세요.').css('color', 'red');
+                    $('#email-status').text(response.message).css('color', 'red');
                 }
             },
             error: function(error) {
                 console.log('이메일 전송 오류', error);
-                $('#email-status').text('이메일 전송 중 오류가 발생했습니다.').css('color', 'red');
+                $('#email-status').text(error.message).css('color', 'red');
             }
         });
     });
@@ -107,22 +123,26 @@ $(document).ready(function() {
             return;
         }
 
-        // 인증번호 확인 후 회원가입 버튼 활성화
+        // 버튼 비활성화 및 색상 변경
+        disableButtonWithDelay($(this), 5000);
+
         $.ajax({
             type: 'POST',
-            url: '/member/api/verify-email',  // 이메일 인증번호 확인 API
+            url: '/member/api/verify-email',
             data: JSON.stringify({ verificationCode: verificationCode }),
             credentials: 'include',
             contentType: 'application/json; charset=utf-8',
             success: function(response) {
-                if (response.valid) {
-                    // 인증번호가 유효하면 회원가입 버튼 활성화
-                    alert("인증번호가 유효합니다. 이제 회원가입을 진행할 수 있습니다.");
-                    isEmailVerify=true;
+                if (response.success) {
+                    alert(response.message);
+                    isEmailVerify = true;
+                    $('#email-status-num').text(response.message).css('color', 'green');
                 } else {
-                    alert("유효하지 않은 인증번호입니다.");
-                    isEmailVerify=false;
+                    alert(response.message);
+                    isEmailVerify = false;
+                    $('#email-status-num').text(response.message).css('color', 'red');
                 }
+
             },
             error: function(error) {
                 console.log('인증번호 확인 오류', error);
@@ -132,42 +152,47 @@ $(document).ready(function() {
 
     // 회원가입 버튼 클릭 시
     $('#submit-button').click(function(event) {
-        let userid = $('#user-id').val().trim(); // 앞뒤 공백 제거
+        let userid = $('#user-id').val().trim();
         let nickname = $('#nick-name').val().trim();
         let emails = $('#email').val().trim();
-        // 중복 검사 통과했는지 확인
-        if (!isIdAvailable&& userId===userid) {
-            alert("아이디 중복 검사를 먼저 진행해주세요.");
-            event.preventDefault(); // 폼 제출 막기
-            return;
-        }
+        let password = $('#password').val().trim();
+        let userName = $('#user-name').val().trim();
+        let role = $('#role').val();
 
-        if (!isNicknameAvailable&&nickname===nickName) {
-            alert("닉네임 중복 검사를 먼저 진행해주세요.");
-            event.preventDefault(); // 폼 제출 막기
+        // 중복 검사 통과 확인
+        if (!isIdAvailable && userId === userid) {
+            alert("아이디 중복 검사를 먼저 진행해주세요.");
+            event.preventDefault();
             return;
         }
-        if (!isEmailVerify&&emails===email) {
-            alert("이메일 유효 검사를 먼저 진행해주세요.");
-            event.preventDefault(); // 폼 제출 막기
-            return;
-        }
-        var password = $('#password').val().trim(); // 앞뒤 공백 제거
-        var userName = $('#user-name').val().trim(); // 앞뒤 공백 제거
-// 조건 체크
 
         if (password.length < 7) {
             alert("비밀번호는 7자 이상이어야 합니다.");
-            return; // 폼 제출을 막음
+            event.preventDefault();
+            return;
         }
+
+        if (!isNicknameAvailable && nickname === nickName) {
+            alert("닉네임 중복 검사를 먼저 진행해주세요.");
+            event.preventDefault();
+            return;
+        }
+
+        if (!isEmailVerify && emails === email) {
+            alert("이메일 유효 검사를 먼저 진행해주세요.");
+            event.preventDefault();
+            return;
+        }
+
         password = password.replace(/\s+/g, '');
-        // 중복 검사를 모두 통과한 경우 폼 제출
+
         var formData = {
-            userId: userId,
+            userId: userid,
             password: password,
-            userName:userName,
-            nickName:nickName,
-            role: $('#role').val()
+            userName: userName,
+            nickName: nickname,
+            role: role,
+            email: emails
         };
 
         $.ajax({
@@ -177,15 +202,22 @@ $(document).ready(function() {
             contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 console.log('회원가입 성공', response);
-                // 성공적인 회원가입 후 필요한 처리 (예: 리다이렉트)
-                alert("회원가입 성공!")
+                alert("회원가입 성공!");
                 location.href = '/login';
             },
             error: function(error) {
                 console.log('회원가입 실패', error);
+                alert("회원가입 실패! 다시 시도해주세요.");
             }
         });
 
-        event.preventDefault(); // 폼 기본 동작 막기
+        event.preventDefault(); // 기본 폼 동작 막기
+
+        $('#user-id').val(userid);
+        $('#nick-name').val(nickname);
+        $('#email').val(emails);
+        $('#password').val(password);
+        $('#user-name').val(userName);
+        $('#role').val(role);
     });
 });

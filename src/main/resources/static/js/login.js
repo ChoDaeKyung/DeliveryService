@@ -13,17 +13,18 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: `/member/api/login`,  // 로그인 요청 URL
-            data: {
-                'userId': userId,
-                'password': userPassword
-            },
+            data: JSON.stringify({
+                userId: userId,
+                password: userPassword
+            }),
+            contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 // 로그인 성공 시
                 if (response.accessToken) {
                     // 서버에서 받은 accessToken을 로컬 스토리지에 저장
                     localStorage.setItem('accessToken', response.accessToken);
                     // 로그인 후 원하는 페이지로 리디렉션 (예: 메인 페이지)
-                    window.location.href = "/main";  // 로그인 후 이동할 페이지
+                    window.location.href = "/menu";  // 로그인 후 이동할 페이지
                 } else {
                     alert('로그인 실패: 잘못된 아이디 또는 비밀번호입니다.');
                 }

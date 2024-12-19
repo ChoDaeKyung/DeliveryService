@@ -1,14 +1,12 @@
-package com.example.selectfront.controller;
+package com.example.selectfront.controller.member;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import util.CookieUtil;
 
@@ -24,6 +22,7 @@ public class MemberController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginServiceUrl", loginServiceUrl);
+        model.addAttribute("title", "로그인 페이지");
         return "login";
     }
     @GetMapping("/login/callback")
@@ -74,5 +73,19 @@ public class MemberController {
     @GetMapping("/join")
     public String join() {
         return "join";
+    }
+    @GetMapping("/reset-password")
+    public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
+        model.addAttribute("resetToken", token); // token을 모델에 담아서 전달
+        System.out.println("token: " + token);
+        return "update_pw"; // reset-password.html로 이동
+    }
+    @GetMapping("findId")
+    public String findId() {
+        return "find_id";
+    }
+    @GetMapping("findPw")
+    public String findPw() {
+        return "find_pw";
     }
 }

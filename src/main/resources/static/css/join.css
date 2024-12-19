@@ -82,7 +82,26 @@ body {
 .submit-button:hover {
     background: #85A94C;
 }
+.check-btn, .verify-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+/* 비활성화 상태의 버튼 스타일 */
+.check-btn:disabled, .verify-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* 버튼 클릭 시 색상 변경 */
+.check-btn:hover, .verify-button:hover {
+    background-color: #0056b3;
+}
 /* 반응형 처리 */
 @media (max-width: 768px) {
     .registration-box {

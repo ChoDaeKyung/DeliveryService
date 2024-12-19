@@ -1,7 +1,7 @@
-package com.example.selectfront.controller;
+package com.example.selectfront.controller.member;
 
 import com.example.selectfront.dto.member.RefreshTokenResponseDTO;
-import com.example.selectfront.service.TokenService;
+import com.example.selectfront.service.member.TokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

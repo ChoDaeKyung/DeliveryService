@@ -1,0 +1,94 @@
+#findIdForm {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    box-sizing: border-box;
+}
+#password-reset-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#password-reset-form h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333333;
+}
+/* 폼 제목 스타일 */
+#findIdForm h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+/* 이메일 입력 필드 스타일 */
+#email {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+#userId {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+/* 제출 버튼 스타일 */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.disabled {
+    background-color: #ccc;  /* 버튼 배경색 변경 */
+    color: #999;  /* 버튼 텍스트 색상 변경 */
+    cursor: not-allowed;  /* 커서를 '불가'로 변경 */
+}
+
+/* 버튼에 마우스 오버 시 효과 */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 비활성화된 버튼에서 hover 효과 제거 */
+button.disabled:hover {
+    background-color: #ccc;
+}
+
+/* 결과 메시지 스타일 */
+#result {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333333;
+}
+
+/* 에러 메시지 색상 */
+#result.error {
+    color: #d9534f;
+}
+
+/* 성공적인 메시지 색상 */
+#result.success {
+    color: #5bc0de;
+}
