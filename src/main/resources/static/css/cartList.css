@@ -1,0 +1,22 @@
+.cart-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.cart-products {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.cart-product {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.cart-name, .cart-total-price, .product-name, .product-category, .product-price {
+    font-size: 14px;
+}

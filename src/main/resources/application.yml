@@ -1,6 +1,11 @@
 spring:
   application:
     name: select-front
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 server:
   port: 7007
@@ -10,6 +15,8 @@ swfm:
   cart-service-url: ${CART_SERVICE_URL:http://localhost:7001}/cart
   news-list-service: ${NEWS_LIST_SERVICE_URL:http://localhost:7710}/news
   auth-url: ${auth_SERVICE_URL:http://localhost:7010}
+  admin-service-url: ${ADMIN_SERVICE_URL:http://localhost:7001}/admin
+  menu-service-url: ${MENU_SERVICE_URL:http://localhost:7001}/menu
 custom:
   login-service-url: "http://localhost:7010"
 
@@ -17,4 +24,5 @@ user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
 
 file:
-  upload-dir: C:/Users/jjjkk/Desktop/파이널프로젝트이미지
+  upload-dir: /Users/chodaekyung/Desktop/uploads
+#  upload-dir: C:/Users/jjjkk/Desktop/파이널프로젝트이미지
