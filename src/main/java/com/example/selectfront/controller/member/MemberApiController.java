@@ -105,6 +105,11 @@ public class MemberApiController {
       findMemberResponseDTO emailVerifyResponseDTO = memberFindService.findId(emailRequest);
        return ResponseEntity.ok(emailVerifyResponseDTO);
     }
-
+    @PostMapping("/claims")
+    public ClaimsResponseDTO claims(@RequestBody ClaimsRequestDTO claimsRequestDTO) {
+        // 토큰 검증 및 사용자 정보 반환
+        System.out.println("token: "+claimsRequestDTO.getToken());
+        return memberService.verifyToken(claimsRequestDTO.getToken());
+    }
 
 }
