@@ -31,7 +31,7 @@
     height: 64px;
     background: url('https://github.com/user-attachments/assets/aecca769-fb5e-4551-812d-2270d90005b1');
     border-radius: 15px;
-
+    border: none;
     background-repeat: no-repeat;
     background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
     background-position: center;
@@ -43,7 +43,7 @@
     height: 70px;
     background: url('https://github.com/user-attachments/assets/9d55f3dd-02cd-43d0-b4ec-6daf007f3b2f');
     border-radius: 15px;
-
+    border: none;
     background-repeat: no-repeat;
     background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
     background-position: center;
@@ -55,7 +55,7 @@
     height: 59px;
     background: url('https://github.com/user-attachments/assets/1197048a-bf2a-45a9-8b6d-a7f43156c938');
     border-radius: 15px;
-
+    border: none;
     background-repeat: no-repeat;
     background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
     background-position: center;
@@ -105,7 +105,14 @@
     justify-content: space-between;
     padding: 10px;
 }/* Buttons (Login, Find Password, Sign Up) */
+button:hover {
+    transform: scale(1.05);   /* 약간 커지는 효과 */
+}
 
+/* 커서 변경 */
+button:hover {
+    cursor: pointer;
+}
 .join-button{
     width: 100px;
     position: absolute;
@@ -120,14 +127,28 @@
     justify-content: center;
     align-items: center;
 }
-.find-pw-button{
-    width: 186px;
+.find-id-button{
+    width: 115px;
     position: absolute;
     border-radius: 15px;
     border: 3px solid #96C15D;
     height: 50px;
     top: 208px;
-    left: 155px;
+    left: 145px;
+    background: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.find-pw-button{
+    width: 130px;
+    position: absolute;
+    border-radius: 15px;
+    border: 3px solid #96C15D;
+    height: 50px;
+    top: 208px;
+    left: 270px;
     background: rgba(0, 0, 0, 0);
     font-weight: bold;
     display: flex;

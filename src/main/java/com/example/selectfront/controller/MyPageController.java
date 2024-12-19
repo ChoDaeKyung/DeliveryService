@@ -16,7 +16,7 @@ public class MyPageController {
 
     private final MyPageUserService myPageUserService;
 
-    @GetMapping("/")
+    @GetMapping("/mypage")
     public String myPage() {
         return "mypage";
     }

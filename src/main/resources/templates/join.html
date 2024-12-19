@@ -6,7 +6,6 @@
     <title>Join Page</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
     <script th:src="@{/js/join.js}"></script>
-    <script th:src="@{/js/select.js}"></script>
     <link th:href="@{/css/common.css}" rel="stylesheet">
     <link th:href="@{/css/join.css}" rel="stylesheet">
 </head>
@@ -37,29 +36,29 @@
         <h2 class="registration-title">회원가입</h2>
         <form id="registration-form">
             <div class="form-group">
-                <label for="user-id">ID</label>
+                <label for="user-id"></label>
                 <input type="text" id="user-id" placeholder="ID" class="input-field" required />
                 <button type="button" id="check-id-btn" class="check-btn">중복 검사</button>
                 <p id="id-status"></p> <!-- ID 중복 검사 결과 표시 -->
             </div>
             <div class="form-group">
-                <label for="password">PASSWORD</label>
+                <label for="password"></label>
                 <input type="password" id="password" placeholder="PASSWORD" class="input-field" required />
             </div>
 
             <div class="form-group">
-                <label for="user-name">NAME</label>
+                <label for="user-name"></label>
                 <input type="text" id="user-name" placeholder="NAME" class="input-field" required />
             </div>
             <div class="form-group">
-                <label for="nick-name">NICKNAME</label>
+                <label for="nick-name"></label>
                 <input type="text" id="nick-name" placeholder="NICKNAME" class="input-field" required />
                 <button type="button" id="check-nickname-btn" class="check-btn">중복 검사</button>
                 <p id="nickname-status"></p> <!-- 닉네임 중복 검사 결과 표시 -->
             </div>
 
             <div class="form-group">
-                <label for="role">Role</label>
+                <label for="role"></label>
                 <select id="role" class="dropdown">
                     <option value="ROLE_USER" selected>일반 유저</option>
                     <option value="ROLE_RIDER">배달부</option>
@@ -67,7 +66,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email"></label>
                 <input type="email" id="email" placeholder="이메일" class="input-field" required />
                 <button type="button" id="send-verification-btn" class="check-btn">인증번호 전송</button>
                 <p id="email-status"></p> <!-- 이메일 인증 상태 표시 -->
@@ -75,9 +74,10 @@
 
             <!-- 이메일 인증번호 입력 -->
             <div class="form-group">
-                <label for="verification-code">인증번호</label>
+                <label for="verification-code"></label>
                 <input type="text" id="verification-code" placeholder="인증번호" class="input-field" required />
                 <button type="button" id="verify-button" class="verify-button">인증번호 확인</button>
+                <p id="email-status-num"></p>
             </div>
             <input type="submit" id="submit-button" class="submit-button">
         </form>

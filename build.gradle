@@ -1,9 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.5'
+	id 'org.springframework.boot' version '3.4.0'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
-
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
@@ -19,7 +18,7 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "2023.0.3")
+	set('springCloudVersion', "2024.0.0")
 }
 
 dependencyManagement {
@@ -36,9 +35,6 @@ dependencies {
 	// OpenFeign 의존성
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
-	// Redis와 Spring Session
-	implementation 'org.springframework.session:spring-session-data-redis'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	// Thymeleaf와 Spring Security 통합
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'

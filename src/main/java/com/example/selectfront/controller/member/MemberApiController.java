@@ -1,11 +1,11 @@
-package com.example.selectfront.controller;
+package com.example.selectfront.controller.member;
 
-import com.example.selectfront.dto.ClaimsRequestDTO;
-import com.example.selectfront.dto.ClaimsResponseDTO;
+import com.example.selectfront.dto.findMemberResponseDTO;
 import com.example.selectfront.dto.member.*;
-import com.example.selectfront.dto.member.*;
-import com.example.selectfront.service.EmailVerifyService;
-import com.example.selectfront.service.MemberService;
+import com.example.selectfront.service.member.EmailValidationService;
+import com.example.selectfront.service.member.EmailVerifyService;
+import com.example.selectfront.service.member.MemberFindService;
+import com.example.selectfront.service.member.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +25,9 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final EmailVerifyService emailVerifyService;
+    private final EmailValidationService emailValidationService;
+    private final MemberFindService memberFindService;
+
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody JoinRequestDTO loginRequestDTO) {
         return memberService.joinMember(loginRequestDTO);
@@ -46,8 +49,8 @@ public class MemberApiController {
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponseDTO> login(HttpServletResponse response, @RequestBody LoginRequestDTO loginRequestDTO) {
         UserLoginResponseDTO userLoginResponseDTO = memberService.loginMember(loginRequestDTO);
-        CookieUtil.addCookie(response,"refreshToken",userLoginResponseDTO.getRefreshToken(),7*24*60*60);
         if (userLoginResponseDTO.isLoggedIn()) {
+            CookieUtil.addCookie(response,"refreshToken",userLoginResponseDTO.getRefreshToken(),7*24*60*60);
             return ResponseEntity.ok(
                     UserLoginResponseDTO.builder()
                             .accessToken(userLoginResponseDTO.getAccessToken())
@@ -74,6 +77,10 @@ public class MemberApiController {
 
     @PostMapping("/send-verification-email")
     public EmailVerifyResponseDTO sendVerificationEmail(HttpSession session, @RequestBody EmailRequestDTO emailRequest) {
+      if(emailValidationService.isValidEmail(emailRequest.getEmail())){
+            return EmailVerifyResponseDTO.builder().success(false).message("유효한 이메일이 아닙니다!").build();
+          };
+
         System.out.println("Session ID: " + session.getId());
 
         System.out.println("email: " + emailRequest.getEmail());
@@ -84,16 +91,19 @@ public class MemberApiController {
     public EmailVerifyResponseDTO verifyEmail(HttpSession session,@RequestBody EmailVerificationRequestDTO request) {
         System.out.println("verify Session ID: " + session.getId());
 
-        return emailVerifyService.verifyEmail(session.getId(),request);
-     }
-
-
-
-    @PostMapping("/claims")
-    public ClaimsResponseDTO claims(@RequestBody ClaimsRequestDTO claimsRequestDTO) {
-        // 토큰 검증 및 사용자 정보 반환
-        System.out.println("token: "+claimsRequestDTO.getToken());
-        return memberService.verifyToken(claimsRequestDTO.getToken());
+        EmailVerifyResponseDTO emailVerifyResponseDTO = emailVerifyService.verifyEmail(session.getId(), request);
+        System.out.println(emailVerifyResponseDTO.getMessage());
+        System.out.println(emailVerifyResponseDTO.isSuccess());
+        return emailVerifyResponseDTO;
+    }
+  @PostMapping("/find-id")
+    public ResponseEntity<findMemberResponseDTO> findId(@RequestBody EmailRequestDTO emailRequest) {
+      System.out.println("email: " + emailRequest.getEmail());
+      if(emailValidationService.isValidEmail(emailRequest.getEmail())){
+          ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효한 이메일이 아닙니다!");
+      };
+      findMemberResponseDTO emailVerifyResponseDTO = memberFindService.findId(emailRequest);
+       return ResponseEntity.ok(emailVerifyResponseDTO);
     }
 
 

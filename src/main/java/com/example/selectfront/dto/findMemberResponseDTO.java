@@ -1,4 +1,4 @@
-package com.example.selectfront.dto.member;
+package com.example.selectfront.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class EmailVerifyResponseDTO {
+public class findMemberResponseDTO {
     private boolean success;
     private String message;
 }

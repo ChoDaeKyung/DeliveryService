@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">기본 제목</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+
+    <!-- Placeholder for additional styles -->
+    <th:block th:fragment="additionalStyles">
+    </th:block>
+</head>
+
+<body th:data-login-service-url="${loginServiceUrl}">
+
+<!-- 네비게이션 바 -->
+
+    <div   class="navbar">
+        <div class="rectangle7"></div>
+        <a th:href="@{/main}" class="logo"></a>
+        <div class="menu" id="menuList">
+            <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
+            <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
+            <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+            <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
+            <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
+        </div>
+        <div class="extra-item login" onclick="window.location.href='/login'">로그인</div>
+        <div class="extra-item cart">장바구니</div>
+        <div class="extra-item mypage">마이페이지</div>
+</div>
+
+<!-- 본문 내용 부분을 fragment로 설정 -->
+<main th:fragment="content">
+    <!-- 이 부분을 비워두고, 각 페이지에서 채워넣을 것입니다 -->
+</main>
+
+<!-- 푸터 -->
+<footer>
+    <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
+</footer>
+
+<!-- 로그인 페이지 JavaScript 파일 -->
+<script th:src="@{/js/login.js}"></script>
+
+<!-- Placeholder for additional scripts -->
+<th:block th:replace="${additionalScripts}"></th:block>
+
+</body>
+</html>

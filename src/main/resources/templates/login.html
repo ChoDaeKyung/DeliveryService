@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
-    <script th:src="@{/js/select.js}"></script>
     <link th:href="@{/css/common.css}" rel="stylesheet">
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body th:data-login-service-url="${loginServiceUrl}">
-<script src="path/to/your/script.js"></script>
 </body>
-    <script th:src="@{/js/login.js}"></script>
+<script th:src="@{/js/login.js}"></script>
 <body>
 
 
@@ -63,14 +61,17 @@
 
             <!-- Find Password (Changed to button) -->
             <div class="findPw">
-                <button onclick="location.href='join'" class="find-pw-button" style="border: 3px solid #96C15D;">
-                    <span class="findPw-text">아이디/비밀번호찾기</span>
+                <button th:onclick="|location.href='@{/findId}'|" class="find-id-button" style="border: 3px solid #96C15D;">
+                    <span class="findPw-text">아이디 찾기</span>
+                </button>
+                <button th:onclick="|location.href='@{/findPw}'|" class="find-pw-button" style="border: 3px solid #96C15D;">
+                    <span class="findPw-text">비밀번호 찾기</span>
                 </button>
             </div>
 
             <!-- Sign Up (Changed to button) -->
             <div class="signup">
-                <button onclick="location.href='join'" class="join-button" style="border: 3px solid #96C15D;">
+                <button th:onclick="|location.href='@{/join}'|" class="join-button" style="border: 3px solid #96C15D;">
                     <span class="signup-text">회원가입</span>
                 </button>
             </div>

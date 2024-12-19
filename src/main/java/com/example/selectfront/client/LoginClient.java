@@ -1,13 +1,13 @@
 package com.example.selectfront.client;
 
 
-import com.example.selectfront.dto.ClaimsRequestDTO;
-import com.example.selectfront.dto.ClaimsResponseDTO;
+import com.example.selectfront.dto.findMemberResponseDTO;
 import com.example.selectfront.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(name = "LoginClient", url = "${swfm.auth-url}")
 public interface LoginClient {
@@ -27,12 +27,17 @@ public interface LoginClient {
     RefreshTokenResponseDTO refreshTokenUpdate(@RequestBody String refreshToken);
 
     @PostMapping("/verity/send-verification-email")
-    EmailVerifyResponseDTO emailSend(@RequestBody EmailRequestDTO emailRequestDTO);
+    EmailVerifyResponseDTO emailSend(@RequestHeader("Session-Id") String sessionId, @RequestBody EmailRequestDTO emailUserIdRequestDTO);
 
     @PostMapping("/verity/verify-email")
-    EmailVerifyResponseDTO verifyEmail(@RequestBody EmailVerificationRequestDTO emailRequestDTO);
+    EmailVerifyResponseDTO verifyEmail(@RequestHeader("Session-Id") String sessionId,@RequestBody EmailVerificationRequestDTO emailRequestDTO);
 
+    @PostMapping("/find/user/find-id")
+    findMemberResponseDTO findId(@RequestBody EmailRequestDTO email);
 
-    @PostMapping("/auths/claims")
-    ClaimsResponseDTO getClaims(@RequestBody ClaimsRequestDTO claimsRequestDTO);
+    @PostMapping("/find/user/send-pw")
+    findMemberResponseDTO sendResetPwd(@RequestBody EmailUserIdRequestDTO emailUserIdRequestDTO);
+
+    @PostMapping("/find/user/update-pw")
+    findMemberResponseDTO resetPwd(@RequestBody UpdatePwTokenRequestDTO updatePwTokenRequestDTO);
 }

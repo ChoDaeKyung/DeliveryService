@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>findPw Page</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/updatepw.css}" rel="stylesheet">
+    <script th:src="@{/js/findId.js}"></script>
+</head>
+<body>
+
+
+<div class="navbar">
+    <!-- Rectangle 7 (background gradient) -->
+    <div class="rectangle7"></div>
+
+    <!-- Logo Image -->
+    <a th:href="@{/main}" class="logo"></a>
+
+    <!-- Menu Items -->
+    <div class="menu" id="menuList">
+        <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
+        <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
+        <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+        <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
+        <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
+    </div>
+    <!-- Additional Options -->
+    <div class="extra-item login"  onclick="window.location.href='/login'">로그인</div>
+    <div class="extra-item cart">장바구니</div>
+    <div class="extra-item mypage">마이페이지</div>
+</div>
+<main class="main-content">
+            <h1>비밀번호 재설정</h1>
+    <div class="container">
+        <form id="resetPasswordForm">
+            <h2>새 비밀번호를 입력하세요.</h2>
+
+            <div class="form-group">
+                <label for="newPassword"> </label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호를 입력하세요" required />
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword"> </label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required />
+            </div>
+
+            <input type="hidden" id="resetToken" name="resetToken" th:value="${resetToken}" />
+
+            <button type="submit">비밀번호 변경</button>
+        </form>
+
+    </div>
+
+        <div id="error-message" style="color: red; display: none;"></div>
+        <button style="width: 10%" onclick="window.location.href='/login'">로그인</button>
+
+    <footer>
+        <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>
+    </footer>
+</main>
+</body>
+</html>

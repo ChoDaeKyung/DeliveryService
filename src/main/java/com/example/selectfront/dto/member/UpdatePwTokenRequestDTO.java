@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class EmailVerifyResponseDTO {
-    private boolean success;
-    private String message;
+public class UpdatePwTokenRequestDTO {
+    private String resetToken;
+    private String password;
 }
