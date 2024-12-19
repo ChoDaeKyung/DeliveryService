@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,12 +26,18 @@ public class NewsCreateApiController {
     public ResponseEntity<CreateNewsResponseDTO> createNews(
             @RequestPart("title") String title,
             @RequestPart("content") String content,
-            @RequestPart("images") List<MultipartFile> images
+            @RequestPart(value = "images", required = false) List<MultipartFile> images // images는 선택적으로 받음
     ) {
+        // images가 null인 경우 빈 리스트로 처리
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+
         CreateNewsRequestDTO requestDTO = new CreateNewsRequestDTO();
         requestDTO.setTitle(title);
         requestDTO.setContent(content);
 
+        // 뉴스 생성 서비스 호출
         return ResponseEntity.ok(newsService.createNews(requestDTO, images));
     }
 
