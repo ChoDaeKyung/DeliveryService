@@ -5,8 +5,10 @@ import com.example.selectfront.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,13 +21,17 @@ public class NewsCreateApiController {
 
     private final NewsService newsService;
 
-    @PostMapping
-    public CreateNewsResponseDTO createNews(
-            @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authorizationHeader,
-            @RequestBody CreateNewsRequestDTO createNewsRequestDTO
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<CreateNewsResponseDTO> createNews(
+            @RequestPart("title") String title,
+            @RequestPart("content") String content,
+            @RequestPart("images") List<MultipartFile> images
     ) {
-        System.out.println("createNewsRequestDTO : " + createNewsRequestDTO);
-        return newsService.createNews(authorizationHeader, createNewsRequestDTO);
+        CreateNewsRequestDTO requestDTO = new CreateNewsRequestDTO();
+        requestDTO.setTitle(title);
+        requestDTO.setContent(content);
+
+        return ResponseEntity.ok(newsService.createNews(requestDTO, images));
     }
 
     @GetMapping

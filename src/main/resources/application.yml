@@ -15,3 +15,6 @@ custom:
 
 user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
+
+file:
+  upload-dir: C:/Users/jjjkk/Desktop/파이널프로젝트이미지
