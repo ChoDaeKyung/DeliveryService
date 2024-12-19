@@ -13,7 +13,6 @@
 <body>
 <div class="navbar">
     <!-- Navbar contents -->
-    <!-- Rectangle 7 (background gradient) -->
     <div class="rectangle7"></div>
 
     <!-- Logo Image -->
@@ -37,21 +36,23 @@
         <h1>닉네임 수정</h1>
 
         <div class="container">
-            <form id="nickname-form">
-                <label for="current-nickname">현재 닉네임</label><br>
-                <input type="text" id="current-nickname" name="current-nickname" readonly><br><br>
+            <form action="/user/updateNickname" method="post">
+                <label for="currentNickname">현재 닉네임</label>
+                <input type="text" id="currentNickname" name="currentNickname" th:value="${nickname}" readonly>
 
-                <label for="new-nickname">새 닉네임</label><br>
-                <div class="nickname-input-container">
-                    <input type="text" id="new-nickname" name="new-nickname" placeholder="새 닉네임을 입력하세요">
 
-                    <button type="button" class="check-duplicate" onclick="checkDuplicateNickname()">중복체크</button>
-                </div>
 
-                <input type="hidden" id="user-id" name="user-id" value="${userId}">
-                <button type="button" onclick="updateNickname()">수정하기</button>
+                <label for="newNickname">새 닉네임</label>
+                <button class="duplicate" type="button" id="checkNicknameButton">중복 검사</button>
+                <input type="text" id="newNickname" name="newNickname" required>
 
+
+                <!--                <p id="nicknameCheckResult" ></p>-->
+
+                <button class="confirm" type="submit">닉네임 변경</button>
             </form>
+
+        </div>
     </main>
 </div>
 
