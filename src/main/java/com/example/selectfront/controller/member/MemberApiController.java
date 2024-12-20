@@ -1,26 +1,29 @@
 package com.example.selectfront.controller.member;
 
+import com.example.selectfront.dto.ClaimsRequestDTO;
+import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.findMemberResponseDTO;
 import com.example.selectfront.dto.member.*;
 import com.example.selectfront.service.member.EmailValidationService;
 import com.example.selectfront.service.member.EmailVerifyService;
 import com.example.selectfront.service.member.MemberFindService;
 import com.example.selectfront.service.member.MemberService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import util.CookieUtil;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member/api")
+@Slf4j
 public class MemberApiController {
 
     private final MemberService memberService;
@@ -57,8 +60,11 @@ public class MemberApiController {
                             .build()
             );
         } else {
-            // 로그인 실패 시, 상태 코드 401 (Unauthorized)와 실패 메시지 반환
-            return (ResponseEntity<UserLoginResponseDTO>) ResponseEntity.status(HttpStatus.UNAUTHORIZED);
+            // 로그인 실패 시 Unauthorized 상태 코드와 함께 실패 응답 반환
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(UserLoginResponseDTO.builder()
+                            .accessToken(null) // 로그인 실패 시 Access Token은 null
+                            .build());
         }
     }
     @PostMapping("/logout")
@@ -71,6 +77,14 @@ public class MemberApiController {
                         .message("로그아웃 성공")
                         .build()
         );
+    }
+    @Value("${custom.login-service-url}")
+    private String loginServiceUrl;
+
+    @PostMapping("/server-logout")
+    public ResponseEntity<LogoutServerResponseDTO> logout() {
+        LogoutServerResponseDTO build = LogoutServerResponseDTO.builder().redirectUrl(loginServiceUrl + "/logout").build();
+        return ResponseEntity.ok(build);
     }
 
 
@@ -105,6 +119,28 @@ public class MemberApiController {
       findMemberResponseDTO emailVerifyResponseDTO = memberFindService.findId(emailRequest);
        return ResponseEntity.ok(emailVerifyResponseDTO);
     }
+    @PostMapping("/claims")
+    public ClaimsResponseDTO claims(@RequestBody ClaimsRequestDTO claimsRequestDTO) {
+        // 토큰 검증 및 사용자 정보 반환
+        System.out.println("token: "+claimsRequestDTO.getToken());
+        return memberService.verifyToken(claimsRequestDTO.getToken());
+    }
+    @GetMapping("/check-login")
+    public ResponseEntity<?> checkLogin(HttpServletRequest request) {
+        String refreshToken = CookieUtil.getCookie(request, "refreshToken");
+        log.info("refreshToken: {}", refreshToken);
 
+        if (refreshToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("RefreshToken not found");
+        }
 
+        boolean login = memberService.getLogin(ValidTokenRequestDTO.builder().token(refreshToken).build());
+        log.info("login: {}", login);
+
+        if (login) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired refresh token");
+        }
+    }
 }

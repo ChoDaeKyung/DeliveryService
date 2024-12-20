@@ -6,6 +6,7 @@ import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.member.JoinRequestDTO;
 import com.example.selectfront.dto.member.LoginRequestDTO;
 import com.example.selectfront.dto.member.UserLoginResponseDTO;
+import com.example.selectfront.dto.member.ValidTokenRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,8 @@ public class MemberService {
         System.out.println(claims.getRoles());
         return claims;
 
+    }
+    public boolean getLogin(ValidTokenRequestDTO token) {
+        return 1==loginClient.getLogin(token).getStatusNum();
     }
 }
