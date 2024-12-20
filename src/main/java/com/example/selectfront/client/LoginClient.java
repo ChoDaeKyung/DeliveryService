@@ -42,8 +42,9 @@ public interface LoginClient {
 
     @PostMapping("/find/user/update-pw")
     findMemberResponseDTO resetPwd(@RequestBody UpdatePwTokenRequestDTO updatePwTokenRequestDTO);
+
     @PostMapping("/auths/claims")
     ClaimsResponseDTO getClaims(@RequestBody ClaimsRequestDTO claimsRequestDTO);
     @PostMapping("/auths/validToken")
     LoginSussesResponseDTO getLogin(@RequestBody ValidTokenRequestDTO token);
-}
+  }
