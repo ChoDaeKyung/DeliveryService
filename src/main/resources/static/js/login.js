@@ -23,10 +23,11 @@ $(document).ready(function () {
                 if (response.accessToken) {
                     // 서버에서 받은 accessToken을 로컬 스토리지에 저장
                     localStorage.setItem('accessToken', response.accessToken);
+                    alert('로그인 성공!')
                     // 로그인 후 원하는 페이지로 리디렉션 (예: 메인 페이지)
                     window.location.href = "/menu";  // 로그인 후 이동할 페이지
                 } else {
-                    alert('로그인 실패: 잘못된 아이디 또는 비밀번호입니다.');
+                    alert('로그인 실패: 잘못된 아이디 또는 비밀번호입니다!');
                 }
             },
             error: function (error) {
@@ -73,45 +74,6 @@ $(document).ready(function () {
 
     // 로그아웃 버튼 클릭
     $('#logout-button').click(function () {
-        // Spring Security 로그아웃 호출
-        $.ajax({
-            type: 'POST',
-            url: '/member/api/logout',  // Spring Security 로그아웃 URL
-            success: function() {
-                console.log('Spring Security 로그아웃 성공');
-                localStorage.removeItem('accessToken');
-                deleteCookies();
-                clearStorage();
-            },
-            error: function(error) {
-                console.log('Spring Security 로그아웃 오류', error);
-            }
-        });
-
-        location.href=`${LOGIN_SERVICE_URL}/logout`
-
-
+        logOut();
     });
 });
-function deleteCookies() {
-    document.cookie = "nid_autologin=; max-age=0; path=/; domain=.naver.com"; // 네이버 자동 로그인 쿠키
-    document.cookie = "nid_session=; max-age=0; path=/; domain=.naver.com"; // 네이버 세션 쿠키 (예시)
-    document.cookie = "access_token=; max-age=0; path=/";  // 액세스 토큰 쿠키 삭제
-    document.cookie = "refresh_token=; max-age=0; path=/";  // 리프레시 토큰 쿠키 삭제
-
-    // 모든 쿠키 삭제
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=; max-age=0; path=/";
-    }
-}
-
-// 로컬 스토리지 및 세션 스토리지 삭제
-function clearStorage() {
-    localStorage.clear();   // 로컬 스토리지 삭제
-    sessionStorage.clear(); // 세션 스토리지 삭제
-}
-

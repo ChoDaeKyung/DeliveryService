@@ -45,6 +45,7 @@
 
 /* Menu Items */
 .menu-item {
+    text-decoration: none;
     position: absolute;
     font-family: 'Instrument Sans', sans-serif;
     font-style: normal;

@@ -54,5 +54,16 @@ public class CookieUtil {
             throw new RuntimeException("Failed to deserialize cookie", e);
         }
     }
+    public static String getCookie(HttpServletRequest request, String name) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(name)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
 
 }

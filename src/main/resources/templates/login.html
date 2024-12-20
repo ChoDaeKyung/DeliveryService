@@ -11,6 +11,7 @@
 <body th:data-login-service-url="${loginServiceUrl}">
 </body>
 <script th:src="@{/js/login.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 <body>
 
 
@@ -30,7 +31,7 @@
         <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
     </div>
     <!-- Additional Options -->
-    <div class="extra-item login"  onclick="window.location.href='/login'">로그인</div>
+    <div id="loginButton" class="extra-item login">로그인</div>
     <div class="extra-item cart">장바구니</div>
     <div class="extra-item mypage">마이페이지</div>
 </div>

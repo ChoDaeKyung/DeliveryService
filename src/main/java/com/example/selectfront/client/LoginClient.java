@@ -1,6 +1,8 @@
 package com.example.selectfront.client;
 
 
+import com.example.selectfront.dto.ClaimsRequestDTO;
+import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.findMemberResponseDTO;
 import com.example.selectfront.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -43,4 +45,6 @@ public interface LoginClient {
 
     @PostMapping("/auths/claims")
     ClaimsResponseDTO getClaims(@RequestBody ClaimsRequestDTO claimsRequestDTO);
-}
+    @PostMapping("/auths/validToken")
+    LoginSussesResponseDTO getLogin(@RequestBody ValidTokenRequestDTO token);
+  }

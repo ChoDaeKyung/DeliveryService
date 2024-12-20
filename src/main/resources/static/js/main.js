@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    checkToken();
-    setupAjax();
+    checkToken();//토큰 있는지 확인
+    setupAjax();// 토큰 인증에 담기
     checkModel();
 });
 
