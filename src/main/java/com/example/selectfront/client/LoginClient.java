@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "LoginClient", url = "${swfm.auth-url}")
+@FeignClient(name = "LoginClient", url = "${swfm.service-url}/auth")
 public interface LoginClient {
 
     //POST 데이터 요청 (데이터 생성)

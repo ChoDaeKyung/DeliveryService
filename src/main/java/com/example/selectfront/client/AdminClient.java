@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "AdminClient", url="${swfm.admin-service-url}")
+@FeignClient(name = "AdminClient", url="${swfm.service-url}/admin")
 public interface AdminClient {
     @PostMapping
     String addCompleteProduct(@RequestBody AddCompleteProductRequestDTO addCompleteProductRequestDTO);

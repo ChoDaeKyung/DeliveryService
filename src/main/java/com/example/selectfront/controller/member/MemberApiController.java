@@ -78,7 +78,7 @@ public class MemberApiController {
                         .build()
         );
     }
-    @Value("${custom.login-service-url}")
+    @Value("${swfm.service-url}")
     private String loginServiceUrl;
 
     @PostMapping("/server-logout")
