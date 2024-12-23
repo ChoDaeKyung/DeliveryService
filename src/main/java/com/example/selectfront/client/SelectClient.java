@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "SelectClient", url="${swfm.select-service-url}")
+@FeignClient(name = "SelectClient", url="${swfm.service-url}/select")
 public interface SelectClient {
 
     @PostMapping

@@ -20,3 +20,31 @@
 .cart-name, .cart-total-price, .product-name, .product-category, .product-price {
     font-size: 14px;
 }
+
+.rectangle {
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.cart-header {
+    margin-bottom: 5px;
+}
+
+.category-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;  /* 오른쪽 정렬 */
+}
+
+.category-section {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;  /* 오른쪽 정렬 */
+    gap: 5px;  /* 카테고리명과 아이템 사이 간격 */
+}
+
+.category-items {
+    min-width: 100px;  /* 아이템 텍스트의 최소 너비 설정 */
+    text-align: left;
+}

@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 @Controller
 public class MemberController {
-    @Value("${custom.login-service-url}")
+    @Value("${swfm.service-url}")
     private String loginServiceUrl;
 
     @GetMapping("/login")

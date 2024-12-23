@@ -11,18 +11,12 @@ server:
   port: 7007
 
 swfm:
-  select-service-url: ${SELECT_SERVICE_URL:http://localhost:7001}/select
-  cart-service-url: ${CART_SERVICE_URL:http://localhost:7001}/cart
-  news-list-service: ${NEWS_LIST_SERVICE_URL:http://localhost:7710}/news
-  auth-url: ${auth_SERVICE_URL:http://localhost:9000}/auth
-  admin-service-url: ${ADMIN_SERVICE_URL:http://localhost:7001}/admin
-  menu-service-url: ${MENU_SERVICE_URL:http://localhost:7001}/menu
-custom:
-  login-service-url:  ${MENU_SERVICE_URL:http://localhost:7010}
+  service-url: ${SELECT_SERVICE_URL:http://localhost:9000}
 
 user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
 
 file:
-  upload-dir: /Users/chodaekyung/Desktop/uploads
+#  upload-dir: /Users/chodaekyung/Desktop/uploads
 #  upload-dir: C:/Users/jjjkk/Desktop/파이널프로젝트이미지
+  upload-dir: C:/Users/admin/Desktop/uploud

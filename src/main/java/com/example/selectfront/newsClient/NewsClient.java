@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "newsClient", url = "${swfm.news-list-service}")
+@FeignClient(name = "newsClient", url = "${swfm.service-url}/news")
 public interface NewsClient {
 
     @PostMapping

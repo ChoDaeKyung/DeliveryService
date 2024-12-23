@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "MenuClient", url="${swfm.menu-service-url}")
+@FeignClient(name = "MenuClient", url="${swfm.service-url}/menu")
 public interface MenuClient {
 
     @GetMapping

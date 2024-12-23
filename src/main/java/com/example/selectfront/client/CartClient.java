@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "CartClient", url="${swfm.cart-service-url}")
+@FeignClient(name = "CartClient", url="${swfm.service-url}/cart")
 public interface CartClient {
     @PostMapping
     String insertCart(@RequestBody InsertCartRequestDTO insertCartRequestDTO);
