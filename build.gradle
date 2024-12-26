@@ -38,7 +38,8 @@ dependencies {
 
 	// Thymeleaf와 Spring Security 통합
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-
+	//파일 수정 시 재시작하지 않고 자동 컴파일 될 수 있도록 하기위한 라이브러리
+	implementation 'org.springframework.boot:spring-boot-devtools'
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

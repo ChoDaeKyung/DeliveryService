@@ -1,7 +1,22 @@
 $(document).ready(function () {
-    $('.login-button').click(function () {
-        const userId = $('#user-id').val();  // 입력된 ID 값
-        const userPassword = $('#user-password').val();  // 입력된 비밀번호 값
+        // Toggle between Sign In and Sign Up forms
+        $("#signin-tab").click(function () {
+            $("#signin-form").addClass("active");
+            $("#signup-form").removeClass("active");
+            $(this).addClass("active");
+            $("#signup-tab").removeClass("active");
+        });
+
+        $("#signup-tab").click(function () {
+            $("#signup-form").addClass("active");
+            $("#signin-form").removeClass("active");
+            $(this).addClass("active");
+            $("#signin-tab").removeClass("active");
+        });
+
+    $('#login-button').click(function () {
+        const userId = $('#signin-id').val();  // 입력된 ID 값
+        const userPassword = $('#signin-password').val();  // 입력된 비밀번호 값
 
         // ID와 비밀번호가 모두 입력되었는지 확인
         if (!userId || !userPassword) {
@@ -42,7 +57,7 @@ $(document).ready(function () {
 
 
     // Redirect to OAuth2 Login for Google, Kakao, Naver
-    $('.web-neutral').click(function () {
+    $('.google').click(function () {
         window.location.href = `${LOGIN_SERVICE_URL}/oauth2/authorization/google`;
     });
 
