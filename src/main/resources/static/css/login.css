@@ -1,207 +1,290 @@
-.main{
-    display: flex;
-}
-/* Social Login Section */
-.social-login {
-
-    width: 383px;
-    height: 309px;
-    left: 817px;
-    top: 358px;
+/* Paste the provided CSS here */
+body {
+    margin: 0;
+    color: #6a6f8c;
+    background: #c8c8c8;
+    font: 600 16px/18px 'Open Sans', sans-serif;
 }
 
-.rectangle-10 {
-    align-items: center;
-    width: 383px;
-    height: 309px;
-    background: #FDD20A;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column; /* 세로로 배치 */
-    justify-content: space-between; /* 요소 간의 간격을 균등하게 배치 */
-    padding: 10px; /* 내부 여백 추가 */
-}
-#social-test{
-   text-align: center;
-}
-/* Title */
-.naver {
-
-    width: 70%;
-    height: 64px;
-    background: url('https://github.com/user-attachments/assets/aecca769-fb5e-4551-812d-2270d90005b1');
-    border-radius: 15px;
-    border: none;
-    background-repeat: no-repeat;
-    background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
-    background-position: center;
+*,:after,:before {
+    box-sizing: border-box;
 }
 
-/* Kakao Login */
-.kakao-login {
-    width: 70%;
-    height: 70px;
-    background: url('https://github.com/user-attachments/assets/9d55f3dd-02cd-43d0-b4ec-6daf007f3b2f');
-    border-radius: 15px;
-    border: none;
-    background-repeat: no-repeat;
-    background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
-    background-position: center;
+.clearfix:after,.clearfix:before {
+    content: '';
+    display: table;
 }
 
-/* Web Neutral */
-.web-neutral {
-    width: 70%;
-    height: 59px;
-    background: url('https://github.com/user-attachments/assets/1197048a-bf2a-45a9-8b6d-a7f43156c938');
-    border-radius: 15px;
-    border: none;
-    background-repeat: no-repeat;
-    background-size: cover; /* 이미지가 부모 요소를 덮도록 크기 조정 */
-    background-position: center;
-}
-
-/* General Styling for Text Inside Boxes */
-.rectangle-12, .rectangle-13, .rectangle-15 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-}
-
-/* Styling for Text Inside ID and Password Boxes */
-.id-text, .password-text, .login-text, .findPw-text, .signup-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    color: #000;
-}
-
-/* ID Input Box */
-.rectangle-12 {
-    width: 330px;
-    height: 72px;
-    background: #F3F3F3;
-    border: 1px solid #000;
-}
-
-/* Password Input Box */
-.rectangle-13 {
-    width: 330px;
-    height: 72px;
-    background: #F3F3F3;
-    border: 1px solid #000;
-}
-
-
-.login-form{
-    position: relative;
-    width: 548px;
-    height: 309px;
-    background: #FDD20A;
-    border-radius: 15px;
-    display: flex
-;    margin: 0 50px 0 0;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-}/* Buttons (Login, Find Password, Sign Up) */
-button:hover {
-    transform: scale(1.05);   /* 약간 커지는 효과 */
-}
-
-/* 커서 변경 */
-button:hover {
-    cursor: pointer;
-}
-.join-button{
-    width: 100px;
-    position: absolute;
-    border: 3px solid #96C15D;
-    height: 50px;
-    top: 208px;
-    left: 33px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0);
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.find-id-button{
-    width: 115px;
-    position: absolute;
-    border-radius: 15px;
-    border: 3px solid #96C15D;
-    height: 50px;
-    top: 208px;
-    left: 145px;
-    background: rgba(0, 0, 0, 0);
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.find-pw-button{
-    width: 130px;
-    position: absolute;
-    border-radius: 15px;
-    border: 3px solid #96C15D;
-    height: 50px;
-    top: 208px;
-    left: 270px;
-    background: rgba(0, 0, 0, 0);
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.login-button{
-    width: 100px;
-    position: absolute;
-    border: 3px solid #96C15D;
-    border-radius: 15px;
-    height: 50px;
-    top: 105px;
-    right: 25px;
-    background: rgba(0, 0, 0, 0);
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#login-form-text{
-    text-align: center;
-}
-.login-form input {
-    font-size: 20px;
-    width: 370px;
-    height: 72px;
-    margin-left: 23px;
-}
-.login-form input:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
-}
-.login-form input::placeholder {
-    color: #aaa;
-}
-.login-form label {
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 5px;
+.clearfix:after {
+    clear: both;
     display: block;
 }
-.login-up, .findPw, .signup {
-    width: 330px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.login-text, .findPw-text, .signup-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    color: #000;
+.login-wrap {
+    width: 100%;
+    margin: auto;
+    max-width: 525px;
+    min-height: 780px;
+    position: relative;
+    background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
+    box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+.login-html {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 15px 70px 50px 70px;
+    background: rgba(40, 57, 101, .9);
+}
+
+.login-html .sign-in-htm,
+.login-html .sign-up-htm {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transition: all .4s linear;
+}
+
+.login-html .sign-in,
+.login-html .sign-up,
+.login-form .group .check {
+    display: none;
+}
+
+.login-html .tab,
+.login-form .group .label,
+.login-form .group .button {
+    text-transform: uppercase;
+}
+
+.login-html .tab {
+    font-size: 22px;
+    padding-bottom: 15px;
+    margin: 0 15px 10px 0;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+}
+
+.login-html .sign-in:checked + .tab,
+.login-html .sign-up:checked + .tab {
+    color: #fff;
+    border-color: #1161ee;
+}
+
+.login-form {
+    min-height: 345px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.login-form .group {
+    /*margin-bottom: 15px;*/
+}
+
+.login-form .group .label,
+.login-form .group .input,
+.login-form .group .button {
+    width: 100%;
+    color: #fff;
+    display: block;
+}
+
+.login-form .group .input,
+.login-form .group .button {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .1);
+}
+
+.login-form .group input[data-type="password"] {
+    text-security: circle;
+    -webkit-text-security: circle;
+}
+
+.login-form .group .label {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.login-form .group .button {
+    background: #1161ee;
+}
+
+.login-form .group label .icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    background: rgba(255, 255, 255, .1);
+}
+
+.login-form .group label .icon:before,
+.login-form .group label .icon:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: all .2s ease-in-out 0s;
+}
+
+.login-form .group label .icon:before {
+    left: 3px;
+    width: 5px;
+    bottom: 6px;
+    transform: scale(0) rotate(0);
+}
+
+.login-form .group label .icon:after {
+    top: 6px;
+    right: 0;
+    transform: scale(0) rotate(0);
+}
+
+.login-form .group .check:checked + label {
+    color: #fff;
+}
+
+.login-form .group .check:checked + label .icon {
+    background: #1161ee;
+}
+
+.login-form .group .check:checked + label .icon:before {
+    transform: scale(1) rotate(45deg);
+}
+
+.login-form .group .check:checked + label .icon:after {
+    transform: scale(1) rotate(-45deg);
+}
+
+.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+    transform: rotate(0);
+}
+
+.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+    transform: rotate(0);
+}
+
+.hr {
+    height: 2px;
+    margin: 60px 0 50px 0;
+    background: rgba(255, 255, 255, .2);
+}
+
+.foot-lnk {
+    text-align: center;
+}/* Style for the input fields */
+input[type="text"], input[type="password"], input[type="email"], select {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Focus state for inputs */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: #1161ee;
+    outline: none;
+    box-shadow: 0 0 5px rgba(17, 97, 238, 0.6);
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Styling for the select dropdown */
+select {
+    padding: 15px;
+    border-radius: 25px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    color: #333;
+}
+
+select:focus {
+    border-color: #1161ee;
+    box-shadow: 0 0 5px rgba(17, 97, 238, 0.6);
+}
+/* 소셜 로그인 버튼 스타일 */
+.social-login button {
+    width: 60px;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 0; /* 텍스트 제거 */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 58px; /* 버튼 높이 설정 */
+}
+
+/* 네이버 로그인 버튼 */
+.social-login .naver {
+    margin: 10px;
+    background-image: url('/images/email/naver.png');
+    background-color: #1ec800; /* 로고 배경 색상 */
+}
+
+.social-login .naver:hover {
+    background-color: #1a9d00; /* 호버 시 색상 */
+}
+
+/* 카카오 로그인 버튼 */
+.social-login .kakao-login {
+    margin: 10px;
+    background-image: url('/images/email/kakao.png');
+    background-color: #fee500;
+}
+
+.social-login .kakao-login:hover {
+    background-color: #f7d500; /* 호버 시 색상 */
+}
+
+/* 구글 로그인 버튼 */
+.social-login .google {
+    margin: 10px;
+    background-image: url('/images/email/google.png');
+    background-color: #4285f4;
+}
+
+.social-login .google {
+    background-color: #357ae8; /* 호버 시 색상 */
+}
+.rectangle-10{
+    display: flex
+;
+    justify-content: center
+}
+.group p{
+    text-align: center;
+    font-weight: normal;
+    display :inline-block;
 }

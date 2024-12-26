@@ -16,7 +16,7 @@ $(document).ready(function() {
     }
 
     $('#check-id-btn').click(function() {
-        userId = $('#user-id').val().trim(); // 앞뒤 공백 제거
+        userId = $('#signup-id').val().trim(); // 앞뒤 공백 제거
         if (userId.length < 7) {
             alert("아이디는 7자 이상이어야 합니다.");
             return; // 폼 제출을 막음
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
     // 닉네임 중복 검사
     $('#check-nickname-btn').click(function() {
-        nickName = $('#nick-name').val();
+        nickName = $('#signup-nickname').val();
 
         if (!nickName) {
             $('#nickname-status').text('닉네임을 입력해주세요.');
@@ -84,7 +84,7 @@ $(document).ready(function() {
 
     // 이메일 인증 버튼 클릭 시
     $('#send-verification-btn').click(function() {
-        email = $('#email').val();
+        email = $('#signup-email').val();
 
         if (!email) {
             $('#email-status').text('이메일을 입력해주세요.').css('color', 'red');
@@ -152,12 +152,12 @@ $(document).ready(function() {
 
     // 회원가입 버튼 클릭 시
     $('#submit-button').click(function(event) {
-        let userid = $('#user-id').val().trim();
-        let nickname = $('#nick-name').val().trim();
-        let emails = $('#email').val().trim();
-        let password = $('#password').val().trim();
-        let userName = $('#user-name').val().trim();
-        let role = $('#role').val();
+        let userid = $('#signup-id').val().trim();
+        let nickname = $('#signup-nickname').val().trim();
+        let emails = $('#signup-email').val().trim();
+        let password = $('#signup-password').val().trim();
+        let userName = $('#signup-name').val().trim();
+        let role = $('#signup-role').val();
 
         // 중복 검사 통과 확인
         if (!isIdAvailable && userId === userid) {
@@ -212,12 +212,11 @@ $(document).ready(function() {
         });
 
         event.preventDefault(); // 기본 폼 동작 막기
-
-        $('#user-id').val(userid);
-        $('#nick-name').val(nickname);
-        $('#email').val(emails);
-        $('#password').val(password);
-        $('#user-name').val(userName);
-        $('#role').val(role);
+        $('#signup-id').val(userid);
+        $('#signup-nickname').val(nickname);
+        $('#signup-email').val(emails);
+        $('#signup-password').val(password);
+        $('#signup-name').val(userName);
+        $('#signup-role').val(role);
     });
 });
