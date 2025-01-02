@@ -61,7 +61,8 @@
             <span class="card-title">배달원과 채팅</span>
         </div>
         <div class="card-content">
-            <div id="messages" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
+            <div id="user-chat" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
+            <div id="rider-chat" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
             <form id="message-form" class="form">
                 <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
                 <button type="submit">전송</button>
@@ -72,26 +73,40 @@
 
 <script>
     $(document).ready(function () {
-        const messages = [
-            { id: 1, sender: 'customer', text: '문 앞에 놓아주세요', time: '14:30' },
-            { id: 2, sender: 'rider', text: '알겠습니다. 10분 후 도착예정입니다', time: '14:31' }
-        ];
+        const orderId = "ORDER-123456"; // 실제 주문 ID로 변경
 
-        // 메시지 표시
-        function displayMessages() {
-            $('#messages').empty();
+        // 채팅 메시지 표시 함수
+        function displayChatMessages(role, messages) {
+            const chatContainer = $('#' + role + '-chat');
             messages.forEach(message => {
-                const messageClass = message.sender === 'customer' ? 'customer-message' : 'rider-message';
-                $('#messages').append(`
-            <div class="message ${messageClass}">
-              <p>${message.text}</p>
-              <p class="message-time">${message.time}</p>
-            </div>
-          `);
+                const messageElement = $('<div></div>').text(message.message);
+                chatContainer.append(messageElement);
             });
         }
 
-        displayMessages();
+        // 채팅 메시지 받아오기 (5초마다 실행)
+        function fetchMessages() {
+            $.ajax({
+                url: '/api/chat/messages',
+                method: 'GET',
+                data: { orderId: orderId },
+                success: function (data) {
+                    // 각 역할에 맞는 메시지 리스트 처리
+                    if (data.user) {
+                        displayChatMessages('user', data.user);
+                    }
+                    if (data.rider) {
+                        displayChatMessages('rider', data.rider);
+                    }
+                },
+                error: function (error) {
+                    console.log('메시지 가져오기 실패:', error);
+                }
+            });
+        }
+
+        // 5초마다 메시지 가져오기
+        setInterval(fetchMessages, 5000); // 5초마다 실행
 
         // 메시지 전송
         $('#message-form').on('submit', function (e) {
@@ -100,15 +115,40 @@
             if (!newMessage) return;
 
             const currentTime = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-            const newMsg = {
-                id: messages.length + 1,
-                sender: 'customer',
-                text: newMessage,
-                time: currentTime
+
+            // 서버로 메시지 보내기
+            const chatRequestDTO = {
+                orderId: orderId,
+                userId: 'userId',
+                role: 'user', // 역할 설정 (예: 'user' or 'rider')
+                message: newMessage
             };
-            messages.push(newMsg);
-            displayMessages();
-            $('#new-message').val('');
+
+            $.ajax({
+                url: '/api/chat/send',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(chatRequestDTO),
+                success: function (response) {
+                    // 성공 시 새로운 메시지를 채팅에 추가
+                    const newMsg = {
+                        sender: 'user',
+                        message: newMessage,
+                        time: currentTime
+                    };
+
+                    // 사용자 메시지 추가
+                    if (!data.user) {
+                        data.user = [];
+                    }
+                    data.user.push(newMsg);
+                    displayChatMessages('user', data.user);
+                    $('#new-message').val(''); // 입력창 초기화
+                },
+                error: function (error) {
+                    alert('메시지 전송에 실패했습니다.');
+                }
+            });
         });
     });
 </script>
