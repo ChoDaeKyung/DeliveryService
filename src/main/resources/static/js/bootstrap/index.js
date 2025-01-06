@@ -237,6 +237,22 @@ $(document).ready(function () {
     $(document).on('click', '.insertCartButton', function () {
         const name = $('#modal-title').text();
         const price = $('#modal-price').text().replace('원', '');
+
+        let userId = null;
+        const decoded = decodeJWT(token);
+        if (decoded && decoded.sub) {
+            console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
+            console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
+            console.log("Type of sub:", typeof decoded.sub); // 타입 확인
+
+            userId = JSON.stringify(decoded.sub);// 문자열로 변환
+            console.log("Type of sub:", typeof userId);
+            console.log("UserId as string:", userId); // 변환된 값 확인
+        } else {
+            alert("로그인해주세요.");
+            return;
+        }
+
         $.ajax({
             url: '/webs/api/cart/completeProduct', // 서버에서 메뉴 목록을 가져오는 API URL
             method: 'POST',
@@ -244,8 +260,8 @@ $(document).ready(function () {
             data: JSON.stringify({
                 name: name,
                 price:price,
-                buyer: 'buyer',
-                productId:new Date().toISOString() + 'buyer'
+                buyer: userId,
+                productId:new Date().toISOString() + userId
             }),
             success: function (response) {
                 if (response === "success") {
@@ -271,6 +287,21 @@ $(document).ready(function () {
         event.preventDefault(); // a 태그 기본 동작 방지
         const name = $(this).data('name');
         const price = $(this).data('price');
+        let userId = null;
+        const decoded = decodeJWT(token);
+        if (decoded && decoded.sub) {
+            console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
+            console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
+            console.log("Type of sub:", typeof decoded.sub); // 타입 확인
+
+            userId = JSON.stringify(decoded.sub);// 문자열로 변환
+            console.log("Type of sub:", typeof userId);
+            console.log("UserId as string:", userId); // 변환된 값 확인
+        } else {
+            alert("로그인해주세요.");
+            return;
+        }
+
         $.ajax({
             url: '/webs/api/cart/completeProduct', // 서버에서 메뉴 목록을 가져오는 API URL
             method: 'POST',
@@ -278,8 +309,8 @@ $(document).ready(function () {
             data: JSON.stringify({
                 name: name,
                 price: price,
-                buyer: 'buyer',
-                productId:new Date().toISOString() + 'buyer'
+                buyer: userId,
+                productId:new Date().toISOString() + userId
             }),
             success: function (response) {
                 if (response === "success") {
@@ -302,12 +333,27 @@ $(document).ready(function () {
 
     $(document).on('click', '.insertCustomCartButton', function () {
 
+        let userId = null;
+        const decoded = decodeJWT(token);
+        if (decoded && decoded.sub) {
+            console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
+            console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
+            console.log("Type of sub:", typeof decoded.sub); // 타입 확인
+
+            userId = JSON.stringify(decoded.sub);// 문자열로 변환
+            console.log("Type of sub:", typeof userId);
+            console.log("UserId as string:", userId); // 변환된 값 확인
+        } else {
+            alert("로그인해주세요.");
+            return;
+        }
+
         // CompleteCartRequestDTO 생성
         const completeCart = {
             name: $('#modal-title').text(),
             price: parseInt($('#modal-price').text().replace('원', ''), 10),
-            buyer: 'buyer',
-            productId: new Date().toISOString() + 'buyer'
+            buyer: userId,
+            productId: new Date().toISOString() + userId
         };
 
         // 카테고리별 데이터를 수집 (mainList 사용)
@@ -315,7 +361,7 @@ $(document).ready(function () {
             name: item.name,
             category: item.category,
             price: parseInt(item.price, 10), // 가격이 문자열일 경우 변환
-            buyer: 'buyer'
+            buyer: userId
         }));
 
         const hasBread = customProducts.some(product => product.category === 'bread');
@@ -515,7 +561,17 @@ $(document).ready(function () {
         }
 
         // 총 가격 줄 추가
-        outputString += `\n총 가격: ${totalPrice}원`;
+        if(totalPrice > 0) {
+            outputString += `\n총 가격: ${totalPrice}원`;
+        }else {
+            let customButtonHtml= '';
+            customButtonHtml = `
+        <button id="selectCustom" class="btn btn-primary">재료 선택하기</button>
+        `;
+
+
+            $('#modal-price').append(customButtonHtml);
+        }
 
         // 결과를 #addproducts 입력 필드에 출력
         const textarea = $("#addproducts");
@@ -751,9 +807,20 @@ $(document).ready(function () {
         const totalPrice = Object.values(mainList).flat().reduce((sum, product) => sum + parseInt(product.price, 10), 0);
         console.log('totalPrice :: ' ,totalPrice)
 
+        if(totalPrice > 0){
         let customButtonHtml= totalPrice + `원`;
+            $('#modal-price').append(customButtonHtml);
+        }else {
+            let customButtonHtml= '';
+            customButtonHtml = `
+        <button id="selectCustom" class="btn btn-primary">재료 선택하기</button>
+        `;
 
-        $('#modal-price').append(customButtonHtml);
+
+            $('#modal-price').append(customButtonHtml);
+        }
+
+        // $('#modal-price').append(customButtonHtml);
         addproductsModal.style.display = "none";
 
         // clearModalState();
@@ -765,9 +832,19 @@ $(document).ready(function () {
         const totalPrice = Object.values(mainList).flat().reduce((sum, product) => sum + parseInt(product.price, 10), 0);
         console.log('totalPrice :: ' ,totalPrice)
 
-        let customButtonHtml= totalPrice + `원`;
+        if(totalPrice > 0) {
+            let customButtonHtml = totalPrice + `원`;
 
-        $('#modal-price').append(customButtonHtml);
+            $('#modal-price').append(customButtonHtml);
+        }else {
+            let customButtonHtml= '';
+            customButtonHtml = `
+        <button id="selectCustom" class="btn btn-primary">재료 선택하기</button>
+        `;
+
+
+            $('#modal-price').append(customButtonHtml);
+        }
 
         breadModal.style.display = "none";
         vegetableModal.style.display = "none";
@@ -821,4 +898,18 @@ let getProducts = () => {
             console.error("Error fetching product data:", error);
         }
     });
+};
+
+const decodeJWT = (token) => {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (error) {
+        console.error('JWT 디코딩 실패:', error);
+        return null;
+    }
 };
