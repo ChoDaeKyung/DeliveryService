@@ -61,8 +61,7 @@
             <span class="card-title">배달원과 채팅</span>
         </div>
         <div class="card-content">
-            <div id="user-chat" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
-            <div id="rider-chat" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
+            <div id="chatContainer" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
             <form id="message-form" class="form">
                 <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
                 <button type="submit">전송</button>
@@ -70,33 +69,62 @@
         </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
         const orderId = "ORDER-123456"; // 실제 주문 ID로 변경
+        let chatMessages = []; // 기존 메시지를 유지하기 위한 배열
+        let lastTimestamp = -1;  // 최신 타임스탬프 저장
 
         // 채팅 메시지 표시 함수
-        function displayChatMessages(role, messages) {
-            const chatContainer = $('#' + role + '-chat');
+        function displayChatMessages(messages) {
+            const chatContainer = $('#chatContainer');
+
+            // 메시지 순차적으로 출력
             messages.forEach(message => {
-                const messageElement = $('<div></div>').text(message.message);
+                let messageElement = $('<div class="message"></div>');
+
+                // user는 오른쪽, rider는 왼쪽
+                if (message.role === 'user') {
+                    messageElement.addClass('user-message'); // user 스타일
+                    messageElement.text(message.message);
+                } else {
+                    messageElement.addClass('rider-message'); // rider 스타일
+                    messageElement.text(message.message);
+                }
+
+                // 메시지 추가
                 chatContainer.append(messageElement);
             });
+
+            // 스크롤을 아래로 자동 이동
+            chatContainer.scrollTop(chatContainer.prop('scrollHeight'));
         }
 
-        // 채팅 메시지 받아오기 (5초마다 실행)
         function fetchMessages() {
             $.ajax({
                 url: '/api/chat/messages',
                 method: 'GET',
-                data: { orderId: orderId },
+                data: {
+                    orderId: orderId,
+                    fromTimestamp: lastTimestamp
+                },
                 success: function (data) {
-                    // 각 역할에 맞는 메시지 리스트 처리
-                    if (data.user) {
-                        displayChatMessages('user', data.user);
-                    }
-                    if (data.rider) {
-                        displayChatMessages('rider', data.rider);
+                    // 새 메시지 가져오기
+                    let userMessages = data.user || [];
+                    let riderMessages = data.rider || [];
+
+                    // 교차로 출력
+                    let newMessages = mergeMessages(userMessages, riderMessages);
+
+                    // 기존 메시지 배열에 추가
+                    chatMessages = [...chatMessages, ...newMessages];
+
+                    // 새로운 메시지만 표시
+                    displayChatMessages(newMessages);
+
+                    // 최신 타임스탬프 업데이트
+                    if (newMessages.length > 0) {
+                        lastTimestamp = newMessages[newMessages.length - 1].timestamp;
                     }
                 },
                 error: function (error) {
@@ -105,8 +133,29 @@
             });
         }
 
-        // 5초마다 메시지 가져오기
-        setInterval(fetchMessages, 5000); // 5초마다 실행
+        // 메시지들을 타임스탬프 기준으로 교차로 합치는 함수
+        function mergeMessages(userMessages, riderMessages) {
+            let mergedMessages = [];
+            let i = 0, j = 0;
+
+            while (i < userMessages.length || j < riderMessages.length) {
+                if (i < userMessages.length && (j >= riderMessages.length || userMessages[i].timestamp <= riderMessages[j].timestamp)) {
+                    mergedMessages.push({ ...userMessages[i], role: 'user' });
+                    i++;
+                } else if (j < riderMessages.length) {
+                    mergedMessages.push({ ...riderMessages[j], role: 'rider' });
+                    j++;
+                }
+            }
+
+            return mergedMessages;
+        }
+
+        // 초기 메시지 호출
+        fetchMessages();
+
+        // 5초마다 새로운 메시지 가져오기
+        setInterval(fetchMessages, 5000);
 
         // 메시지 전송
         $('#message-form').on('submit', function (e) {
@@ -114,13 +163,10 @@
             const newMessage = $('#new-message').val().trim();
             if (!newMessage) return;
 
-            const currentTime = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-
-            // 서버로 메시지 보내기
             const chatRequestDTO = {
                 orderId: orderId,
                 userId: 'userId',
-                role: 'user', // 역할 설정 (예: 'user' or 'rider')
+                role: 'rider', // 역할 설정 (예: 'user' or 'rider')
                 message: newMessage
             };
 
@@ -129,20 +175,9 @@
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(chatRequestDTO),
-                success: function (response) {
-                    // 성공 시 새로운 메시지를 채팅에 추가
-                    const newMsg = {
-                        sender: 'user',
-                        message: newMessage,
-                        time: currentTime
-                    };
-
-                    // 사용자 메시지 추가
-                    if (!data.user) {
-                        data.user = [];
-                    }
-                    data.user.push(newMsg);
-                    displayChatMessages('user', data.user);
+                success: function () {
+                    // 성공 시 새로운 메시지를 다시 가져옴
+                    fetchMessages();
                     $('#new-message').val(''); // 입력창 초기화
                 },
                 error: function (error) {
@@ -152,5 +187,6 @@
         });
     });
 </script>
+
 </body>
 </html>

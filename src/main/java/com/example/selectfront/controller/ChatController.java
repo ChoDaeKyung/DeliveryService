@@ -1,6 +1,8 @@
 package com.example.selectfront.controller;
 
+import com.example.selectfront.dto.chat.ChatMessageRequestDTO;
 import com.example.selectfront.dto.chat.ChatRequestDTO;
+import com.example.selectfront.dto.chat.ChatResponseDTO;
 import com.example.selectfront.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,14 @@ public class ChatController {
 
     @PostMapping("/send")
     public ResponseEntity<?> sendChat(@RequestBody ChatRequestDTO chatRequestDTO) {
+        System.out.println(chatRequestDTO.getRole());
+        System.out.println("send");
         return chatService.sendMessage(chatRequestDTO);
     }
     @GetMapping("/messages")
-    public ResponseEntity<Map<String, List<ChatRequestDTO>>> getChatMessages(@RequestParam String orderId) {
-        // ChatService를 통해 역할별로 메시지 가져오기
-        return chatService.getChatMessagesByRole(orderId);
+    public ResponseEntity<Map<String, List<ChatResponseDTO>>> getChatMessages(
+            @RequestParam String orderId,
+            @RequestParam Long fromTimestamp) {
+        return chatService.getChatMessagesByRole(orderId,fromTimestamp);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.selectfront.service;
 
 import com.example.selectfront.client.DeliveryClient;
+import com.example.selectfront.dto.chat.ChatMessageRequestDTO;
 import com.example.selectfront.dto.chat.ChatRequestDTO;
+import com.example.selectfront.dto.chat.ChatResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,25 +21,29 @@ public class ChatService {
     public ResponseEntity<String> sendMessage(ChatRequestDTO chatRequestDTO) {
      return deliveryClient.chatSend(chatRequestDTO);
     }
-    public ResponseEntity<Map<String, List<ChatRequestDTO>>> getChatMessagesByRole(String orderId) {
+    public ResponseEntity<Map<String, List<ChatResponseDTO>>> getChatMessagesByRole(String orderId,long fromTimestamp) {
         // 메시지 목록을 Redis에서 가져옵니다.
-        List<Object> messagesFromRedis = deliveryClient.getMessages(orderId).getBody();
+        List<Object> messagesFromRedis = deliveryClient.getMessages(orderId,fromTimestamp).getBody();
 
         // 역할별로 메시지를 분리하여 저장할 맵
-        Map<String, List<ChatRequestDTO>> roleMessages = new HashMap<>();
+        Map<String, List<ChatResponseDTO>> roleMessages = new HashMap<>();
 
         for (Object messageObj : Objects.requireNonNull(messagesFromRedis)) {
             try {
-                // 메시지를 ChatRequestDTO 객체로 변환
-                String messageJson = messageObj.toString();
-                ChatRequestDTO chatRequestDTO = objectMapper.readValue(messageJson, ChatRequestDTO.class);
+                // 메시지 객체가 Map 형태일 경우, 이를 JSON 문자열로 변환
+                String messageJson = objectMapper.writeValueAsString(messageObj);
+                System.out.println("Message JSON: " + messageJson);  // 메시지 출력
+
+                // JSON 파싱
+                ChatResponseDTO chatResponseDTO = objectMapper.readValue(messageJson, ChatResponseDTO.class);
 
                 // 역할에 맞는 리스트에 메시지 추가
-                roleMessages.computeIfAbsent(chatRequestDTO.getRole(), k -> new ArrayList<>()).add(chatRequestDTO);
+                roleMessages.computeIfAbsent(chatResponseDTO.getRole(), k -> new ArrayList<>()).add(chatResponseDTO);
             } catch (Exception e) {
                 System.err.println("Error processing message: " + e.getMessage());
             }
         }
+
 
         // 역할별로 분리된 메시지 목록을 반환
         return new ResponseEntity<>(roleMessages, HttpStatus.OK);

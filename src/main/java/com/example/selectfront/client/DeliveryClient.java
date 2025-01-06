@@ -1,6 +1,7 @@
 package com.example.selectfront.client;
 
 
+import com.example.selectfront.dto.chat.ChatMessageRequestDTO;
 import com.example.selectfront.dto.chat.ChatRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +18,5 @@ public interface DeliveryClient {
     @PostMapping("/send")
     ResponseEntity<String> chatSend(@RequestBody ChatRequestDTO chatRequestDTO);
     @GetMapping("/messages")
-    ResponseEntity<List<Object>> getMessages(@RequestParam String orderId);
+    ResponseEntity<List<Object>> getMessages(@RequestParam String orderId,  @RequestParam Long fromTimestamp);
 }
