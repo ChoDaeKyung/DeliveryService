@@ -3,9 +3,7 @@ package com.example.selectfront.client;
 
 import com.example.selectfront.dto.ClaimsRequestDTO;
 import com.example.selectfront.dto.ClaimsResponseDTO;
-import com.example.selectfront.dto.ClaimsRequestDTO;
 import com.example.selectfront.dto.findMemberResponseDTO;
-import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "LoginClient", url = "${swfm.service-url}/auth")
+@FeignClient(name = "LoginClient", url = "${swfm.auth-url}")
 public interface LoginClient {
 
     //POST 데이터 요청 (데이터 생성)
@@ -47,6 +45,4 @@ public interface LoginClient {
 
     @PostMapping("/auths/claims")
     ClaimsResponseDTO getClaims(@RequestBody ClaimsRequestDTO claimsRequestDTO);
-    @PostMapping("/auths/validToken")
-    LoginSussesResponseDTO getLogin(@RequestBody ValidTokenRequestDTO token);
-  }
+}

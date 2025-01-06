@@ -34,29 +34,78 @@ function checkAndFetchNickname() {
     });
 }
 
-$('#checkNicknameButton').on('click', function () {
-    const newNickname = $('#newNickname').val(); // 새 닉네임 입력 값 가져오기
+$(function () {
+    $('#checkNicknameButton').on('click', function () {
+        const newNickname = $('#newNickname').val();
 
+        if (!newNickname) {
+            alert('닉네임을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/user/check-nickname', // 프론트엔드 컨트롤러 API
+            contentType: 'application/json',
+            data: JSON.stringify({ nickname: newNickname }),
+            success: function (response) {
+                console.log(response);
+                if (response) {
+                    alert('이미 사용 중인 닉네임입니다.');
+                } else {
+                    alert('사용 가능한 닉네임입니다!');
+                }
+            },
+            error: function (xhr, status, error) {  // xhr, status, error 인자를 추가
+                console.error('에러 발생:', xhr.responseText);  // xhr.responseText로 에러 메시지 출력
+                alert('중복 검사 중 오류가 발생했습니다.');
+            }
+        });
+    });
+});
+
+function updateNickname() {
+    const newNickname = document.getElementById('newNickname').value;
+    const userid = document.getElementById('userid').value;
     if (!newNickname) {
-        alert('닉네임을 입력해주세요.');
+        alert('닉네임을 입력해 주세요.');
         return;
     }
+    // 버튼 비활성화 (중복 클릭 방지)
+    const updateButton = document.getElementById('updateNicknameButton');
+    updateButton.disabled = true;
 
+    // AJAX 요청: 닉네임 수정
     $.ajax({
         type: 'POST',
-        url: '/user/check-nickname', // 서버 API 엔드포인트
-        data: JSON.stringify({ nickname: newNickname }),
+        url: '/user/update-nickname',
         contentType: 'application/json',
-        success: function (response) {
-            if (response.exists) {
-                alert('이미 사용 중인 닉네임입니다.');
+        data: JSON.stringify({ nickname: newNickname, userId: userid  }),
+        success: function(response) {
+            console.log('응답:', response); // 응답 확인
+            if (response === "success") {
+                alert('닉네임이 성공적으로 변경되었습니다!');
+                window.location.replace('/mypage');
+
             } else {
-                alert('사용 가능한 닉네임입니다!');
+                alert('닉네임 변경에 실패했습니다.');
             }
         },
-        error: function () {
-            alert('중복 검사 중 오류가 발생했습니다.');
+        error: function(xhr, status, error) {
+            console.error('닉네임 수정 실패:', xhr.responseText);
+            alert('닉네임 수정 중 오류가 발생했습니다.');
+        },
+        complete: function() {
+            // 요청이 끝난 후 버튼 활성화
+            updateButton.disabled = false;
         }
+    });
+
+}
+
+$(function () {
+    $('#updateNicknameButton').on('click', function () {
+        updateNickname();
     });
 });
 
@@ -66,31 +115,5 @@ $('#checkNicknameButton').on('click', function () {
 
 
 
-// updateNickname 함수
-//     function updateNickname() {
-//         const newNickname = document.getElementById('new-nickname').value;
-//         const userId = document.getElementById('user-id').value;
-//
-//         if (!newNickname) {
-//             alert('새 닉네임을 입력해 주세요.');
-//             return;
-//         }
-//
-//         $.ajax({
-//             type: 'PATCH',
-//             url: 'http://localhost:9010/user/update-nickname',  // 백엔드 포트 추가
-//             data: JSON.stringify({
-//                 userId: userId,
-//                 newNickname: newNickname
-//             }),
-//             contentType: 'application/json',
-//             success: function (response) {
-//                 alert('닉네임이 성공적으로 변경되었습니다!');
-//                 window.location.href = '/mypage';  // 변경된 페이지로 리디렉션
-//             },
-//             error: function (error) {
-//                 alert('닉네임 변경에 실패했습니다. 다시 시도해 주세요.');
-//             }
-//         });
-//     }
+
 
