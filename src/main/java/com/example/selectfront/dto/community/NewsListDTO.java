@@ -1,4 +1,4 @@
-package com.example.selectfront.dto;
+package com.example.selectfront.dto.community;
 
 
 import lombok.Getter;

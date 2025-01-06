@@ -3,7 +3,9 @@ package com.example.selectfront.client;
 
 import com.example.selectfront.dto.ClaimsRequestDTO;
 import com.example.selectfront.dto.ClaimsResponseDTO;
+import com.example.selectfront.dto.ClaimsRequestDTO;
 import com.example.selectfront.dto.findMemberResponseDTO;
+import com.example.selectfront.dto.ClaimsResponseDTO;
 import com.example.selectfront.dto.member.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

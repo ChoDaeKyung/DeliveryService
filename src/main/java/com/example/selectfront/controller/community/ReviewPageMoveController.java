@@ -1,7 +1,9 @@
-package com.example.selectfront.controller;
+package com.example.selectfront.controller.community;
 
-import com.example.selectfront.dto.NewsDetailDTO;
-import com.example.selectfront.service.NewsService;
+import com.example.selectfront.dto.community.NewsDetailDTO;
+import com.example.selectfront.dto.community.ReviewDetailDTO;
+import com.example.selectfront.service.community.NewsService;
+import com.example.selectfront.service.community.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -12,27 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/review")
 @RequiredArgsConstructor
-public class NewsPageMoveController {
-    private final NewsService newsService;
+public class ReviewPageMoveController {
+
+    private final ReviewService reviewService;
 
     @GetMapping("/create")
     public String create() {
-        return "admin_news_create";
+        return "review_create";
     }
 
-    @GetMapping("/detail")
-    public String detail(@RequestParam int id , Model model) {
-        model.addAttribute("id", id);
-        return "detail_news";
-    }
     @GetMapping("/update")
     public String update(@RequestParam long id , Model model) {
         model.addAttribute("postId", id);
-        NewsDetailDTO newsDetailDTO = newsService.getNews(id);
-        model.addAttribute("detail", newsDetailDTO);
+        ReviewDetailDTO reviewDetailDTO = reviewService.getReview(id);
+        model.addAttribute("detail", reviewDetailDTO);
 
-        return "admin_news_update";
+        return "review_update";
     }
+
 }
