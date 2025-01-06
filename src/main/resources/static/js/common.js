@@ -114,7 +114,7 @@ let failed=() => {
     // 실패 시 기본 동작
     alert('로그인이 필요합니다. 다시 로그인해주세요.');
     localStorage.removeItem('accessToken');
-    window.location.href = '/login';
+  //  window.location.href = '/login';
 }
 
 let getUserInfo = () => {

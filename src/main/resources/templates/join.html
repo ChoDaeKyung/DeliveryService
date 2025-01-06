@@ -8,6 +8,7 @@
     <script th:src="@{/js/join.js}"></script>
     <link th:href="@{/css/common.css}" rel="stylesheet">
     <link th:href="@{/css/join.css}" rel="stylesheet">
+    <script th:src="@{/js/dropdown.js}"></script>
 </head>
 <body>
 <div class="navbar">
@@ -21,7 +22,14 @@
     <div class="menu" id="menuList">
         <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
         <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
-        <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+        <!-- 커뮤니티 드롭다운 메뉴 -->
+        <div class="dropdown">
+            <a class="menu-item menu-3" onclick="toggleDropdown()">커뮤니티</a>
+            <div class="dropdown-content">
+                <a th:href="@{/news}">새소식</a>
+                <a th:href="@{/review}">리뷰</a>
+            </div>
+        </div>
         <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
         <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
     </div>

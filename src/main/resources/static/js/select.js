@@ -12,11 +12,13 @@ $(document).ready(function () {
 
         const isSelected = $(this).hasClass("selected");
         if (isSelected) {
+            // 선택 해제
             $(this).removeClass("selected");
             mainList = mainList.filter(
                 item => item.name !== itemName || item.category !== category || item.price !== price
             );
         } else {
+            // 선택 추가
             $(this).addClass("selected");
             mainList.push({ name: itemName, category: category, price: price });
         }
