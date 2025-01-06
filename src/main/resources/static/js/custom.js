@@ -198,8 +198,8 @@ $(document).ready(function () {
     });
 
 
-    $("#addproducts").on("click", function () {
-        addproductsModal.style.display = "block";
+    $(document).on("click", "#selectCustom", function () {
+        $("#addproductsModal").css("display", "block");
     });
 
     $("#breadSelect").on("click", function () {
@@ -312,47 +312,6 @@ $(document).ready(function () {
         addproductsModal.style.display = "none";
     });
 
-    $('.addcompleteproduct').on('click', function () {
-        // 모든 sectionId에 해당하는 모든 상품들의 가격 합을 계산
-
-        const name = $("input[placeholder='상품명을 입력해주세요']").val(); // 상품명
-        const detail = $("textarea[placeholder='상품 설명을 입력해주세요']").val(); // 상품 설명
-        const price = parseInt($("input[placeholder='가격을 입력해주세요']").val(), 10); // 가격
-
-        const fileInput = $("#productImage")[0]; // 파일 input 요소
-        const file = fileInput.files[0]; // 선택된 첫 번째 파일
-
-        // FormData 객체 생성
-        let formData = new FormData();
-
-        // 폼 데이터에 추가
-        formData.append("name", name);
-        formData.append("price", price);
-        formData.append("detail", detail);
-        formData.append("productsList", JSON.stringify(mainList));  // 이미 존재하는 구성품 리스트
-        formData.append("image", file);  // 이미지 파일 추가
-
-        console.log('formData :: ', formData)
-
-        // AJAX 요청 보내기
-        $.ajax({
-            url: '/webs/api/admin/addcompleteproducts',
-            method: 'POST',
-            data: formData,
-            processData: false, // 파일을 FormData로 전송 시 필수 (jQuery가 자동으로 처리하지 않도록 설정)
-            contentType: false, // 파일 전송 시 content-type을 자동으로 설정하지 않도록 설정
-            success: function (response) {
-                console.log("Response received:", response);
-                if(response === "success") {
-                    alert("장바구니 담기에 성공하셨습니다!");
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("에러 발생:", error); // 에러 디버깅
-                alert("서버와 통신 중 문제가 발생했습니다.");
-            }
-        });
-    });
 })
 
 let getProducts = () => {
@@ -383,7 +342,7 @@ let getProducts = () => {
                 if (categoryContainer) {
                     const productHtml = `
                         <div class="sandwich-item">
-                            <img src="${product.image}" alt="${product.name}" class="sandwich-image">
+                            <img src="${product.image}" alt="${product.name}" class="custom-sandwich-image">
                             <div class="sandwich-text">
                                 <h3>${product.name}</h3>
                                 <p>${product.price}원</p>
