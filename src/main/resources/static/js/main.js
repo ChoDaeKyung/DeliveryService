@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    // checkToken();//토큰 있는지 확인
+    // setupAjax();// 토큰 인증에 담기
+    // checkModel();
     //checkToken();//토큰 있는지 확인
     //setupAjax();// 토큰 인증에 담기
     checkModel();
@@ -20,13 +23,13 @@ function showSection(sectionId) {
         selectedSection.style.display = 'block';
     }
 
-
 }
 
 function checkModel() {
     let sectionId = $('#hiddenSectionId').val();
     console.log('sectionId :: ', sectionId)
     if(sectionId !== '' && sectionId !== null){
+        window.location.href('/main');
         showSection(sectionId);
     }else{
         showSection('menu');

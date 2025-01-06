@@ -2,6 +2,7 @@ package com.example.selectfront.controller;
 
 import com.example.selectfront.dto.CartResponseDTO;
 import com.example.selectfront.dto.CompleteCartRequestDTO;
+import com.example.selectfront.dto.CustomCartRequestDTO;
 import com.example.selectfront.dto.InsertCartRequestDTO;
 import com.example.selectfront.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,16 @@ public class CartApiController {
             ){
         System.out.println("completeCartRequestDTO: " + completeCartRequestDTO);
         cartService.insertCompleteProductToCart(completeCartRequestDTO);
+        return ResponseEntity.ok("success");
+    }
+
+    @PostMapping("/custom")
+    public ResponseEntity<String> insertCustomToCart(
+            @RequestBody CustomCartRequestDTO customCartRequestDTO
+    ){
+        System.out.println("헤헤헤헤헤헤헤");
+        System.out.println("customCartRequestDTO: " + customCartRequestDTO);
+        cartService.insertCustomToCart(customCartRequestDTO);
         return ResponseEntity.ok("success");
     }
 

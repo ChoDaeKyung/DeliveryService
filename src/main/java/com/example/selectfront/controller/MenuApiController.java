@@ -32,4 +32,12 @@ public class MenuApiController {
         System.out.println("menuService.getProductsByCompleteProduct() : " + menuService.getProductsByCompleteProduct(name));
         return menuService.getProductsByCompleteProduct(name);
     }
+
+    @GetMapping("/getMenuListByName")
+    public GetMenuListResponseDTO getMenuListByName(
+            @RequestParam("name") String name
+    ) {
+        System.out.println("name : " + name);
+        return menuService.getMenuListByName(name);
+    }
 }

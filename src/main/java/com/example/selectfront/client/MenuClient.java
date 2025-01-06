@@ -18,4 +18,7 @@ public interface MenuClient {
     @GetMapping("/getProducts")
     List<GetDetailProductsDTO> getProductsByCompleteProduct(@RequestParam String name);
 
+    @GetMapping("/getMenuListByName")
+    GetMenuListResponseDTO getMenuListByName(@RequestParam String name);
+
 }

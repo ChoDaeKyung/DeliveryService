@@ -2,6 +2,7 @@ package com.example.selectfront.client;
 
 import com.example.selectfront.dto.CartResponseDTO;
 import com.example.selectfront.dto.CompleteCartRequestDTO;
+import com.example.selectfront.dto.CustomCartRequestDTO;
 import com.example.selectfront.dto.InsertCartRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,4 +20,7 @@ public interface CartClient {
 
     @GetMapping("/getCartList")
     CartResponseDTO getCartList(@RequestParam String nickName);
+
+    @PostMapping("/custom")
+    String insertCustomToCart(@RequestBody CustomCartRequestDTO customCartRequestDTO);
 }

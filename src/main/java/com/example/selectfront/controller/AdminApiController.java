@@ -2,7 +2,6 @@ package com.example.selectfront.controller;
 
 import com.example.selectfront.dto.AddCompleteProductDetailDto;
 import com.example.selectfront.dto.AddCompleteProductRequestDTO;
-import com.example.selectfront.dto.ProductRequestDTO;
 import com.example.selectfront.service.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
