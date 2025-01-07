@@ -2,6 +2,7 @@ package com.example.selectfront.controller;
 
 import com.example.selectfront.dto.AddCompleteProductDetailDto;
 import com.example.selectfront.dto.AddCompleteProductRequestDTO;
+import com.example.selectfront.dto.AddProductRequestDTO;
 import com.example.selectfront.service.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -85,6 +86,60 @@ public class AdminApiController {
         System.out.println(addCompleteProductRequestDTOBuilder);
 
         adminService.addCompleteProducts(addCompleteProductRequestDTOBuilder.build());
+        return ResponseEntity.ok("success");
+    }
+
+    @PostMapping("/addproduct")
+    public ResponseEntity<String> addproduct(
+            @RequestParam("name") String name,
+            @RequestParam("category") String category,
+            @RequestParam("price") int price,
+            @RequestParam("image") MultipartFile image
+    ) throws JsonProcessingException {
+        System.out.println("name: " + name);
+        System.out.println("category: " + category);
+        System.out.println("price: " + price);
+        System.out.println("image: " + image.getOriginalFilename());
+
+
+        if (image.isEmpty()) {
+            throw new RuntimeException("No file selected");
+        }
+
+
+        // 파일 확장자 추출 (예: ".jpg", ".png")
+        String fileExtension = getFileExtension(image.getOriginalFilename());
+
+        // 새로운 파일 이름 설정 (name 값 + 확장자)
+        String fileName = name + fileExtension;
+
+        // 저장할 파일 경로 설정
+        Path path = Paths.get(uploadDir + "/" + fileName);
+
+        File uploadDirFile = new File(uploadDir);
+        if (!uploadDirFile.exists()) {
+            uploadDirFile.mkdirs();
+        }
+
+        try {
+            image.transferTo(path.toFile());
+            System.out.println("File saved to: " + path.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to store file");
+        }
+
+        System.out.println("File path: " + path.toString());
+
+        AddProductRequestDTO.AddProductRequestDTOBuilder addProductRequestDTOBuilder = AddProductRequestDTO.builder()
+                .name(name)
+                .category(category)
+                .price(price)
+                .imagePath(path.toString());
+
+        System.out.println(addProductRequestDTOBuilder);
+
+        adminService.addProducts(addProductRequestDTOBuilder.build());
         return ResponseEntity.ok("success");
     }
 

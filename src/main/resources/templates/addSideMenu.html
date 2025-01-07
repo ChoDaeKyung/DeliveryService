@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+  <script th:src="@{/js/addProduct.js}"></script>
+  <link th:href="@{/css/admin.css}" rel="stylesheet">
+  <link th:href="@{/css/addSideMenu.css}" rel="stylesheet">
+  <title>상품 추가</title>
+</head>
+<body>
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">SWFM</div>
+    <nav>
+      <ul>
+        <li><a href="#">봄날에 디자인연...</a></li>
+        <li><a href="#">디자인모드</a></li>
+        <li><a th:href="@{/menu}">사이트 바로가기</a></li>
+      </ul>
+      <h4>사이트 관리</h4>
+      <ul>
+        <li><a th:href="@{/admin/addCompleteProduct}">상품추가</a></li>
+        <li><a th:href="@{/admin/addProduct}">재료추가</a></li>
+        <li><a th:href="@{/admin/addSideMenu}" class="active">사이드메뉴추가</a></li>
+        <li><a href="#">판매내역</a></li>
+        <li><a href="#">주문현황</a></li>
+        <li><a href="#">통계</a></li>
+        <li><a href="#">환경설정</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <header>
+      <h1>재료추가</h1>
+    </header>
+
+    <section class="dashboard">
+      <div class="top-cards">
+        <div class="card">
+          <h3>오늘의 할 일</h3>
+          <p>현재 상품 개수 <strong>0</strong></p>
+          <p>누적 주문량 <strong>0</strong></p>
+        </div>
+      </div>
+
+      <div class="product-form-container">
+        <h3>추가할 상품의 정보를 입력해주세요</h3>
+        <form>
+          <div class="form-group">
+            <!-- 이미지 업로드 -->
+            <div class="image-upload">
+              <label for="productImage" id="imageLabel">이미지 선택</label>
+              <input type="file" id="productImage" accept="image/*">
+              <!-- 이미지 미리보기 영역 -->
+              <div class="image-preview">
+                <img id="previewImage" src="#" alt="미리보기 이미지" style="display: none; width: 230px; height: 230px;">
+              </div>
+            </div>
+            <!-- 상품 정보 -->
+            <div class="product-details">
+              <label>상품명:</label>
+              <input type="text" placeholder="상품명을 입력해주세요">
+
+              <label for="categorySelect">분류:</label>
+              <select id="categorySelect">
+                <option value="" selected disabled>-어떤 상품인가요?-</option>
+                <option value="fried">튀김</option>
+                <option value="cookie">쿠키</option>
+                <option value="coffee">커피</option>
+                <option value="drink">음료</option>
+              </select>
+
+              <label>가격:</label>
+              <input type="number" placeholder="가격을 입력해주세요">
+
+              <button class="addSideMenu">추가하기</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>

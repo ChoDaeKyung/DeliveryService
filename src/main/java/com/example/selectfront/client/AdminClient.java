@@ -1,6 +1,7 @@
 package com.example.selectfront.client;
 
 import com.example.selectfront.dto.AddCompleteProductRequestDTO;
+import com.example.selectfront.dto.AddProductRequestDTO;
 import com.example.selectfront.dto.InsertCartRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "AdminClient", url="${swfm.service-url}/admin")
 public interface AdminClient {
-    @PostMapping
+    @PostMapping("/addCompleteProduct")
     String addCompleteProduct(@RequestBody AddCompleteProductRequestDTO addCompleteProductRequestDTO);
+
+    @PostMapping("/addProduct")
+    String addProduct(@RequestBody AddProductRequestDTO addProductRequestDTO);
+
 }

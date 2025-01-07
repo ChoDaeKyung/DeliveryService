@@ -56,6 +56,16 @@ public class FrontController {
         return "addCompleteProduct";
     }
 
+    @GetMapping("/admin/addProduct")
+    public String addProduct() {
+        return "addProduct";
+    }
+
+    @GetMapping("/admin/addSideMenu")
+    public String addSideMenu() {
+        return "addSideMenu";
+    }
+
     @GetMapping("/mypage/cartList")
     public String cartList() {
         return "cartList";

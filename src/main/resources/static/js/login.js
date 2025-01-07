@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
         // Toggle between Sign In and Sign Up forms
         $("#signin-tab").click(function () {
             $("#signin-form").addClass("active");
@@ -14,7 +15,8 @@ $(document).ready(function () {
             $("#signin-tab").removeClass("active");
         });
 
-    $('#login-button').click(function () {
+    $('#login-button').click(function (event) {
+        event.preventDefault();
         const userId = $('#signin-id').val();  // 입력된 ID 값
         const userPassword = $('#signin-password').val();  // 입력된 비밀번호 값
 
