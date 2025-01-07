@@ -70,6 +70,7 @@ public class FrontController {
     public String cartList() {
         return "cartList";
     }
+
     @GetMapping("/chat")
     public String chat() {
         return "chat_delivery";
