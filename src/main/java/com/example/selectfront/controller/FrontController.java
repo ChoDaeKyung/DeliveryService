@@ -75,4 +75,9 @@ public class FrontController {
     public String chat() {
         return "chat_delivery";
     }
+
+    @GetMapping("/mypage/availableReview")
+    public String availableReview() {
+        return "/review/availableReview";
+    }
 }
