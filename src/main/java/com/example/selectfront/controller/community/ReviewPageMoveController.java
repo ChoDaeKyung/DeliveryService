@@ -20,10 +20,6 @@ public class ReviewPageMoveController {
 
     private final ReviewService reviewService;
 
-    @GetMapping("/create")
-    public String create() {
-        return "review_create";
-    }
 
     @GetMapping("/update")
     public String update(@RequestParam long id , Model model) {

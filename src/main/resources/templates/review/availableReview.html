@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
-    <script th:src="@{/js/cartList.js}"></script>
+
     <script src="https://js.tosspayments.com/v2"></script>
     <link th:href="@{/css/user.css}" rel="stylesheet">
-    <link th:href="@{/css/cartList.css}" rel="stylesheet">
     <link th:href="@{/css/review.css}" rel="stylesheet">
     <script th:src="@{/js/community/review.js}"></script>
+    <script th:src="@{/js/community/availableReview.js}"></script>
     <title>작성 가능한 리뷰</title>
 </head>
 <body>
@@ -25,7 +25,7 @@
             </ul>
             <h4>사이트 관리</h4>
             <ul>
-                <li><a href="#">장바구니</a></li>
+                <li><a href="#" th:href="@{/mypage/cartList}">장바구니</a></li>
                 <li><a href="#">주문내역</a></li>
                 <li><a href="#">쿠폰현황</a></li>
                 <li><a href="#">내정보</a></li>
@@ -102,7 +102,7 @@
 
             <!-- 완료 버튼 -->
             <button type="button" onclick="createReview();">완료 !</button>
-            <button type="button" onclick="closeModal();" style="background-color: #ccc;">취소</button>
+            <button type="button" onclick="closeModal();">취소</button>
 
         </form>
     </section>
