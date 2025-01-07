@@ -22,6 +22,7 @@
 /* 뉴스 리스트 테이블 스타일 */
 #newsContainer {
     width: 100%;
+    height: 500px;
     margin-top: 15px;
     overflow-x: auto; /* 내용이 넘칠 경우 스크롤 활성화 */
 }

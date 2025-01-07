@@ -29,5 +29,10 @@ public interface ReviewClient {
     );
 
 
-
+    @GetMapping
+    ReviewListDTO getReviewList(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestParam("page") int page,
+            @RequestParam("pageSize") int pageSize
+    );
 }

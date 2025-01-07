@@ -1,12 +1,11 @@
 package com.example.selectfront.controller.community;
 
-import com.example.selectfront.dto.community.CreateNewsRequestDTO;
-import com.example.selectfront.dto.community.CreateNewsResponseDTO;
-import com.example.selectfront.dto.community.CreateReviewRequestDTO;
-import com.example.selectfront.dto.community.CreateReviewResponseDTO;
+import com.example.selectfront.domain.Review;
+import com.example.selectfront.dto.community.*;
 import com.example.selectfront.service.community.NewsService;
 import com.example.selectfront.service.community.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +70,28 @@ public class ReviewApiController {
 
         // 리뷰 수정 서비스 호출
         return ResponseEntity.ok(reviewService.updateReview(requestDTO, images));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getReview(@RequestParam int page, @RequestParam int pageSize,String token) {
+        System.out.println("revew"+page+pageSize+token);
+        try {
+            ReviewListDTO reviewList = reviewService.getReview(page, pageSize,token);
+            System.out.println("reviewList.getReviewList() :: " + reviewList.getReviewList());
+            return ResponseEntity.ok(reviewList); // JSON 응답 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching news");
+        }
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> getReview(@RequestParam Long id) {
+        try {
+            ReviewDetailDTO ReviewList = reviewService.getReview(id);
+            return ResponseEntity.ok(ReviewList); // JSON 응답 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching news");
+        }
     }
 
 }
