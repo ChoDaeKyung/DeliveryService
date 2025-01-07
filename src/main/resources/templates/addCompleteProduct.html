@@ -18,15 +18,15 @@
       <ul>
         <li><a href="#">봄날에 디자인연...</a></li>
         <li><a href="#">디자인모드</a></li>
-        <li><a th:href="@{/menu}" class="active">사이트 바로가기</a></li>
+        <li><a th:href="@{/menu}">사이트 바로가기</a></li>
       </ul>
       <h4>사이트 관리</h4>
       <ul>
-        <li><a href="#" class="active">상품추가</a></li>
-        <li><a href="#">사용자 관리</a></li>
-        <li><a href="#">쇼핑</a></li>
-        <li><a href="#">컨텐츠 관리</a></li>
-        <li><a href="#">마케팅 관리</a></li>
+        <li><a th:href="@{/admin/addCompleteProduct}" class="active">상품추가</a></li>
+        <li><a th:href="@{/admin/addProduct}">재료추가</a></li>
+        <li><a th:href="@{/admin/addSideMenu}">사이드메뉴추가</a></li>
+        <li><a href="#">판매내역</a></li>
+        <li><a href="#">주문현황</a></li>
         <li><a href="#">통계</a></li>
         <li><a href="#">환경설정</a></li>
       </ul>
@@ -100,9 +100,9 @@
         <img src="source.jpg" alt="Source">
         <div class="text">Source&nbsp&nbsp</div>
       </div>
-      <div class="rectangle" id="drinkSelect">
-        <img src="drink.jpg" alt="Drink">
-        <div class="text">Drink&nbsp&nbsp</div>
+      <div class="rectangle" id="cheeseSelect">
+        <img src="cheese.jpg" alt="Cheese">
+        <div class="text">Cheese&nbsp&nbsp</div>
       </div>
     </div>
     </div>
@@ -126,7 +126,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
@@ -178,7 +178,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
@@ -193,7 +193,7 @@
         </div>
         <div>
           <button class="gotoMeatModal beforebutton">이전</button>
-          <button class="gotoDrinkModal nextbutton">다음</button>
+          <button class="gotoCheeseModal nextbutton">다음</button>
           <button class="completeaddproducts">선택완료</button>
         </div>
         <div class="choiceSectionContainer">
@@ -204,16 +204,16 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="drinkModal" class="modal">
+    <div id="cheeseModal" class="modal">
       <div class="modal-content">
-        <span class="close-button" id="drinkClose">&times;</span>
-        <h2>음료 목록</h2>
+        <span class="close-button" id="cheeseClose">&times;</span>
+        <h2>치즈 목록</h2>
         <div class="sandwich-container">
           <!-- 상품 목록은 동적으로 추가됩니다 -->
         </div>
@@ -229,7 +229,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>

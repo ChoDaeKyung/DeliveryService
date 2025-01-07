@@ -3,6 +3,7 @@ package com.example.selectfront.service;
 import com.example.selectfront.client.AdminClient;
 import com.example.selectfront.client.SelectClient;
 import com.example.selectfront.dto.AddCompleteProductRequestDTO;
+import com.example.selectfront.dto.AddProductRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,10 @@ public class AdminService {
     public String addCompleteProducts(AddCompleteProductRequestDTO addCompleteProductRequestDTO) {
         System.out.println("addCompleteProductRequestDTO :: " + addCompleteProductRequestDTO);
         return adminClient.addCompleteProduct(addCompleteProductRequestDTO);
+    }
+
+    public String addProducts(AddProductRequestDTO addProductRequestDTO) {
+        System.out.println("addProductRequestDTO :: " + addProductRequestDTO);
+        return adminClient.addProduct(addProductRequestDTO);
     }
 }

@@ -32,7 +32,7 @@ $(document).ready(function () {
         const items = mainList;
 
         // 초기화
-        choiceSection.find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .drinkSection").html(function () {
+        choiceSection.find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .cheeseSection").html(function () {
             const category = $(this).attr("class").replace("Section", "");
             return `${category.charAt(0).toUpperCase() + category.slice(1)} :`;
         });
@@ -60,12 +60,12 @@ $(document).ready(function () {
     const vegetableModal = document.getElementById("vegetableModal");
     const meatModal = document.getElementById("meatModal");
     const sourceModal = document.getElementById("sourceModal");
-    const drinkModal = document.getElementById("drinkModal");
+    const cheeseModal = document.getElementById("cheeseModal");
     const closeBreadButton = document.querySelector("#breadClose");
     const closeVegetableButton = document.querySelector("#vegetableClose");
     const closeMeatButton = document.querySelector("#meatClose");
     const closeSourceButton = document.querySelector("#sourceClose");
-    const closeDrinkButton = document.querySelector("#drinkClose");
+    const closeCheeseButton = document.querySelector("#cheeseClose");
 
     function clearModalState() {
         $(".sandwich-item").removeClass("selected"); // 선택된 상품 초기화
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
         // 각 choiceSection에서 상품 초기화
         $(".choiceSection").each(function () {
-            $(this).find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .drinkSection").html(function() {
+            $(this).find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .cheeseSection").html(function() {
                 const category = $(this).attr('class').replace('Section', '');
                 return `${category.charAt(0).toUpperCase() + category.slice(1)} :`; // 기본 텍스트로 초기화
             });
@@ -139,8 +139,8 @@ $(document).ready(function () {
         if(meatModal.style.display === "block") {
             meatModal.style.display = "none";
             sourceModal.style.display = "block";
-        }else if(drinkModal.style.display === "block") {
-            drinkModal.style.display = "none";
+        }else if(cheeseModal.style.display === "block") {
+            cheeseModal.style.display = "none";
             sourceModal.style.display = "block";
         }
         if (activeSection) {
@@ -150,9 +150,9 @@ $(document).ready(function () {
         restoreActiveSection();
     });
 
-    $(".gotoDrinkModal").on("click", function () {
+    $(".gotoCheeseModal").on("click", function () {
             sourceModal.style.display = "none";
-            drinkModal.style.display = "block";
+            cheeseModal.style.display = "block";
         if (activeSection) {
             const sectionId = activeSection.data("sectionid");
             renderSectionData(sectionId);
@@ -175,8 +175,8 @@ $(document).ready(function () {
         activateDefaultSection();
     });
 
-    $("#drinkSelect").on("click", function () {
-        drinkModal.style.display = "block";
+    $("#cheeseSelect").on("click", function () {
+        cheeseModal.style.display = "block";
         activateDefaultSection();
     });
 
@@ -200,9 +200,9 @@ $(document).ready(function () {
         sourceModal.style.display = "none";
     });
 
-    closeDrinkButton.addEventListener("click", function () {
+    closeCheeseButton.addEventListener("click", function () {
         clearModalState();
-        drinkModal.style.display = "none";
+        cheeseModal.style.display = "none";
     });
 
     $('.selectOrder').on('click', function () {
@@ -253,7 +253,7 @@ let getProducts = () => {
 
             // 카테고리와 모달 ID 매핑
             const categories = {
-                drink: '#drinkModal',
+                cheese: '#cheeseModal',
                 meat: '#meatModal',
                 source: '#sourceModal',
                 vegetable: '#vegetableModal',

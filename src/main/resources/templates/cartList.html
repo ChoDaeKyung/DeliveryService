@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
   <script th:src="@{/js/cartList.js}"></script>
+  <script src="https://js.tosspayments.com/v2"></script>
   <link th:href="@{/css/user.css}" rel="stylesheet">
   <link th:href="@{/css/cartList.css}" rel="stylesheet">
   <title>상품 추가</title>
@@ -18,16 +19,15 @@
       <ul>
         <li><a href="#">봄날에 디자인연...</a></li>
         <li><a href="#">디자인모드</a></li>
-        <li><a th:href="@{/menu}" class="active">사이트 바로가기</a></li>
+        <li><a th:href="@{/menu}">사이트 바로가기</a></li>
       </ul>
       <h4>사이트 관리</h4>
       <ul>
-        <li><a href="#" class="active">상품추가</a></li>
-        <li><a href="#">사용자 관리</a></li>
-        <li><a href="#">쇼핑</a></li>
-        <li><a href="#">컨텐츠 관리</a></li>
-        <li><a href="#">마케팅 관리</a></li>
-        <li><a href="#">통계</a></li>
+        <li><a href="#" class="active">장바구니</a></li>
+        <li><a href="#">주문내역</a></li>
+        <li><a href="#">리뷰현황</a></li>
+        <li><a href="#">쿠폰현황</a></li>
+        <li><a href="#">내정보</a></li>
         <li><a href="#">환경설정</a></li>
       </ul>
     </nav>
@@ -84,9 +84,9 @@
         <img src="source.jpg" alt="Source">
         <div class="text">Source&nbsp&nbsp</div>
       </div>
-      <div class="rectangle" id="drinkSelect">
-        <img src="drink.jpg" alt="Drink">
-        <div class="text">Drink&nbsp&nbsp</div>
+      <div class="rectangle" id="cheeseSelect">
+        <img src="cheese.jpg" alt="Cheese">
+        <div class="text">Cheese&nbsp&nbsp</div>
       </div>
     </div>
     </div>
@@ -110,7 +110,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
@@ -177,7 +177,7 @@
         </div>
         <div>
           <button class="gotoMeatModal beforebutton">이전</button>
-          <button class="gotoDrinkModal nextbutton">다음</button>
+          <button class="gotoCheeseModal nextbutton">다음</button>
           <button class="completeaddproducts">선택완료</button>
         </div>
         <div class="choiceSectionContainer">
@@ -188,16 +188,16 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="drinkModal" class="modal">
+    <div id="cheeseModal" class="modal">
       <div class="modal-content">
-        <span class="close-button" id="drinkClose">&times;</span>
-        <h2>음료 목록</h2>
+        <span class="close-button" id="cheeseClose">&times;</span>
+        <h2>치즈 목록</h2>
         <div class="sandwich-container">
           <!-- 상품 목록은 동적으로 추가됩니다 -->
         </div>
@@ -213,7 +213,7 @@
             <div class="vegetableSection">Vegetable :</div>
             <div class="meatSection">Meat :</div>
             <div class="sourceSection">Source :</div>
-            <div class="drinkSection">Drink :</div>
+            <div class="cheeseSection">Cheese :</div>
           </div>
         </div>
       </div>
