@@ -18,9 +18,13 @@ public class FrontController {
     public String book() {
         return "/bootstrap/book";
     }
-    @GetMapping("/about")
+    @GetMapping("/news")
     public String about() {
-        return "/bootstrap/about";
+        return "/bootstrap/news";
+    }
+    @GetMapping("/review")
+    public String review() {
+        return "/bootstrap/review";
     }
     @GetMapping("/menus")
     public String menus() {
@@ -36,10 +40,6 @@ public class FrontController {
         return "howtouse";
     }
 
-    @GetMapping("/news")
-    public String news() {
-        return "news";
-    }
 
     @GetMapping("/online")
     public String online() {

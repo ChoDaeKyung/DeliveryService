@@ -42,12 +42,8 @@ $(document).ready(function () {
 
     // 뉴스 리스트를 가져오는 함수 (API 호출)
     function fetchNewsList(page = 1, pageSize = 10) {
-        const token = localStorage.getItem("token"); // 로컬 스토리지에서 인증 토큰 가져오기
+        const token = localStorage.getItem("accessToken"); // 로컬 스토리지에서 인증 토큰 가져오기
         const url = '/webs/api/news';
-
-        if (showSection('news')) {
-            currentPage = 1;
-        }
 
         $.ajax({
             url: url,

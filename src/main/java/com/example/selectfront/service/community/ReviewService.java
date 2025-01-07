@@ -63,4 +63,9 @@ public class ReviewService {
     public ReviewDetailDTO getReview(Long id) {
         return reviewClient.getReviewDetail("",id);
     }
+
+    public ReviewListDTO getReview(int page, int pageSize, String token) {
+        return reviewClient.getReviewList("Bearer " + token, page, pageSize);
+    }
+
 }
