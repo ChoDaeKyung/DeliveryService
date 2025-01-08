@@ -23,7 +23,7 @@ const decodeJWT = (token) => {
 };
 
 // 리뷰 생성 함수
-let createReview = () => {
+let createReview = (orderId, productName) => {
     console.log('reviewcreate 함수 호출됨');
     let title = $('#title').val();
     let content = $('#content').val();

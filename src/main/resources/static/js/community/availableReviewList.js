@@ -75,8 +75,10 @@ $(document).ready(function () {
         reviews.forEach(review => {
             const reviewItem = `
                 <div class="review-item">
-                    <h3>상품 제목: ${review.completeProduct}</h3>
-                    <p>주문 번호: ${review.orderId}</p>
+                <div class="product-info">
+                    <h2 class="product-title">상품 제목: ${review.completeProduct}</h2>
+                    <p class="product-description">주문 번호: ${review.orderId}</p>
+                </div>
                     <button class="write-review-btn" data-order-id="${review.orderId}" data-product-name="${review.completeProduct}">
                         리뷰 작성
                     </button>
@@ -89,9 +91,17 @@ $(document).ready(function () {
         $('.write-review-btn').on('click', function () {
             const orderId = $(this).data('order-id');
             const productName = $(this).data('product-name');
-            writeReview(orderId, productName);
+            openModal(orderId, productName);
         });
+
+
     }
+
+    function openModal(orderId, productName) {
+        document.getElementById('reviewModal').style.display = 'flex';
+        console.log('리뷰 작성 모달 열림: 상품 ID', productName);
+    }
+
 
     // 리뷰 작성 함수 (예시)
     function writeReview(orderId, productName) {
@@ -150,3 +160,7 @@ $(document).ready(function () {
         paginationContainer.append(pagination);
     }
 });
+
+function closeModal() {
+    document.getElementById('reviewModal').style.display = 'none';
+}
