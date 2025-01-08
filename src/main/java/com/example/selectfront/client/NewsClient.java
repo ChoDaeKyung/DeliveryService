@@ -1,6 +1,9 @@
-package com.example.selectfront.newsClient;
+package com.example.selectfront.client;
 
-import com.example.selectfront.dto.*;
+import com.example.selectfront.dto.community.CreateNewsRequestDTO;
+import com.example.selectfront.dto.community.CreateNewsResponseDTO;
+import com.example.selectfront.dto.community.NewsDetailDTO;
+import com.example.selectfront.dto.community.NewsListDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +39,7 @@ public interface NewsClient {
     );
 
     @PutMapping
-    ResponseEntity<?> updateNews(
+    ResponseEntity<CreateNewsResponseDTO> updateNews(
             @RequestHeader("Authorization") String authorizationHeader,
             @RequestBody CreateNewsRequestDTO createNewsRequestDTO
     );

@@ -22,5 +22,8 @@ public class MenuService {
         return menuClient.getProductsByCompleteProduct(name);
     }
 
+    public  GetMenuListResponseDTO getMenuListByName(String name) {
+        return menuClient.getMenuListByName(name);
+    }
 
 }

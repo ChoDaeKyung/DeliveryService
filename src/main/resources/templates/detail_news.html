@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>News Details</title>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script th:src="@{/js/detailnews.js}"></script>
+  <script th:src="@{/js/community/detailnews.js}"></script>
   <script th:src="@{/js/select.js}"></script>
   <link th:href="@{/css/main.css}" rel="stylesheet">
   <link th:href="@{/css/common.css}" rel="stylesheet">
   <link th:href="@{/css/news.css}" rel="stylesheet">
+  <script th:src="@{/js/dropdown.js}"></script>
   <title>선택창</title>
 </head>
 <body>
@@ -25,7 +26,13 @@
   <div class="menu" id="menuList">
     <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
     <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
-    <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+    <div class="dropdown">
+      <a class="menu-item menu-3" onclick="toggleDropdown()">커뮤니티</a>
+      <div class="dropdown-content">
+        <a th:href="@{/news}">새소식</a>
+        <a th:href="@{/review}">리뷰</a>
+      </div>
+    </div>
     <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
     <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
   </div>
@@ -45,7 +52,20 @@
 
   </section>
 
-
+  <style>
+    #newsImageContainer {
+      display: flex;           /* Flexbox 사용 */
+      flex-direction: column;  /* 세로 정렬 */
+      align-items: center;     /* 가운데 정렬 */
+      gap: 20px;               /* 이미지 간격 */
+    }
+    .news-image {
+      width: 80%;              /* 너비 80% 설정 */
+      max-width: 600px;        /* 최대 너비 600px */
+      height: auto;            /* 비율 유지 */
+      object-fit: contain;     /* 이미지가 잘리지 않도록 */
+    }
+  </style>
 
 <footer>
   <p>서울시 서초구 강남대로 535 프린스빌딩 15층 대표 : INSOO CHO(인수조) 전화 : 02-797-5036 사업자등록번호 : 101-84-04143</p>

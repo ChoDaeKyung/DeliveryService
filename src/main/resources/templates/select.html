@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
   <script th:src="@{/js/select.js}"></script>
+  <script th:src="@{/js/dropdown.js}"></script>
   <link th:href="@{/css/select.css}" rel="stylesheet">
   <link th:href="@{/css/common.css}" rel="stylesheet">
   <title>선택창</title>
@@ -21,7 +22,13 @@
   <!-- Menu Items -->
   <a th:href="@{/menu}" class="menu-item menu-1">메뉴소개</a>
   <a th:href="@{/howtouse}" class="menu-item menu-2">이용방법</a>
-  <a th:href="@{/news}" class="menu-item menu-3">새소식</a>
+  <div class="dropdown">
+    <a class="menu-item menu-3" onclick="toggleDropdown()">커뮤니티</a>
+    <div class="dropdown-content">
+      <a th:href="@{/news}">새소식</a>
+      <a th:href="@{/review}">리뷰</a>
+    </div>
+  </div>
   <a th:href="@{/market}" class="menu-item menu-4">가맹점</a>
   <a th:href="@{/online}" class="menu-item menu-5">온라인 주문</a>
 

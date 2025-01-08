@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name="userClient",url = "${user.api-url}")
+@FeignClient(name="userClient",url = "${swfm.service-url}/checkUser}")
 public interface UserClient {
     @PostMapping("/user/check-id")  // 외부 API에서 아이디 확인
     Boolean checkUserId(@RequestBody CheckUserIdDTO checkUserIdDTO);

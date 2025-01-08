@@ -9,4 +9,8 @@ public class OrderListController {
     public String menu() {
         return "orderList";
     }
+    @GetMapping("/riderOrderList")
+    public String riderOrderList() {
+        return "rider_delivery";
+    }
 }

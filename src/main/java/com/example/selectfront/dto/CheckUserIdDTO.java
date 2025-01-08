@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class CheckUserIdDTO {
     private String userId;
+    private String nickname;
 }

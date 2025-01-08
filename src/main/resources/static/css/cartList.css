@@ -48,3 +48,21 @@
     min-width: 100px;  /* 아이템 텍스트의 최소 너비 설정 */
     text-align: left;
 }
+
+.orderButton {
+    background-color: #ffcc00;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+    float: right; /* 오른쪽에 위치하도록 추가 */
+}
+
+.orderButton:hover {
+    background-color: #ffaa00;
+    color: white;
+}

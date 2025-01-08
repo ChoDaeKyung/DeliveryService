@@ -336,16 +336,15 @@ $(document).ready(function () {
 
         // AJAX 요청 보내기
         $.ajax({
-            type: "POST",
-            url: "/webs/api/admin/addcompleteproducts",
+            url: '/webs/api/admin/addcompleteproducts',
+            method: 'POST',
             data: formData,
             processData: false, // 파일을 FormData로 전송 시 필수 (jQuery가 자동으로 처리하지 않도록 설정)
             contentType: false, // 파일 전송 시 content-type을 자동으로 설정하지 않도록 설정
             success: function (response) {
-                if (response === "success") {
+                console.log("Response received:", response);
+                if(response === "success") {
                     alert("장바구니 담기에 성공하셨습니다!");
-                } else {
-                    alert("장바구니 담기에 실패하였습니다.");
                 }
             },
             error: function (xhr, status, error) {

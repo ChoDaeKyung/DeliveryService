@@ -14,7 +14,8 @@ $(document).ready(function () {
             $("#signin-tab").removeClass("active");
         });
 
-    $('#login-button').click(function () {
+    $('#login-button').click(function (event) {
+        event.preventDefault();
         const userId = $('#signin-id').val();  // 입력된 ID 값
         const userPassword = $('#signin-password').val();  // 입력된 비밀번호 값
 
@@ -43,12 +44,18 @@ $(document).ready(function () {
                     window.location.href = "/menu";  // 로그인 후 이동할 페이지
                 } else {
                     alert('로그인 실패: 잘못된 아이디 또는 비밀번호입니다!');
+                    // 로그인 요청 후 두 값 비우기
+                    $('#signin-id').val('');
+                    $('#signin-password').val('');
                 }
             },
             error: function (error) {
                 // 로그인 실패 시
                 console.log('로그인 오류', error);
-                alert('로그인 요청에 실패했습니다. 다시 시도해 주세요.');
+                alert('로그인 실패: 잘못된 아이디 또는 비밀번호입니다!');
+                // 로그인 요청 후 두 값 비우기
+                $('#signin-id').val('');
+                $('#signin-password').val('');
             }
         });
     });
