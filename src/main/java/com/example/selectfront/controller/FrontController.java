@@ -18,9 +18,13 @@ public class FrontController {
     public String book() {
         return "/bootstrap/book";
     }
-    @GetMapping("/about")
+    @GetMapping("/news")
     public String about() {
-        return "/bootstrap/about";
+        return "/bootstrap/news";
+    }
+    @GetMapping("/review")
+    public String review() {
+        return "/bootstrap/review";
     }
     @GetMapping("/menus")
     public String menus() {
@@ -36,10 +40,6 @@ public class FrontController {
         return "howtouse";
     }
 
-    @GetMapping("/news")
-    public String news() {
-        return "news";
-    }
 
     @GetMapping("/online")
     public String online() {
@@ -56,12 +56,28 @@ public class FrontController {
         return "addCompleteProduct";
     }
 
+    @GetMapping("/admin/addProduct")
+    public String addProduct() {
+        return "addProduct";
+    }
+
+    @GetMapping("/admin/addSideMenu")
+    public String addSideMenu() {
+        return "addSideMenu";
+    }
+
     @GetMapping("/mypage/cartList")
     public String cartList() {
         return "cartList";
     }
+
     @GetMapping("/chat")
     public String chat() {
         return "chat_delivery";
+    }
+
+    @GetMapping("/mypage/availableReview")
+    public String availableReview() {
+        return "/review/availableReview";
     }
 }

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
         // Toggle between Sign In and Sign Up forms
         $("#signin-tab").click(function () {
             $("#signin-form").addClass("active");

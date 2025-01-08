@@ -2,6 +2,21 @@ $(document).ready(function () {
 
     getProducts();
 
+
+    const decodeJWT = (token) => {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        } catch (error) {
+            console.error('JWT 디코딩 실패:', error);
+            return null;
+        }
+    };
+
     // 페이지가 로드되면 메뉴 데이터를 가져옴
     $.ajax({
         url: '/webs/api/menu', // 서버에서 메뉴 목록을 가져오는 API URL
@@ -124,7 +139,8 @@ $(document).ready(function () {
                     bread: [],
                     vegetable: [],
                     meat: [],
-                    source: []
+                    source: [],
+                    cheese: []
                 };
 
                 // 데이터를 카테고리별로 그룹화
@@ -137,6 +153,8 @@ $(document).ready(function () {
                         categories.meat.push(item);
                     } else if (item.category === 'source') {
                         categories.source.push(item);
+                    } else if (item.category === 'cheese') {
+                        categories.cheese.push(item);
                     }
                 });
 
@@ -237,9 +255,17 @@ $(document).ready(function () {
     $(document).on('click', '.insertCartButton', function () {
         const name = $('#modal-title').text();
         const price = $('#modal-price').text().replace('원', '');
+        const token = localStorage.getItem("accessToken");
+
+        // 토큰이 존재하는지 확인
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
 
         let userId = null;
         const decoded = decodeJWT(token);
+
         if (decoded && decoded.sub) {
             console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
             console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
@@ -287,8 +313,18 @@ $(document).ready(function () {
         event.preventDefault(); // a 태그 기본 동작 방지
         const name = $(this).data('name');
         const price = $(this).data('price');
+
+        const token = localStorage.getItem("accessToken");
+
+        // 토큰이 존재하는지 확인
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
         let userId = null;
         const decoded = decodeJWT(token);
+
         if (decoded && decoded.sub) {
             console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
             console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
@@ -333,8 +369,17 @@ $(document).ready(function () {
 
     $(document).on('click', '.insertCustomCartButton', function () {
 
+        const token = localStorage.getItem("accessToken");
+
+        // 토큰이 존재하는지 확인
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
         let userId = null;
         const decoded = decodeJWT(token);
+
         if (decoded && decoded.sub) {
             console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
             console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
@@ -460,7 +505,7 @@ $(document).ready(function () {
         const items = mainList;
 
         // 초기화
-        choiceSection.find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .drinkSection").html(function () {
+        choiceSection.find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .cheeseSection").html(function () {
             const category = $(this).attr("class").replace("Section", "");
             return `${category.charAt(0).toUpperCase() + category.slice(1)} :`;
         });
@@ -493,7 +538,7 @@ $(document).ready(function () {
             vegetable: [],
             meat: [],
             source: [],
-            drink: []
+            cheese: []
         };
 
         // mainList를 카테고리별로 분류
@@ -542,7 +587,7 @@ $(document).ready(function () {
             vegetable: "채소",
             meat: "고기",
             source: "소스",
-            drink: "음료"
+            cheese: "치즈"
         };
 
         // mainList의 상품을 카테고리별로 그룹화
@@ -654,13 +699,13 @@ $(document).ready(function () {
     const vegetableModal = document.getElementById("vegetableModal");
     const meatModal = document.getElementById("meatModal");
     const sourceModal = document.getElementById("sourceModal");
-    const drinkModal = document.getElementById("drinkModal");
+    const cheeseModal = document.getElementById("cheeseModal");
     const addproductsModal = document.getElementById("addproductsModal");
     const closeBreadButton = document.querySelector("#breadClose");
     const closeVegetableButton = document.querySelector("#vegetableClose");
     const closeMeatButton = document.querySelector("#meatClose");
     const closeSourceButton = document.querySelector("#sourceClose");
-    const closeDrinkButton = document.querySelector("#drinkClose");
+    const closeCheeseButton = document.querySelector("#cheeseClose");
     const closeaddproductsButton = document.querySelector("#addproductsClose");
 
     function activateDefaultSection() {
@@ -721,8 +766,8 @@ $(document).ready(function () {
         if(meatModal.style.display === "block") {
             meatModal.style.display = "none";
             sourceModal.style.display = "block";
-        }else if(drinkModal.style.display === "block") {
-            drinkModal.style.display = "none";
+        }else if(cheeseModal.style.display === "block") {
+            cheeseModal.style.display = "none";
             sourceModal.style.display = "block";
         }
         if (activeSection) {
@@ -732,9 +777,9 @@ $(document).ready(function () {
         restoreActiveSection();
     });
 
-    $(".gotoDrinkModal").on("click", function () {
+    $(".gotoCheeseModal").on("click", function () {
         sourceModal.style.display = "none";
-        drinkModal.style.display = "block";
+        cheeseModal.style.display = "block";
         if (activeSection) {
             const sectionId = activeSection.data("sectionid");
             renderSectionData(sectionId);
@@ -757,8 +802,8 @@ $(document).ready(function () {
         activateDefaultSection();
     });
 
-    $("#drinkSelect").on("click", function () {
-        drinkModal.style.display = "block";
+    $("#cheeseSelect").on("click", function () {
+        cheeseModal.style.display = "block";
         activateDefaultSection();
     });
 
@@ -768,7 +813,7 @@ $(document).ready(function () {
 
         // 각 choiceSection에서 상품 초기화
         $(".choiceSection").each(function () {
-            $(this).find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .drinkSection").html(function() {
+            $(this).find(".breadSection, .vegetableSection, .meatSection, .sourceSection, .cheeseSection").html(function() {
                 const category = $(this).attr('class').replace('Section', '');
                 return `${category.charAt(0).toUpperCase() + category.slice(1)} :`; // 기본 텍스트로 초기화
             });
@@ -796,8 +841,8 @@ $(document).ready(function () {
         // clearModalState();
     });
 
-    closeDrinkButton.addEventListener("click", function () {
-        drinkModal.style.display = "none";
+    closeCheeseButton.addEventListener("click", function () {
+        cheeseModal.style.display = "none";
         // clearModalState();
     });
 
@@ -850,7 +895,7 @@ $(document).ready(function () {
         vegetableModal.style.display = "none";
         meatModal.style.display = "none";
         sourceModal.style.display = "none";
-        drinkModal.style.display = "none";
+        cheeseModal.style.display = "none";
         addproductsModal.style.display = "none";
     });
 
@@ -865,7 +910,7 @@ let getProducts = () => {
 
             // 카테고리와 모달 ID 매핑
             const categories = {
-                drink: '#drinkModal',
+                cheese: '#cheeseModal',
                 meat: '#meatModal',
                 source: '#sourceModal',
                 vegetable: '#vegetableModal',
@@ -898,18 +943,4 @@ let getProducts = () => {
             console.error("Error fetching product data:", error);
         }
     });
-};
-
-const decodeJWT = (token) => {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    } catch (error) {
-        console.error('JWT 디코딩 실패:', error);
-        return null;
-    }
 };
