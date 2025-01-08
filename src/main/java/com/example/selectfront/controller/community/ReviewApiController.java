@@ -94,4 +94,16 @@ public class ReviewApiController {
         }
     }
 
+    @GetMapping("/myList")
+    public ResponseEntity<?> getNews(@RequestParam int page, @RequestParam int pageSize,@RequestParam String id, String token ) {
+        try {
+            MyReviewListDTO myReviewListDTO = reviewService.getMyReview(page, pageSize,id,token);
+            System.out.println("myReviewListDTO는 이렇습니다 :: " + myReviewListDTO);
+            return ResponseEntity.ok(myReviewListDTO); // JSON 응답 반환
+        } catch (Exception e) {
+            System.out.println("오류입니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching My Review");
+        }
+    }
+
 }

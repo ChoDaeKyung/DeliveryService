@@ -1,0 +1,154 @@
+/* Main Content Area */
+.content {
+    /*margin-left: 250px; /* Sidebar width */
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh; /* Ensure the content area covers the full height */
+    box-sizing: border-box;
+}
+
+/* Content Title */
+.content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+/* Review List */
+.review-list {
+    display: flex;
+    flex-direction: column; /* 리스트 형태로 정렬 */
+    gap: 15px;
+}
+
+/* Review Item */
+.review-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.review-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Product Image */
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+/* Product Info */
+.product-info {
+    flex: 1; /* 남은 공간을 채움 */
+}
+
+.product-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.product-description {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Write Review Button */
+.write-review-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.write-review-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.star {
+    position: relative;
+    font-size: 2rem;
+    color: #ddd;
+    width: 160px;
+}
+
+.star input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.star span {
+    width: 0;
+    position: absolute;
+    left: 0;
+    color: red;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+
+
+
+.star-td {
+    width: 150px;
+}
+
+.star-ratings {
+    position: relative;
+    display: inline-block;
+    color: #ddd; /* 빈 별 색상 */
+    font-size: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.star-ratings-fill {
+    color: #ffd700; /* 채워진 별 색상 */
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    -webkit-text-fill-color: #ffd700;
+}
+
+.star-ratings-base {
+    z-index: 0;
+    padding: 0;
+}
+
+.star-ratings-fill span,
+.star-ratings-base span {
+    margin-right: 1px;
+}
+
+.rating-number {
+     margin-left: 5px;
+     font-size: 14px;
+     color: #666;
+ }

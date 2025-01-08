@@ -35,4 +35,11 @@ public interface ReviewClient {
             @RequestParam("page") int page,
             @RequestParam("pageSize") int pageSize
     );
+
+    @GetMapping("/myReview")
+    MyReviewListDTO getMyReviewList(
+            @RequestHeader("Authorization") String authorization, // JWT 토큰
+            @RequestParam String id,
+            @RequestParam int page,
+            @RequestParam int pageSize);
 }
