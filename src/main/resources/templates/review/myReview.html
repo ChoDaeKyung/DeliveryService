@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/user.css}" rel="stylesheet">
+    <link th:href="@{/css/availableReview.css}" rel="stylesheet">
+    <script th:src="@{/js/community/myReviewList.js}"></script>
+    <title>작성 가능한 리뷰</title>
 </head>
 <body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">SWFM</div>
+        <nav>
+            <ul>
+                <li><a href="#">봄날에 디자인연...</a></li>
+                <li><a href="#">디자인모드</a></li>
+                <li><a th:href="@{/index}">사이트 바로가기</a></li>
+            </ul>
+            <h4>사이트 관리</h4>
+            <ul>
+                <li><a th:href="@{/mypage/cartList}">장바구니</a></li>
+                <li><a href="#">주문내역</a></li>
+                <li><a href="#">쿠폰현황</a></li>
+                <li><a href="#">내정보</a></li>
+                <li><a href="#">환경설정</a></li>
+            </ul>
+            <h4>리뷰 관리</h4>
+            <ul>
+                <li><a href="#" th:href="@{/mypage/availableReview}">작성 가능한 리뷰</a></li>
+                <li><a href="#" class="active">작성한 리뷰</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+        <h1>작성한 리뷰</h1>
+        <div id="pending-review-list" class="review-list">
+            <!-- JavaScript에서 동적으로 리뷰 항목 추가 -->
+        </div>
+        <div id="paginationContainer" class="pagination-container">
+            <!-- JavaScript에서 동적으로 페이지네이션 추가 -->
+        </div>
+    </main>
+</div>
+
+<!-- 모달 영역 -->
 
 </body>
 </html>
