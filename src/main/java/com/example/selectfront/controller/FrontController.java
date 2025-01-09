@@ -80,4 +80,9 @@ public class FrontController {
     public String availableReview() {
         return "/review/availableReview";
     }
+
+    @GetMapping("/mypage/myReviewList")
+    public String MyReviewList() {
+        return "/review/myReview";
+    }
 }
