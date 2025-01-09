@@ -2,6 +2,7 @@ $(document).ready(function () {
     const rowsPerPage = 10; // 한 페이지당 게시글 수
     let currentPage = 1; // 현재 페이지
     let totalPages = 1; // 총 페이지 수
+    let userId;
 
     // JWT 디코딩 함수
     const decodeJWT = (token) => {
@@ -31,7 +32,7 @@ $(document).ready(function () {
     // 디코드된 JWT에서 유저 ID 추출
     const decoded = decodeJWT(token);
     if (decoded && decoded.sub) {
-        const userId = JSON.stringify(decoded.sub); // 유저 ID
+        userId = JSON.stringify(decoded.sub); // 유저 ID
         console.log("User ID:", userId);
 
         // 작성 가능한 리뷰 가져오기
@@ -59,6 +60,7 @@ $(document).ready(function () {
                 if (data && data.myReviewList && data.myReviewList.length > 0) {
                     renderMyReviews(data.myReviewList); // 리뷰 리스트 렌더링
                     totalPages = Math.ceil(data.allPage / rowsPerPage); // 총 페이지 수 계산
+                    currentPage = page;
                     renderPagination(currentPage, totalPages); // 페이지네이션 렌더링
                 } else {
                     alert('작성한 리뷰가 없습니다.');
@@ -86,15 +88,15 @@ $(document).ready(function () {
                     <button 
                         class="write-review-btn" 
                         data-order-id="${review.orderId}" 
-                        data-product-name="${review.completeProduct}">
-                        리뷰 작성
+                        data-product-name="${review.completeProduct}"
+                        data-id="${review.id}">
+                        리뷰 보기
                     </button>
                 </div>
             `;
             reviewContainer.append(reviewItem);
         });
 
-        // 리뷰 작성 버튼 클릭 이벤트 핸들러 등록
         $('.write-review-btn').on('click', handleReviewButtonClick);
     }
 
@@ -102,39 +104,8 @@ $(document).ready(function () {
     function handleReviewButtonClick() {
         const orderId = $(this).data('order-id');
         const productName = $(this).data('product-name');
-        openModal(orderId, productName);
-    }
-
-    // 페이지네이션 렌더링 함수
-    function renderPagination(current, total) {
-        const paginationContainer = $('#pagination');
-        paginationContainer.empty();
-
-        for (let i = 1; i <= total; i++) {
-            const pageButton = $(`<button class="page-btn">${i}</button>`);
-
-            if (i === current) {
-                pageButton.addClass('active');
-            }
-
-            pageButton.on('click', () => {
-                currentPage = i;
-                fetchMyReviews(decoded.sub, currentPage, rowsPerPage);
-            });
-
-            paginationContainer.append(pageButton);
-        }
-    }
-
-    function openModal(orderId, productName) {
-        // 모달 열기
-        document.getElementById('reviewModal').style.display = 'flex';
-
-        // 주문 번호와 상품 이름 설정
-        document.getElementById('orderIdDisplay').textContent = orderId;
-        document.getElementById('productNameDisplay').textContent = productName;
-
-        console.log('리뷰 작성 모달 열림: 주문 번호', orderId, '상품 이름', productName);
+        const id = $(this).data('id')
+        fetchReviewDetail(id);
     }
 
     // 페이지네이션 UI 렌더링 및 이벤트 연결
@@ -153,7 +124,7 @@ $(document).ready(function () {
         prevBtn.on('click', function () {
             if (currentPage > 1) {
                 currentPage--;
-                fetchPendingReviews(userId, currentPage, rowsPerPage); // 해당 페이지의 리뷰 리스트를 가져옴
+                fetchMyReviews(userId, currentPage, rowsPerPage); // 해당 페이지의 리뷰 리스트를 가져옴
             }
         });
         pagination.append(prevBtn);
@@ -167,7 +138,7 @@ $(document).ready(function () {
             pageButton.on('click', function () {
                 if (currentPage !== i) {
                     currentPage = i;
-                    fetchPendingReviews(userId, currentPage, rowsPerPage); // 해당 페이지의 리뷰 리스트를 가져옴
+                    fetchMyReviews(userId, currentPage, rowsPerPage); // 해당 페이지의 리뷰 리스트를 가져옴
                 }
             });
             pagination.append(pageButton);
@@ -179,7 +150,7 @@ $(document).ready(function () {
         nextBtn.on('click', function () {
             if (currentPage < totalPages) {
                 currentPage++;
-                fetchPendingReviews(userId, currentPage, rowsPerPage); // 해당 페이지의 리뷰 리스트를 가져옴
+                fetchMyReviews(userId, currentPage, rowsPerPage); // 해당 페이지의 리뷰 리스트를 가져옴
             }
         });
         pagination.append(nextBtn);
@@ -187,9 +158,163 @@ $(document).ready(function () {
         // 페이지네이션 컨테이너에 추가
         paginationContainer.append(pagination);
     }
-});
 
-function closeModal() {
-    document.getElementById('reviewModal').style.display = 'none';
-}
+
+    // 리뷰 상세 정보 가져오기
+    function fetchReviewDetail(reviewId) {
+        const token = localStorage.getItem("accessToken");
+        console.log("Fetching review details for ID:", reviewId);
+
+        $.ajax({
+            url: `/webs/api/review/detail`,
+            type: 'GET',
+            data: {id : reviewId},
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            success: function(detailData) {
+                showReviewModal(detailData);
+            },
+            error: function(xhr, status, error) {
+                alert("리뷰 상세 정보를 불러오는데 실패했습니다.");
+            }
+        });
+    }
+
+// 리뷰 모달 표시
+    function showReviewModal(reviewData) {
+        console.log('reviewData', reviewData);
+        const modal = $("#reviewModal");
+        const modalAuthor = $("#modalAuthor");
+        const modalTitle = $("#modalTitle");
+        const modalContent = $("#modalContent");
+        const modalDate = $("#modalDate");
+        const modalId = $("#modalId");
+        const modalRating = $(".modal-rating");
+        const sliderContainer = $(".slider-container");
+
+        // 데이터 채우기
+        modalAuthor.text(reviewData.authorId.replace(/"/g, ""));
+        modalTitle.text(reviewData.title);
+        modalContent.text(reviewData.content);
+        modalDate.text(reviewData.createdAt);
+        modalId.text(`#${reviewData.id}`);
+        modalRating.html(renderStars(reviewData.rating));
+
+        // 슬라이더 컨테이너 초기화
+        sliderContainer.empty();
+        currentImageIndex = 0;
+
+        if (reviewData.img && reviewData.img.length > 0) {
+            // 이미지 로딩 상태 추적을 위한 변수
+            let loadedImages = 0;
+
+            reviewData.img.forEach((image, index) => {
+                const imgWrapper = $('<div class="slider-image-wrapper"></div>');
+                const img = $('<img>', {
+                    src: image,
+                    alt: "Review Image",
+                    class: 'slider-image'
+                });
+
+                img.on('load', function() {
+                    console.log("이미지 로드 성공:", image);
+                    loadedImages++;
+
+                    // 모든 이미지가 로드되면 첫 번째 이미지 표시
+                    if (loadedImages === reviewData.img.length) {
+                        updateSlider();
+                    }
+                });
+
+                img.on('error', function() {
+                    console.error("이미지 로드 실패:", image);
+                    loadedImages++;
+                });
+
+                imgWrapper.append(img);
+                sliderContainer.append(imgWrapper);
+            });
+
+            // 슬라이더 버튼 표시 및 이벤트 핸들러 재설정
+            const sliderPrevBtn = $(".slider-prev-btn");
+            const sliderNextBtn = $(".slider-next-btn");
+
+            if (reviewData.img.length > 1) {
+                sliderPrevBtn.show();
+                sliderNextBtn.show();
+            } else {
+                sliderPrevBtn.hide();
+                sliderNextBtn.hide();
+            }
+        } else {
+            $(".slider-prev-btn").hide();
+            $(".slider-next-btn").hide();
+        }
+
+        modal.fadeIn();
+    }
+
+// 이미지 슬라이더 업데이트
+    function updateSlider() {
+        const images = $(".slider-image-wrapper");
+        images.hide();
+        images.eq(currentImageIndex).show();
+    }
+
+// 이미지 슬라이더 이전 버튼
+    $(".slider-prev-btn").on("click", function(e) {
+        e.stopPropagation();
+        const images = $(".slider-image-wrapper");
+        if (images.length <= 1) return;
+
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        updateSlider();
+    });
+
+// 이미지 슬라이더 다음 버튼
+    $(".slider-next-btn").on("click", function(e) {
+        e.stopPropagation();
+        const images = $(".slider-image-wrapper");
+        if (images.length <= 1) return;
+
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updateSlider();
+    });
+
+// 모달 닫기 버튼
+    $(".close-modal").on("click", function() {
+        $("#reviewModal").fadeOut();
+    });
+
+// 모달 외부 클릭시 닫기
+    $(window).on("click", function(event) {
+        const modal = $("#reviewModal");
+        if (event.target === modal[0]) {
+            modal.fadeOut();
+        }
+    });
+
+// 별점 렌더링
+    function renderStars(rating) {
+        const percentage = (rating / 5) * 100;
+        return `
+            <div class="star-ratings">
+                <div class="star-ratings-fill" style="width: ${percentage}%">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <div class="star-ratings-base">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+            </div>
+            <span class="rating-number">${rating}</span>
+        `;
+    }
+
+
+
+
+
+});
 

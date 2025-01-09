@@ -220,6 +220,7 @@ $(document).ready(function () {
             if (currentPage > 1) {
                 currentPage--;
                 fetchNewsList(currentPage);
+                console.log('이건커런트페이지', currentPage)
             }
         });
         pagination.append(prevBtn);
@@ -233,6 +234,7 @@ $(document).ready(function () {
                 if (currentPage !== i) {
                     currentPage = i;
                     fetchNewsList(currentPage);
+                    console.log('이건커런트페이지', currentPage)
                 }
             });
             pagination.append(pageButton);
@@ -244,6 +246,7 @@ $(document).ready(function () {
             if (currentPage < totalPages) {
                 currentPage++;
                 fetchNewsList(currentPage);
+                console.log('이건커런트페이지', currentPage)
             }
         });
         pagination.append(nextBtn);
