@@ -98,8 +98,14 @@ $(document).ready(function () {
     }
 
     function openModal(orderId, productName) {
+        // 모달 열기
         document.getElementById('reviewModal').style.display = 'flex';
-        console.log('리뷰 작성 모달 열림: 상품 ID', productName);
+
+        // 주문 번호와 상품 이름 설정
+        document.getElementById('orderIdDisplay').textContent = orderId;
+        document.getElementById('productNameDisplay').textContent = productName;
+
+        console.log('리뷰 작성 모달 열림: 주문 번호', orderId, '상품 이름', productName);
     }
 
 
