@@ -27,13 +27,18 @@ public class ReviewApiController {
             @RequestParam("content") String content,
             @RequestParam(value = "images", required = false) List<MultipartFile> images, // images는 선택적으로 받음
             @RequestParam("rating") double rating,
-            @RequestParam("userId") String userId
+            @RequestParam("userId") String userId,
+            @RequestParam("orderId") String orderId,
+            @RequestParam("productName") String productName
+
     ) {
         System.out.println("title : " + title);
         System.out.println("content : " + content);
         System.out.println("images : " + images);
         System.out.println("rating : " + rating);
         System.out.println("userId : " + userId);
+        System.out.println("orderId : " + orderId);
+        System.out.println("productName : " + productName);
         // images가 null인 경우 빈 리스트로 처리
         if (images == null) {
             images = new ArrayList<>();
@@ -44,6 +49,8 @@ public class ReviewApiController {
         requestDTO.setContent(content);
         requestDTO.setRating(rating);
         requestDTO.setAuthorId(userId);
+        requestDTO.setOrderId(orderId);
+        requestDTO.setProductName(productName);
 
         // 리뷰 생성 서비스 호출
         return ResponseEntity.ok(reviewService.createReview(requestDTO, images));
