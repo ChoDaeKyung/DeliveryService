@@ -92,20 +92,32 @@ $(document).ready(function () {
                         data-id="${review.id}">
                         리뷰 보기
                     </button>
+                    <button 
+                        class="delete-review-btn" 
+                        data-id="${review.id}">
+                        리뷰 삭제
+                    </button>
                 </div>
             `;
             reviewContainer.append(reviewItem);
         });
 
         $('.write-review-btn').on('click', handleReviewButtonClick);
+        $('.delete-review-btn').on('click', handleReviewDeleteButtonClick);
     }
 
-    // 리뷰 작성 버튼 클릭 핸들러
+    // 리뷰 관련 버튼 클릭 핸들러
     function handleReviewButtonClick() {
         const orderId = $(this).data('order-id');
         const productName = $(this).data('product-name');
         const id = $(this).data('id')
         fetchReviewDetail(id);
+    }
+
+    // 리뷰 삭제 버튼 클릭 핸들러
+    function handleReviewDeleteButtonClick() {
+        const id = $(this).data('id')
+        DeleteReview(id);
     }
 
     // 페이지네이션 UI 렌더링 및 이벤트 연결
@@ -312,9 +324,32 @@ $(document).ready(function () {
         `;
     }
 
-
+    // DELETE 요청 보내기
+    function DeleteReview(id) {
+        const token = localStorage.getItem("token");
+        $.ajax({
+            url: '/webs/api/review',
+            type: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify(id), // 단순 값 전송 (예: 123)
+            success: function () {
+                alert("리뷰가 삭제되었습니다.");
+                $('tr[data-id="' + id + '"]').remove();
+                window.location.href = '/mypage/myReviewList';
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생:", xhr.responseText);
+                alert("리뷰 삭제 중 문제가 발생했습니다.");
+            }
+        });
+    }
 
 
 
 });
+
+
 

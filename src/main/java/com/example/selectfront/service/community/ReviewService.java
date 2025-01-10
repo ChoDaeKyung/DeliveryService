@@ -77,4 +77,8 @@ public class ReviewService {
     public AllMyReviewListDTO getMyReviewList(int page, int pageSize, String id, String token) {
         return reviewClient.getMyReviewAllList("Bearer " + token, id, page, pageSize);
     }
+
+    public void deleteReview(String token, Long id) {
+        reviewClient.deleteReview("Bearer " + token, id);
+    }
 }
