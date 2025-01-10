@@ -5,6 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @FeignClient(name = "reviewClient", url = "${swfm.service-url}/review")
 public interface ReviewClient {
 
@@ -49,4 +51,10 @@ public interface ReviewClient {
             @RequestParam String id,
             @RequestParam int page,
             @RequestParam int pageSize);
+
+    @DeleteMapping
+    ResponseEntity<?> deleteReview(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody Long id
+    );
 }

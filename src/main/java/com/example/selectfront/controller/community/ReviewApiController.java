@@ -128,4 +128,12 @@ public class ReviewApiController {
         }
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteReview(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Long id) {
+        reviewService.deleteReview(token, id);
+        return ResponseEntity.ok("선택한 뉴스가 삭제되었습니다.");
+    }
+
 }
