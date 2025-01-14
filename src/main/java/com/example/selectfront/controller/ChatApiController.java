@@ -1,6 +1,5 @@
 package com.example.selectfront.controller;
 
-import com.example.selectfront.dto.chat.ChatMessageRequestDTO;
 import com.example.selectfront.dto.chat.ChatRequestDTO;
 import com.example.selectfront.dto.chat.ChatResponseDTO;
 import com.example.selectfront.service.ChatService;
@@ -14,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
-public class ChatController {
+public class ChatApiController {
 
     private final ChatService chatService;
 

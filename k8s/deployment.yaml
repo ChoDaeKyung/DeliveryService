@@ -30,3 +30,4 @@ spec:
             - name: SELECT_SERVICE_URL
               value: http://edge-service:80
 
+

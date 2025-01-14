@@ -63,7 +63,9 @@ async function checkLoginStatus() {
                 return false;
             }
         }
+        return false;
         throw error; // 다른 오류는 다시 던짐
+
     }
 }
 

@@ -10,4 +10,5 @@ public class OrderRequestDTO {
     private String message;
     private String status;
     private String orderId;
+    private String riderId;
 }

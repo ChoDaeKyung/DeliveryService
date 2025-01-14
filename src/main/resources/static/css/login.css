@@ -222,6 +222,7 @@ select {
     margin: 10px 0;
     border-radius: 25px;
     background-color: #fff;
+
     border: 2px solid #ddd;
     font-size: 16px;
     color: #333;
@@ -253,6 +254,7 @@ select:focus {
     margin: 10px;
     background-image: url('/images/email/naver.png');
     background-color: #1ec800; /* 로고 배경 색상 */
+    border-radius: 50%;
 }
 
 .social-login .naver:hover {
@@ -263,6 +265,7 @@ select:focus {
 .social-login .kakao-login {
     margin: 10px;
     background-image: url('/images/email/kakao.png');
+    border-radius: 50%;
     background-color: #fee500;
 }
 
@@ -274,6 +277,7 @@ select:focus {
 .social-login .google {
     margin: 10px;
     background-image: url('/images/email/google.png');
+    border-radius: 50%;
     background-color: #4285f4;
 }
 

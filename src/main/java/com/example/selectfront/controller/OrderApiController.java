@@ -16,6 +16,7 @@ public class OrderApiController {
 
     @PostMapping("/orderSend")
     public String sendMessage(@RequestBody OrderRequestDTO orderRequestDTO) {
+        System.out.println(orderRequestDTO.getRiderId());
         return orderListService.sendMessage(orderRequestDTO);
     }
     @GetMapping("/receiveStatus")
