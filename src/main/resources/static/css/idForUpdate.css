@@ -27,7 +27,7 @@ h1 {
     font-size: 2rem;
     text-align: center;
     font-weight: 700; /* 굵게 */
-    font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕 적용 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
 }
 
 /* container 클래스 스타일링 */
@@ -53,7 +53,7 @@ h1 {
     color: #fff;
     text-align: center;
     font-weight: bold;
-    font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕 적용 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
 }
 
 .login-box .user-box {

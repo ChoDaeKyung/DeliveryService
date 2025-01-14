@@ -1,7 +1,7 @@
 /* 기본 스타일 */
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    /*font-family: 'Arial', sans-serif;*/
     color: #333;
     background-color: #f9f9f9;
 }
@@ -57,7 +57,7 @@ html, body {
     font-size: 2rem;
     text-align: center;
     font-weight: 700; /* 굵게 */
-    font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕 적용 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
 }
 
 
@@ -89,7 +89,7 @@ html, body {
     padding-bottom: 40px; /* 아래쪽 여백 */
     text-align: center;
     color: #FFFFFF; /* 텍스트 색상 흰색 */
-    font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕 적용 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
     font-weight: bold;
 
 }
@@ -113,7 +113,7 @@ html, body {
     transition: background 0.3s, color 0.3s; /* 배경과 텍스트 색상 전환 */
     position: relative; /* 독립적 위치 설정 */
     top: 0; /* 버튼의 위치는 변경하지 않음 */
-    font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕 적용 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
     font-weight: bold;
 }
 
@@ -131,7 +131,7 @@ button.gray-button {
     position: relative; /* 독립적 위치 설정 */
     top: 40px; /* 아래로 10px 이동 */
     left: 0px; /* 왼쪽으로 20px 이동 */
-    font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕 적용 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
     font-weight: bold;
 }
 h2.black {

@@ -3,7 +3,7 @@ body {
     margin: 0;
     color: #6a6f8c;
     background: #c8c8c8;
-    font: 600 16px/18px 'Open Sans', sans-serif;
+    font: 600 16px/18px 'Noto Sans', sans-serif;
 }
 
 *,:after,:before {
@@ -197,6 +197,7 @@ input[type="text"], input[type="password"], input[type="email"], select {
     background-color: #fff;
     font-size: 16px;
     color: #333;
+    font-family: "Noto Sans", sans-serif; /* 폰트 추가 */
     transition: border-color 0.3s ease-in-out;
 }
 
