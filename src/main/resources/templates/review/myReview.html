@@ -13,27 +13,13 @@
 </head>
 <body>
 
-<style>
-    .modal-content {
-        width: 300px; /* 모달의 너비 */
-        padding: 20px; /* 내부 여백 */
-        background-color: white; /* 배경색 */
-        border-radius: 8px; /* 모서리 둥글기 */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
-        position: fixed; /* 화면 중앙에 고정 */
-        top: 50%; /* 세로 중앙 */
-        left: 50%; /* 가로 중앙 */
-        transform: translate(-50%, -50%); /* 중앙 정렬 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-    }
-</style>
+
 
 <div id="reviewModal" class="review-modal">
     <div class="review-modal-content">
         <span class="close-modal">&times;</span>
         <div class="modal-body">
             <div class="modal-image-container">
-                <!-- 이미지 슬라이더 -->
                 <div class="image-slider">
                     <button class="slider-prev-btn">&lt;</button>
                     <div class="slider-container"></div>
@@ -48,8 +34,12 @@
                     </div>
                     <div class="modal-rating"></div>
                 </div>
-                <h2 id="modalTitle" class="modal-title"></h2>
-                <p id="modalContent" class="modal-content"></p>
+                <div class="modal-content-wrapper">
+                    <h2 id="modalTitle" class="modal-title"></h2>
+                    <h2 class="modal-content">
+                        <p id="modalContent"></p>
+                    </h2>
+                </div>
                 <div class="modal-footer">
                     <span id="modalDate"></span>
                     <span id="modalId"></span>
