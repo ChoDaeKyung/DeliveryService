@@ -67,4 +67,17 @@ public class ReviewService {
         return reviewClient.getReviewList("Bearer " + token, page, pageSize);
     }
 
+    //작성 가능한 리뷰
+    public MyReviewListDTO getMyReview(int page, int pageSize, String id, String token) {
+        return reviewClient.getMyReviewList("Bearer " + token, id, page, pageSize);
+    }
+
+    //작성한 리뷰
+    public AllMyReviewListDTO getMyReviewList(int page, int pageSize, String id, String token) {
+        return reviewClient.getMyReviewAllList("Bearer " + token, id, page, pageSize);
+    }
+
+    public void deleteReview(String token, Long id) {
+        reviewClient.deleteReview("Bearer " + token, id);
+    }
 }

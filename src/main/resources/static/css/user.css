@@ -18,7 +18,7 @@ body {
 /* Sidebar 스타일 */
 .sidebar {
     width: 250px;
-    background-color: yellowgreen;
+    background-color: black;
     color: white;
     padding: 20px;
     display: flex;
@@ -172,21 +172,6 @@ header h1 {
     overflow: auto; /* 스크롤이 필요한 경우 사용 */
 }
 
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 중앙 정렬 */
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%; /* 기본적으로 모달 크기를 80%로 설정 */
-    max-width: 800px; /* 최대 크기 제한 */
-    max-height: 90vh; /* 화면 높이의 90%로 제한 */
-    overflow-y: auto; /* 내용이 길어지면 스크롤이 생기도록 설정 */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
 
 .rectangle {
     width: 700px;

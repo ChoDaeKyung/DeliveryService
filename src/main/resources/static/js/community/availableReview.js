@@ -27,6 +27,10 @@ let createReview = () => {
     console.log('reviewcreate 함수 호출됨');
     let title = $('#title').val();
     let content = $('#content').val();
+    let orderId = $('#orderIdDisplay').text(); // HTML에서 주문 번호 가져오기
+    let productName = $('#productNameDisplay').text(); // HTML에서 상품 이름 가져오기
+    console.log("이건 오더아이디 입니다",orderId)
+    console.log("이건 상품이름 입니다",productName)
     // 제목, 내용, 별점 필수 입력 체크
     if (!title || !content || rating === 0) {
         alert('제목, 내용, 별점은 모두 필수 입력 항목입니다!');
@@ -57,6 +61,8 @@ let createReview = () => {
     formData.append('content', content);
     formData.append('rating', rating); // 별점 값 추가
     formData.append('userId', userId); // userId 추가
+    formData.append('orderId', orderId); // 주문 번호 추가
+    formData.append('productName', productName); // 상품 이름 추가
     let files = $('#image')[0].files;
     if (files.length > 0) {
         Array.from(files).forEach((file, index) => {
