@@ -152,6 +152,7 @@ $(document).ready(function() {
 
     // 회원가입 버튼 클릭 시
     $('#submit-button').click(function(event) {
+        event.preventDefault();
         let userid = $('#signup-id').val().trim();
         let nickname = $('#signup-nickname').val().trim();
         let emails = $('#signup-email').val().trim();

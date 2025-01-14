@@ -1,6 +1,5 @@
 package com.example.selectfront.service.community;
 
-import com.example.selectfront.client.NewsClient;
 import com.example.selectfront.client.ReviewClient;
 import com.example.selectfront.dto.community.*;
 import lombok.RequiredArgsConstructor;

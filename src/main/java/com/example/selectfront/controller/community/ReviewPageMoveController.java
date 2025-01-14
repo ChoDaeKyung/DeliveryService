@@ -1,8 +1,6 @@
 package com.example.selectfront.controller.community;
 
-import com.example.selectfront.dto.community.NewsDetailDTO;
 import com.example.selectfront.dto.community.ReviewDetailDTO;
-import com.example.selectfront.service.community.NewsService;
 import com.example.selectfront.service.community.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

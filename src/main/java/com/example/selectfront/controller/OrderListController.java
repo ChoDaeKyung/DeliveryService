@@ -1,0 +1,21 @@
+package com.example.selectfront.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class OrderListController {
+    @GetMapping("/chat")
+    public String chat() {
+        return "chat_delivery";
+    }
+
+    @GetMapping("/order")
+    public String menu() {
+        return "orderList";
+    }
+    @GetMapping("/riderOrderList")
+    public String riderOrderList() {
+        return "rider_delivery";
+    }
+}

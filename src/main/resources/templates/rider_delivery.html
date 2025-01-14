@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 기본 설정 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>배달 추적</title>
+    <title>배달 주문 목록</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}">
@@ -13,6 +14,28 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap/responsive.css}">
     <link th:href="@{/css/delivery-tracking.css}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #orderH1List{
+            text-align: center;
+        }
+        .order-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        .deliver-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .deliver-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body class="sub_page">
 <div class="hero_area">
@@ -121,69 +144,8 @@
     </header>
     <!-- end header section -->
 </div>
-
-<!-- 배달 추적 섹션 (원래 HTML) -->
-<div id="myElement" class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="left-section">
-        <!-- 배달 현황 카드 -->
-        <div class="card">
-            <div class="card-header">
-                <span class="card-title">배달 현황</span>
-            </div>
-            <div class="card-content">
-                <div class="map-placeholder">
-                    <img src="/api/placeholder/400/320" alt="지도">
-                </div>
-                <div class="info">
-                    <p class="time-info">예상 도착 시간: 14:40</p>
-                    <p>배달원까지의 거리: 1.2km</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 주문 내역 카드 -->
-        <div class="card">
-            <div class="card-header">
-                <span class="card-title">주문 내역</span>
-            </div>
-            <div class="card-content">
-                <div class="order-details">
-                    <div>
-                        <p class="restaurant-name">서브웨이 강남점</p>
-                        <p class="text-sm text-gray-500">주문번호: ORDER-123456</p>
-                    </div>
-                    <div>
-                        <div class="order-item">
-                            <p>이탈리안 BMT</p>
-                            <p class="options">15cm, 화이트, 양상추, 토마토</p>
-                            <p class="price">8,900원</p>
-                        </div>
-                        <div class="order-item">
-                            <p>쿠키</p>
-                            <p class="options">더블 초코칩</p>
-                            <p class="price">1,500원</p>
-                        </div>
-                    </div>
-                    <p class="text-right font-bold">총 결제금액: 10,400원</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 배달원과 채팅 카드 -->
-    <div class="card">
-        <div class="card-header">
-            <span class="card-title">배달원과 채팅</span>
-        </div>
-        <div class="card-content">
-            <div id="chatContainer" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
-            <form id="message-form" class="form">
-                <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
-                <button type="submit">전송</button>
-            </form>
-        </div>
-    </div>
-</div>
+<h1 id="orderH1List">배달 주문 목록</h1>
+<div id="orderList"></div>
 
 <!-- footer section -->
 <footer class="footer_section">
@@ -265,88 +227,64 @@
         </div>
     </div>
 </footer>
-<!-- JavaScript -->
 <script>
-    $(document).ready(function () {
-        const orderId = "ORDER-123456";
-        let chatMessages = [];
-        let lastTimestamp = -1;
+    $(document).ready(function() {
+        // 초기 로딩 시 "배달중" 상태의 주문 목록을 riderId와 함께 가져옴
+        loadOrders("배달중", "rider123"); // rider123은 예시 riderId입니다. 실제 데이터에 맞게 변경하세요.
 
-        function displayChatMessages(messages) {
-            const chatContainer = $('#chatContainer');
-            messages.forEach(message => {
-                let messageElement = $('<div class="message"></div>');
-                if (message.role === 'user') {
-                    messageElement.addClass('user-message');
-                    messageElement.text(message.message);
-                } else {
-                    messageElement.addClass('rider-message');
-                    messageElement.text(message.message);
+        // 주문 목록을 가져오는 함수
+        function loadOrders(status, riderId) {
+            $.ajax({
+                url: '/orderList/receiveStatus',
+                type: 'GET',
+                data: { status: status, riderId: riderId },
+                success: function(orders) {
+                    $('#orderList').empty();
+                    orders.forEach(function(order) {
+                        const orderHtml = `
+              <div id="order-${order.orderId}" class="order-card">
+                <h3>주문 번호: ${order.orderId}</h3>
+                <p>고객명: ${order.userId}</p>
+                <p>메시지: ${order.messageBody}</p>
+                <button class="deliver-btn" onclick="completeDelivery('${order.orderId}')">배달 완료</button>
+              </div>
+            `;
+                        $('#orderList').append(orderHtml);
+                    });
+                },
+                error: function() {
+                    alert('주문 목록을 가져오는 데 실패했습니다.');
                 }
-                chatContainer.append(messageElement);
             });
-            chatContainer.scrollTop(chatContainer.prop('scrollHeight'));
         }
 
-        function fetchMessages() {
-            $.ajax({
-                url: '/api/chat/messages',
-                method: 'GET',
-                data: { orderId: orderId, fromTimestamp: lastTimestamp },
-                success: function (data) {
-                    let userMessages = data.user || [];
-                    let riderMessages = data.rider || [];
-                    let newMessages = mergeMessages(userMessages, riderMessages);
-                    chatMessages = [...chatMessages, ...newMessages];
-                    displayChatMessages(newMessages);
-                    if (newMessages.length > 0) {
-                        lastTimestamp = newMessages[newMessages.length - 1].timestamp;
+        // 주문 상태를 "배달완료"로 업데이트하는 함수
+        window.completeDelivery = function(orderId) {
+            if (confirm('이 주문을 배달 완료 처리하시겠습니까?')) {
+                const orderData = {
+                    orderId: orderId,
+                    status: '배달완료'
+                };
+
+                $.ajax({
+                    url: '/orderList/orderComplete',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(orderData),
+                    success: function() {
+                        $(`#order-${orderId}`).fadeOut(300, function() {
+                            $(this).remove();
+                        });
+                        alert('배달이 완료되었습니다.');
+                    },
+                    error: function() {
+                        alert('오류가 발생했습니다. 다시 시도해주세요.');
                     }
-                },
-                error: function (error) {
-                    console.log('메시지 가져오기 실패:', error);
-                }
-            });
-        }
-
-        function mergeMessages(userMessages, riderMessages) {
-            let mergedMessages = [];
-            let i = 0, j = 0;
-            while (i < userMessages.length || j < riderMessages.length) {
-                if (i < userMessages.length && (j >= riderMessages.length || userMessages[i].timestamp <= riderMessages[j].timestamp)) {
-                    mergedMessages.push({ ...userMessages[i], role: 'user' });
-                    i++;
-                } else if (j < riderMessages.length) {
-                    mergedMessages.push({ ...riderMessages[j], role: 'rider' });
-                    j++;
-                }
+                });
             }
-            return mergedMessages;
         }
-
-        fetchMessages();
-        setInterval(fetchMessages, 5000);
-
-        $('#message-form').on('submit', function (e) {
-            e.preventDefault();
-            const newMessage = $('#new-message').val().trim();
-            if (!newMessage) return;
-            const chatRequestDTO = { orderId: orderId, userId: 'userId', role: 'user', message: newMessage };
-            $.ajax({
-                url: '/api/chat/send',
-                method: 'POST',
-                data: JSON.stringify(chatRequestDTO),
-                contentType: 'application/json',
-                success: function () {
-                    $('#new-message').val('');
-                    fetchMessages();
-                },
-                error: function () {
-                    alert('메시지 전송 실패');
-                }
-            });
-        });
     });
 </script>
+
 </body>
 </html>

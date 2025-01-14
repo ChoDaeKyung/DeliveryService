@@ -36,7 +36,7 @@ dependencies {
 	// OpenFeign 의존성
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
-
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	// Thymeleaf와 Spring Security 통합
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
