@@ -3,6 +3,7 @@ package com.example.selectfront.controller;
 import com.example.selectfront.dto.AddCompleteProductDetailDto;
 import com.example.selectfront.dto.AddCompleteProductRequestDTO;
 import com.example.selectfront.dto.AddProductRequestDTO;
+import com.example.selectfront.dto.AddSideMenuRequestDTO;
 import com.example.selectfront.service.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,8 +28,7 @@ public class AdminApiController {
 
     private final AdminService adminService;
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+    private String uploadDir = System.getProperty("user.dir");
 
     @PostMapping("/addcompleteproducts")
     public ResponseEntity<String> addcompleteproducts(
@@ -49,43 +49,7 @@ public class AdminApiController {
             throw new RuntimeException("No file selected");
         }
 
-
-        // 파일 확장자 추출 (예: ".jpg", ".png")
-        String fileExtension = getFileExtension(image.getOriginalFilename());
-
-        // 새로운 파일 이름 설정 (name 값 + 확장자)
-        String fileName = name + fileExtension;
-
-        // 저장할 파일 경로 설정
-        Path path = Paths.get(uploadDir + "/" + fileName);
-
-        File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.exists()) {
-            uploadDirFile.mkdirs();
-        }
-
-        try {
-            image.transferTo(path.toFile());
-            System.out.println("File saved to: " + path.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to store file");
-        }
-
-        System.out.println("File path: " + path.toString());
-
-        List<AddCompleteProductDetailDto> productsList = new ObjectMapper().readValue(productsListJson, new TypeReference<List<AddCompleteProductDetailDto>>() {});
-
-        AddCompleteProductRequestDTO.AddCompleteProductRequestDTOBuilder addCompleteProductRequestDTOBuilder = AddCompleteProductRequestDTO.builder()
-                .completeName(name)
-                .productsList(productsList)
-                .price(price)
-                .detail(detail)
-                .imagePath(path.toString());
-
-        System.out.println(addCompleteProductRequestDTOBuilder);
-
-        adminService.addCompleteProducts(addCompleteProductRequestDTOBuilder.build());
+        adminService.addCompleteProducts(name, price, detail, productsListJson, image);
         return ResponseEntity.ok("success");
     }
 
@@ -143,6 +107,61 @@ public class AdminApiController {
         return ResponseEntity.ok("success");
     }
 
+    @PostMapping("/addsidemenu")
+    public ResponseEntity<String> addsidemenu(
+            @RequestParam("name") String name,
+            @RequestParam("category") String category,
+            @RequestParam("price") int price,
+            @RequestParam("detail") String detail,
+            @RequestParam("image") MultipartFile image
+    ) throws JsonProcessingException {
+        System.out.println("name: " + name);
+        System.out.println("category: " + category);
+        System.out.println("price: " + price);
+        System.out.println("image: " + image.getOriginalFilename());
+
+
+        if (image.isEmpty()) {
+            throw new RuntimeException("No file selected");
+        }
+
+
+        // 파일 확장자 추출 (예: ".jpg", ".png")
+        String fileExtension = getFileExtension(image.getOriginalFilename());
+
+        // 새로운 파일 이름 설정 (name 값 + 확장자)
+        String fileName = name + fileExtension;
+
+        // 저장할 파일 경로 설정
+        Path path = Paths.get(uploadDir + "/" + fileName);
+
+        File uploadDirFile = new File(uploadDir);
+        if (!uploadDirFile.exists()) {
+            uploadDirFile.mkdirs();
+        }
+
+        try {
+            image.transferTo(path.toFile());
+            System.out.println("File saved to: " + path.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to store file");
+        }
+
+        System.out.println("File path: " + path.toString());
+
+        AddSideMenuRequestDTO.AddSideMenuRequestDTOBuilder addSideMenuRequestDTOBuilder = AddSideMenuRequestDTO.builder()
+                .name(name)
+                .category(category)
+                .price(price)
+                .detail(detail)
+                .imagePath(path.toString());
+
+        System.out.println(addSideMenuRequestDTOBuilder);
+
+        adminService.addSideMenu(addSideMenuRequestDTOBuilder.build());
+        return ResponseEntity.ok("success");
+    }
 
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf(".");

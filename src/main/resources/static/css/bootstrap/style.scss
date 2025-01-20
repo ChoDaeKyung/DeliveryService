@@ -470,6 +470,9 @@ a:focus {
 
 .food_section {
 
+  position: relative; /* 부모 컨테이너 위치 명시 */
+  margin-bottom: 50px; /* 다음 섹션과 간격 확보 */
+
   .filters_menu {
     padding: 0;
     display: flex;
@@ -573,6 +576,7 @@ a:focus {
     }
   }
 }
+
 
 // end food section
 

@@ -91,9 +91,12 @@
     margin-top: 15px;
 }
 
+
+
 .insertCartButton,
 .orderButton,
-.insertCustomCartButton {
+.insertCustomCartButton,
+.insertSideMenuButton {
     background-color: #ffcc00;
     color: #333;
     border: none;
@@ -107,7 +110,8 @@
 
 .insertCartButton:hover,
 .orderButton:hover,
-.insertCustomCartButton:hover {
+.insertCustomCartButton:hover,
+.insertSideMenuButton:hover {
     background-color: #ffaa00;
     color: white;
 }

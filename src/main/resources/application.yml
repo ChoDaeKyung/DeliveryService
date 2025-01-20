@@ -6,9 +6,12 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
 server:
-  port: 7007
+  port: 7077
 
 swfm:
   service-url: ${SELECT_SERVICE_URL:http://localhost:9000}

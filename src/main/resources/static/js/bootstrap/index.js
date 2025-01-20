@@ -17,6 +17,8 @@ $(document).ready(function () {
         }
     };
 
+
+
     // 페이지가 로드되면 메뉴 데이터를 가져옴
     $.ajax({
         url: '/webs/api/menu', // 서버에서 메뉴 목록을 가져오는 API URL
@@ -29,94 +31,118 @@ $(document).ready(function () {
             const dynamicItemsContainer = $('.filters-content .grid');
             dynamicItemsContainer.find('.dynamic-item').remove(); // 동적으로 추가된 항목만 제거
 
-            data.forEach(item => {
-                // 각 메뉴 항목에 대한 HTML 구조를 생성
-                const menuItemHTML = `
-              <div class="col-sm-6 col-lg-4 all dynamic-item" style="cursor: pointer" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}">
-                <div class="box">
-                  <div>
-                    <div class="img-box">
-                      <img src="${item.image}" alt="${item.name}" class="sandwich-image">
+            // 1. Complete Products 리스트 처리
+            data.getCompleteProductsList.forEach(item => {
+                const completeProductHTML = `
+                <div class="col-sm-6 col-lg-4 all dynamic-item" style="cursor: pointer" data-id="${item.id || ''}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}">
+                    <div class="box">
+                        <div>
+                            <div class="img-box">
+                                <img src="${item.image}" alt="${item.name}" class="sandwich-image">
+                            </div>
+                            <div class="detail-box">
+                                <h5>${item.name}</h5>
+                                <p>${item.detail || '메뉴 설명이 없습니다.'}</p>
+                                <div class="options">
+                                    <h6>${item.price}원</h6>
+                                    <a class="Cart" data-id="${item.id || ''}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;">
+                                            <g><path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248s53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /></g>
+                                            <g><path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4C457.728,97.71,450.56,86.958,439.296,84.91z" /></g>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="detail-box">
-                      <h5>
-                        ${item.name}
-                      </h5>
-                      <p>
-                        ${item.detail || '메뉴 설명이 없습니다.'}
-                      </p>
-                      <div class="options">
-                        <h6>
-                          ${item.price}원
-                        </h6>
-                        <a class="Cart" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}">
-                          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                            <g>
-                              <g>
-                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                             c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                              </g>
-                            </g>
-                            <g>
-                              <g>
-                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                             C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                             c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                             C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                              </g>
-                            </g>
-                            <g>
-                              <g>
-                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                             c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                              </g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                          </svg>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             `;
+                dynamicItemsContainer.append(completeProductHTML);
+            });
 
-                // 생성한 메뉴 항목을 메뉴 컨테이너에 추가
-                dynamicItemsContainer.append(menuItemHTML);
+            // 2. Side Menu 리스트 처리
+            data.getSideMenuList.forEach(item => {
+                const sideMenuHTML = `
+                <div class="col-sm-6 col-lg-4 all side-menu" style="cursor: pointer" data-id="${item.id || ''}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}" data-category="${item.category}">
+                    <div class="box">
+                        <div>
+                            <div class="img-box">
+                                <img src="${item.image}" alt="${item.name}" class="sandwich-image">
+                            </div>
+                            <div class="detail-box">
+                                <h5>${item.name}</h5>
+                                <p>${item.detail || '사이드 메뉴 설명이 없습니다.'}</p>
+                                <div class="options">
+                                    <h6>${item.price}원</h6>
+                                    <a class="Cart" data-id="${item.id || ''}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;">
+                                            <g><path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248s53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /></g>
+                                            <g><path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4C457.728,97.71,450.56,86.958,439.296,84.91z" /></g>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                dynamicItemsContainer.append(sideMenuHTML);
             });
         },
         error: function(xhr, status, error) {
             console.error("메뉴 데이터를 가져오는 데 실패했습니다.", error);
         }
+    });
+
+    $(document).on('click', '.section', function () {
+        const category = $(this).data('name');
+
+        $.ajax({
+            url: '/webs/api/menu/getSideMenuByCategory', // 서버에서 메뉴 목록을 가져오는 API URL
+            method: 'GET',
+            dataType: 'json', // 응답 데이터 타입은 JSON
+            data:{category:category},
+            success: function(data) {
+                console.log('data :: ', data);
+
+                const dynamicItemsContainer = $('.filters-content .grid');
+                dynamicItemsContainer.find('.dynamic-item').remove(); // 동적으로 추가된 항목만 제거
+
+                data.getSideMenuList.forEach(item => {
+                    const sideMenuHTML = `
+                <div class="col-sm-6 col-lg-4 all side-menu" style="cursor: pointer" data-id="${item.id || ''}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}" data-category="${item.category}">
+                    <div class="box">
+                        <div>
+                            <div class="img-box">
+                                <img src="${item.image}" alt="${item.name}" class="sandwich-image">
+                            </div>
+                            <div class="detail-box">
+                                <h5>${item.name}</h5>
+                                <p>${item.detail || '사이드 메뉴 설명이 없습니다.'}</p>
+                                <div class="options">
+                                    <h6>${item.price}원</h6>
+                                    <a class="Cart" data-id="${item.id || ''}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}" data-detail="${item.detail}">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;">
+                                            <g><path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248s53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /></g>
+                                            <g><path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4C457.728,97.71,450.56,86.958,439.296,84.91z" /></g>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                    dynamicItemsContainer.append(sideMenuHTML);
+                });
+
+            },
+            error: function(xhr, status, error) {
+                console.error("메뉴 데이터를 가져오는 데 실패했습니다.", error);
+            }
+        });
+
+
     });
 
     $(document).on('click', '.dynamic-item', function () {
@@ -212,14 +238,28 @@ $(document).ready(function () {
         $('body').css('overflow', 'hidden');
     });
 
-    $(document).on('click', '.custom', function () {
+    $(document).on('click', '.side-menu', function () {
+        // 선택한 아이템의 데이터를 가져옴
+        const name = $(this).data('name');
+        const price = $(this).data('price');
+        const image = $(this).data('image');
+        const detail = $(this).data('detail');
+
+        // 모달의 내용을 동적으로 설정
+        $('#modal-title').text(name);
+        $('#modal-price').text(price + '원');
+        $('#modal-detail').text(detail);
+        $('#modal-image').attr('src', image);
+
+        $('#modal-products').empty();
+
         // 버튼 컨테이너를 비우고 버튼을 동적으로 생성
         const buttonContainer = $('.modal-buttons');
         buttonContainer.empty(); // 기존 버튼 제거
 
 // '장바구니' 버튼 생성
         const cartButton = $('<button>')
-            .addClass('insertCustomCartButton')
+            .addClass('insertSideMenuButton')
             .text('장바구니');
 
 // '주문하기' 버튼 생성
@@ -229,6 +269,12 @@ $(document).ready(function () {
 
 // 버튼 컨테이너에 버튼 추가
         buttonContainer.append(cartButton, orderButton);
+
+        // 모달을 표시
+        $('#Modal').css('display', 'flex');
+
+        // 모달이 열리면 body의 스크롤을 비활성화
+        $('body').css('overflow', 'hidden');
     });
 
 // 모달 닫기 버튼 클릭 시 모달 닫기
@@ -281,6 +327,61 @@ $(document).ready(function () {
 
         $.ajax({
             url: '/webs/api/cart/completeProduct', // 서버에서 메뉴 목록을 가져오는 API URL
+            method: 'POST',
+            contentType: 'application/json',  // Content-Type을 JSON으로 설정
+            data: JSON.stringify({
+                name: name,
+                price:price,
+                buyer: userId,
+                productId:new Date().toISOString() + userId
+            }),
+            success: function (response) {
+                if (response === "success") {
+                    const userResponse = confirm("장바구니 담기 성공! 장바구니 페이지로 이동하시겠습니까?");
+                    if (userResponse) {
+                        // 확인을 누른 경우 장바구니 페이지로 이동
+                        window.location.href = "/mypage/cartList";
+                    }
+                } else {
+                    alert("장바구니 담기에 실패하였습니다.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("에러 발생:", error); // 에러 디버깅
+                alert("서버와 통신 중 문제가 발생했습니다.");
+            }
+        })
+    });
+
+    $(document).on('click', '.insertSideMenuButton', function () {
+        const name = $('#modal-title').text();
+        const price = $('#modal-price').text().replace('원', '');
+        const token = localStorage.getItem("accessToken");
+
+        // 토큰이 존재하는지 확인
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        let userId = null;
+        const decoded = decodeJWT(token);
+
+        if (decoded && decoded.sub) {
+            console.log("Decoded JWT:", decoded); // 디코딩된 전체 객체 출력
+            console.log("Decoded sub:", decoded.sub); // sub 필드 값 확인
+            console.log("Type of sub:", typeof decoded.sub); // 타입 확인
+
+            userId = JSON.stringify(decoded.sub);// 문자열로 변환
+            console.log("Type of sub:", typeof userId);
+            console.log("UserId as string:", userId); // 변환된 값 확인
+        } else {
+            alert("로그인해주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: '/webs/api/cart/sideMenu', // 서버에서 메뉴 목록을 가져오는 API URL
             method: 'POST',
             contentType: 'application/json',  // Content-Type을 JSON으로 설정
             data: JSON.stringify({
@@ -468,6 +569,22 @@ $(document).ready(function () {
 
         $('#modal-price').append(customButtonHtml);
 
+        const buttonContainer = $('.modal-buttons');
+        buttonContainer.empty(); // 기존 버튼 제거
+
+// '장바구니' 버튼 생성
+        const cartButton = $('<button>')
+            .addClass('insertCustomCartButton')
+            .text('장바구니');
+
+// '주문하기' 버튼 생성
+        const orderButton = $('<button>')
+            .addClass('orderButton')
+            .text('주문하기');
+
+// 버튼 컨테이너에 버튼 추가
+        buttonContainer.append(cartButton, orderButton);
+
         // 모달을 표시
         $('#Modal').css('display', 'flex');
 
@@ -483,6 +600,18 @@ $(document).ready(function () {
         const price = $(this).find("p").text();
         const category = this.closest(".modal").id.replace("Modal", "");
         const image = $(this).find("img").attr("src"); // 이미지의 src 값을 가져옵니다.
+
+        if (category === "bread") {
+            // 기존 선택된 빵이 있을 경우 처리
+            $(".sandwich-item.selected").each(function () {
+                const selectedCategory = this.closest(".modal").id.replace("Modal", "");
+                if (selectedCategory === "bread") {
+                    $(this).removeClass("selected"); // 기존 선택 해제
+                    const existingBreadName = $(this).find("h3").text();
+                    mainList = mainList.filter(item => item.name !== existingBreadName || item.category !== "bread");
+                }
+            });
+        }
 
         const isSelected = $(this).hasClass("selected");
         if (isSelected) {
