@@ -14,6 +14,10 @@ public class FrontController {
     public String index() {
         return "bootstrap/index";
     }
+    @GetMapping("/")
+    public String main() {
+        return "bootstrap/index";
+    }
     @GetMapping("/book")
     public String book() {
         return "bootstrap/book";

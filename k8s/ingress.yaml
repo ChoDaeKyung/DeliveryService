@@ -1,22 +1,22 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: front-ingress
-  annotations:
-    kubernetes.io/ingress.class: "alb"                     # ALB Ingress 컨트롤러 사용
-    alb.ingress.kubernetes.io/scheme: internet-facing       # 외부에 공개할 경우
-    alb.ingress.kubernetes.io/target-type: ip              # IP 모드
-    alb.ingress.kubernetes.io/subnets: "subnet-0475ad86669d04655,subnet-025bc318dd492c211"  # ALB가 생성될 서브넷
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]' # 80 포트 리스너 예시
-spec:
-  rules:
-    - host: himedia-b.com  # 원하는 host (도메인)으로 수정
-      http:
-        paths:
-          - path: "/"
-            pathType: Prefix
-            backend:
-              service:
-                name: front-service
-                port:
-                  number: 80
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: front-ingress
+#  annotations:
+#    kubernetes.io/ingress.class: "alb"                     # ALB Ingress 컨트롤러 사용
+#    alb.ingress.kubernetes.io/scheme: internet-facing       # 외부에 공개할 경우
+#    alb.ingress.kubernetes.io/target-type: ip              # IP 모드
+#    alb.ingress.kubernetes.io/subnets: "subnet-0475ad86669d04655,subnet-025bc318dd492c211"  # ALB가 생성될 서브넷
+#    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]' # 80 포트 리스너 예시
+#spec:
+#  rules:
+#    - host: himedia-b.com  # 원하는 host (도메인)으로 수정
+#      http:
+#        paths:
+#          - path: "/"
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: front-service
+#                port:
+#                  number: 80

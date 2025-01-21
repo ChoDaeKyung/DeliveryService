@@ -27,7 +27,7 @@ html, body {
     height: 440px; /* 높이 추가 */
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: rgba(0,0,0,.5);
+    background: rgba(15, 21, 30, .5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
@@ -109,9 +109,9 @@ form input#newNickname {
 
 
 /* 입력 필드 포커스 효과 */
-form input:focus {
-    border-bottom-color: #03a64e;
-}
+/*form input:focus {*/
+/*    border-bottom-color: rgb(219 134 14);*/
+/*}*/
 
 /* 숨겨진 필드 스타일 */
 form input[type="hidden"] {
@@ -120,7 +120,7 @@ form input[type="hidden"] {
 
 /* 중복 검사 버튼 */
 .duplicate {
-    background-color: #005bb5;
+    background-color: rgb(81 81 81);
     color: #fff;
     font-size: 0.7rem; /* 글자 크기 */
     font-weight: bold;
@@ -141,7 +141,7 @@ form input[type="hidden"] {
 
 /* 닉네임 변경 버튼 */
 .confirm {
-    background-color: rgb(3, 138, 68);
+    background-color: rgb(219 134 14);
     color: #fff;
     font-size: 1.2rem;
     font-weight: bold;
@@ -160,7 +160,7 @@ form input[type="hidden"] {
 
 /* 닉네임 변경 버튼 hover 효과 */
 .confirm:hover {
-    background-color: #02833c;
+    background-color: rgb(219 134 14);
 }
 
 

@@ -43,7 +43,7 @@ html, body {
 
 .main {
     position: relative;
-    padding-top: 200px;
+    padding-top: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,7 +51,7 @@ html, body {
 
 .main h1 {
     position: absolute;
-    top: 10%;
+    top: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
@@ -139,7 +139,7 @@ h2.black {
     margin-bottom: 10px; /* 버튼과 간격 조절 */
     position: relative;
     top: 16px; /* 0P만 위로 올림 */
-    color: #000000;
+    color: #434242;
     font-weight: bold;
 }
 
@@ -163,7 +163,7 @@ h2.black {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     background-color: #FFFFFF;
-    border: 5px solid #FFFF00;
+    border: 5px solid #ffca00;
     border-radius: 36px;
 }
 
@@ -201,4 +201,19 @@ h2.black {
     grid-row: 2 / 3;
     background-color: rgb(255, 165, 0); /* RGB 값으로 변경 */
     border-radius: 36px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    background-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+}
+
+/* Focus 상태에서도 텍스트 색상을 강제로 흰색으로 유지 */
+input:-webkit-autofill:focus {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background-color: transparent !important;
 }

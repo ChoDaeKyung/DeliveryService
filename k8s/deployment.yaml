@@ -29,5 +29,6 @@ spec:
           env:
             - name: SELECT_SERVICE_URL
               value: http://edge-service:80
-
+            - name: DOMAIN_URL
+              value: a2e8c3d678cdf4f19a2221503f9eb57d-1431888366.ap-northeast-2.elb.amazonaws.com
 

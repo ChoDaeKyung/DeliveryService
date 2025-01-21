@@ -19,6 +19,7 @@ public class ChatService {
     private final ObjectMapper objectMapper;
 
     public ResponseEntity<String> sendMessage(ChatRequestDTO chatRequestDTO) {
+        System.out.println("chatRequestDTO"+chatRequestDTO);
      return deliveryClient.chatSend(chatRequestDTO);
     }
     public ResponseEntity<Map<String, List<ChatResponseDTO>>> getChatMessagesByRole(String orderId,long fromTimestamp) {

@@ -21,4 +21,16 @@ public interface OrderListClient {
 
     @GetMapping("/orderId")
     List<OrderResponseDTO> receiveOrderIdMessages(@RequestParam String orderId);
+    @GetMapping("/userId")
+    List<OrderResponseDTO> receiveUserIdMessages(@RequestParam String userId, @RequestParam String status);
+
+    @GetMapping("/getRiderOrders")
+    List<OrderResponseDTO> receiveRiderIdMessage(@RequestParam String riderId, @RequestParam String status);
+
+    @GetMapping("/userIdLIst")
+    List<OrderResponseDTO> receiveUserIdMessages(@RequestParam String userId);
+
+    @GetMapping("/getRiderOrdersList")
+    List<OrderResponseDTO> receiveRiderIdMessage(@RequestParam String riderId);
+
 }
