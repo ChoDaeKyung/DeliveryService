@@ -6,9 +6,12 @@ import lombok.*;
 @Builder
 @ToString
 public class OrderRequestDTO {
-    private String userId;
-    private String message;
-    private int price;
-    private String status;
+    private String paymentKey;
     private String orderId;
+    private String amount;
+//    private String userId;
+//    private String message;
+//    private int price;
+//    private String status;
+//    private String orderId;
 }

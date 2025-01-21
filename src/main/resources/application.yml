@@ -11,7 +11,7 @@ spring:
     suffix: .html
 
 server:
-  port: 7077
+  port: 7007
 
 swfm:
   service-url: ${SELECT_SERVICE_URL:http://localhost:9000}

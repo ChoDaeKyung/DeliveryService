@@ -11,8 +11,13 @@ public class OrderService {
 
     private final OrderClient orderClient;
 
-    public String CompleteOrder(OrderRequestDTO orderRequestDTO) {
-        return orderClient.completeOrder(orderRequestDTO);
+    public String CompleteOrder(String paymentKey,String orderId,String amount) {
+        OrderRequestDTO build = OrderRequestDTO.builder()
+                .paymentKey(paymentKey)
+                .orderId(orderId)
+                .amount(amount)
+                .build();
+        return orderClient.completeOrder(build);
     }
 
 }

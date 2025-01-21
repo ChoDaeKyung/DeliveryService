@@ -99,7 +99,6 @@
   let userId = $('#hiddenUserId').val();
   let jsons;
 
-
   let path = "/";
   let successUrl = window.location.origin + path + "success";
   let failUrl = window.location.origin + path + "fail";
@@ -150,6 +149,9 @@
         "customerEmail": null,
         "customerMobilePhone": null,
         "taxFreeAmount": null,
+        "metadata": {
+          "userId": userId, // 사용자 ID를 metadata에 포함
+        },
         "cashReceipt": {
           "type": "소득공제"
         },
@@ -167,6 +169,9 @@
         "customerEmail": null,
         "customerMobilePhone": null,
         "taxFreeAmount": null,
+        "metadata": {
+          "userId": userId, // 사용자 ID를 metadata에 포함
+        },
         "cashReceipt": {
           "type": "소득공제"
         },
@@ -182,6 +187,9 @@
         "failUrl": failUrl,
         "mobileCarrier": null,
         "customerName": userId,
+        "metadata": {
+          "userId": userId, // 사용자 ID를 metadata에 포함
+        },
 
       },
 
@@ -192,6 +200,9 @@
         "successUrl": successUrl,
         "failUrl": failUrl,
         "customerName": userId,
+        "metadata": {
+          "userId": userId, // 사용자 ID를 metadata에 포함
+        },
       },
 
       "bookcert": { //도서문화상품권 결제창
@@ -201,6 +212,9 @@
         "successUrl": successUrl,
         "failUrl": failUrl,
         "customerName": userId,
+        "metadata": {
+          "userId": userId, // 사용자 ID를 metadata에 포함
+        },
       },
       "gamecert": { // 게임문화상품권 결제창
         "amount": payPrice,
@@ -209,6 +223,9 @@
         "successUrl": successUrl,
         "failUrl": failUrl,
         "customerName": userId,
+        "metadata": {
+          "userId": userId, // 사용자 ID를 metadata에 포함
+        },
       }
 
 
