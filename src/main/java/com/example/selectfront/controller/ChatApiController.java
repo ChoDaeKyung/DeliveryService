@@ -27,6 +27,9 @@ public class ChatApiController {
     public ResponseEntity<Map<String, List<ChatResponseDTO>>> getChatMessages(
             @RequestParam String orderId,
             @RequestParam Long fromTimestamp) {
-        return chatService.getChatMessagesByRole(orderId,fromTimestamp);
+        System.out.println("orderId: " + orderId);
+        ResponseEntity<Map<String, List<ChatResponseDTO>>> chatMessagesByRole = chatService.getChatMessagesByRole(orderId, fromTimestamp);
+        System.out.println(chatMessagesByRole.getBody());
+        return chatMessagesByRole;
     }
 }

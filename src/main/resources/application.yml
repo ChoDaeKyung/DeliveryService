@@ -12,7 +12,7 @@ server:
 
 swfm:
   service-url: ${SELECT_SERVICE_URL:http://localhost:9000}
-
+emails-url: ${DOMAIN_URL:http://localhost:9000}
 user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
 

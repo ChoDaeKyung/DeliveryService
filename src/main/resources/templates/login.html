@@ -73,7 +73,7 @@
                         <a class="nav-link"  th:href="@{/about}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/book}">Book Table</a>
+                        <a class="nav-link" th:href="@{/book}">MAP</a>
                     </li>
                 </ul>
                 <div class="user_option">
@@ -216,7 +216,10 @@
                     <div class="group">
                         <input type="text" id="verification-code" placeholder="Verification Code" class="input-field" spellcheck="false" required />
                         <button type="button" id="verify-button" class="btn btn-secondary">인증번호 확인</button>
-                        <p id="email-status-num"></p>
+                        <p id="email-status-num" style="    position: absolute;
+    top: 575px;
+    left: 20px;
+   "></p>
                     </div>
                     <div style="text-align: center" class="group">
                         <button id="submit-button" class="btn btn-success">Sign Up</button>

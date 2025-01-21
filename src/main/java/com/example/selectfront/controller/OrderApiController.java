@@ -16,15 +16,27 @@ public class OrderApiController {
 
     @PostMapping("/orderSend")
     public String sendMessage(@RequestBody OrderRequestDTO orderRequestDTO) {
-        System.out.println(orderRequestDTO.getRiderId());
         return orderListService.sendMessage(orderRequestDTO);
     }
     @GetMapping("/receiveStatus")
-    public List<OrderResponseDTO> receiveMessages(String status) {
-        return orderListService.receiveMessages(status);
+    public List<OrderResponseDTO> receiveMessages(@RequestParam String role,
+                                                  @RequestParam String userId,
+                                                  @RequestParam String status) {
+
+        return orderListService.receiveMessages(role,userId,status);
     }
     @GetMapping("/receiveOrderIdMessages")
     public List<OrderResponseDTO> receiveOrderIdMessages(String orderId) {
         return orderListService.receiveOrderIdMessages(orderId);
+    }
+
+    @GetMapping("/orderList")
+    public List<OrderResponseDTO> orderLists(@RequestParam String userId , @RequestParam String role) {
+        List<OrderResponseDTO> orderResponseDTOS = orderListService.receiveOrderList(userId, role);
+        for (OrderResponseDTO orderResponseDTO : orderResponseDTOS) {
+            System.out.println("orderList"+orderResponseDTO);
+        }
+        System.out.println("orderLists"+orderResponseDTOS.getFirst());
+        return orderResponseDTOS;
     }
 }
