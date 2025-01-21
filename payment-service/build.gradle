@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'software.amazon.awssdk:sqs:2.20.20'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.22.0'
 
     compileOnly 'org.projectlombok:lombok'
 

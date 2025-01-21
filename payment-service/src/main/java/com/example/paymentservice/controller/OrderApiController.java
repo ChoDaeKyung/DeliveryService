@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/payment")
 @RequiredArgsConstructor
 public class OrderApiController {
 
@@ -18,7 +18,8 @@ public class OrderApiController {
 
     @PostMapping
     public String CompleteOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
+        System.out.println("orderRequestDTO :: " + orderRequestDTO);
         orderService.CompleteOrder(orderRequestDTO);
-        return "상품 주문 성공!!";
+        return "success";
     }
 }
