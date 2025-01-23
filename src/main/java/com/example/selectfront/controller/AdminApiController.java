@@ -70,40 +70,7 @@ public class AdminApiController {
             throw new RuntimeException("No file selected");
         }
 
-
-        // 파일 확장자 추출 (예: ".jpg", ".png")
-        String fileExtension = getFileExtension(image.getOriginalFilename());
-
-        // 새로운 파일 이름 설정 (name 값 + 확장자)
-        String fileName = name + fileExtension;
-
-        // 저장할 파일 경로 설정
-        Path path = Paths.get(uploadDir + "/" + fileName);
-
-        File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.exists()) {
-            uploadDirFile.mkdirs();
-        }
-
-        try {
-            image.transferTo(path.toFile());
-            System.out.println("File saved to: " + path.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to store file");
-        }
-
-        System.out.println("File path: " + path.toString());
-
-        AddProductRequestDTO.AddProductRequestDTOBuilder addProductRequestDTOBuilder = AddProductRequestDTO.builder()
-                .name(name)
-                .category(category)
-                .price(price)
-                .imagePath(path.toString());
-
-        System.out.println(addProductRequestDTOBuilder);
-
-        adminService.addProducts(addProductRequestDTOBuilder.build());
+        adminService.addProducts(name, category, price, image);
         return ResponseEntity.ok("success");
     }
 
@@ -125,41 +92,7 @@ public class AdminApiController {
             throw new RuntimeException("No file selected");
         }
 
-
-        // 파일 확장자 추출 (예: ".jpg", ".png")
-        String fileExtension = getFileExtension(image.getOriginalFilename());
-
-        // 새로운 파일 이름 설정 (name 값 + 확장자)
-        String fileName = name + fileExtension;
-
-        // 저장할 파일 경로 설정
-        Path path = Paths.get(uploadDir + "/" + fileName);
-
-        File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.exists()) {
-            uploadDirFile.mkdirs();
-        }
-
-        try {
-            image.transferTo(path.toFile());
-            System.out.println("File saved to: " + path.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to store file");
-        }
-
-        System.out.println("File path: " + path.toString());
-
-        AddSideMenuRequestDTO.AddSideMenuRequestDTOBuilder addSideMenuRequestDTOBuilder = AddSideMenuRequestDTO.builder()
-                .name(name)
-                .category(category)
-                .price(price)
-                .detail(detail)
-                .imagePath(path.toString());
-
-        System.out.println(addSideMenuRequestDTOBuilder);
-
-        adminService.addSideMenu(addSideMenuRequestDTOBuilder.build());
+        adminService.addSideMenu(name, category, price, detail, image);
         return ResponseEntity.ok("success");
     }
 

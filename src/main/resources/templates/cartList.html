@@ -24,22 +24,24 @@
       <ul>
         <li><a href="#">봄날에 디자인연...</a></li>
         <li><a href="#">디자인모드</a></li>
-        <li><a th:href="@{/menu}">사이트 바로가기</a></li>
+        <li><a th:href="@{/index}">사이트 바로가기</a></li>
       </ul>
       <h4>사이트 관리</h4>
       <ul>
         <li><a href="#" class="active">장바구니</a></li>
         <li><a href="#">주문내역</a></li>
-        <li><a href="#">리뷰현황</a></li>
         <li><a href="#">쿠폰현황</a></li>
         <li><a href="#">내정보</a></li>
         <li><a href="#">환경설정</a></li>
       </ul>
+      <h4>리뷰 관리</h4>
+      <ul>
+        <li><a href="#" th:href="@{/mypage/availableReview}">작성 가능한 리뷰</a></li>
+        <li><a href="#">작성한 리뷰</a></li>
+      </ul>
     </nav>
   </aside>
 
-
-  <!--------------------------- 여기서부터 수정하면 됩니다 --------------------------->
 
   <!-- Main Content -->
   <main class="content">
@@ -115,9 +117,9 @@
     console.log("userId is :: ", userId);
     jsons = {
       "card": {
-        "amount": payPrice,
+        "amount": 1,
         "orderId": "sample-" + orderId,
-        "orderName": products,
+        "orderName": "상품 외 1개상품",
         "successUrl": successUrl,
         "failUrl": failUrl,
         "cardCompany": null,
@@ -180,9 +182,9 @@
       },
       "phone": { // 휴대폰 결제창
 
-        "amount": payPrice,
+        "amount": 1,
         "orderId": "sample-" + orderId,
-        "orderName": products,
+        "orderName": "상품 외 1개상품",
         "successUrl": successUrl,
         "failUrl": failUrl,
         "mobileCarrier": null,

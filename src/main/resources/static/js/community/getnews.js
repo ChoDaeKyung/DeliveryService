@@ -42,12 +42,8 @@ $(document).ready(function () {
 
     // 뉴스 리스트를 가져오는 함수 (API 호출)
     function fetchNewsList(page = 1, pageSize = 10) {
-        const token = localStorage.getItem("token"); // 로컬 스토리지에서 인증 토큰 가져오기
+        const token = localStorage.getItem("accessToken"); // 로컬 스토리지에서 인증 토큰 가져오기
         const url = '/webs/api/news';
-
-        if (showSection('news')) {
-            currentPage = 1;
-        }
 
         $.ajax({
             url: url,
@@ -224,6 +220,7 @@ $(document).ready(function () {
             if (currentPage > 1) {
                 currentPage--;
                 fetchNewsList(currentPage);
+                console.log('이건커런트페이지', currentPage)
             }
         });
         pagination.append(prevBtn);
@@ -237,6 +234,7 @@ $(document).ready(function () {
                 if (currentPage !== i) {
                     currentPage = i;
                     fetchNewsList(currentPage);
+                    console.log('이건커런트페이지', currentPage)
                 }
             });
             pagination.append(pageButton);
@@ -248,6 +246,7 @@ $(document).ready(function () {
             if (currentPage < totalPages) {
                 currentPage++;
                 fetchNewsList(currentPage);
+                console.log('이건커런트페이지', currentPage)
             }
         });
         pagination.append(nextBtn);

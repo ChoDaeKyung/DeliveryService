@@ -1,5 +1,9 @@
 package com.example.selectfront.controller;
 
+
+
+import com.example.selectfront.dto.CheckNicknameDTO;
+
 import com.example.selectfront.dto.CheckUserIdDTO;
 import com.example.selectfront.dto.UpdateNicknameDTO;
 import com.example.selectfront.service.MyPageUserService;
@@ -26,25 +30,47 @@ public class MyPageController {
         return "idForUpdate";
     }
 
-    @PostMapping("/user/nicknameUpdate")
-    public String nicknameUpdatePage(@RequestParam String userId, Model model) {
+    // 아이디 확인 및 닉네임 가져오기
+    @PostMapping("/user/check-id-and-fetch-nickname")
+    @ResponseBody
+    public ResponseEntity<?> checkIdAndFetchNickname(@RequestBody CheckUserIdDTO checkUserIdDTO) {
+
+
+        // 아이디 유효성 확인 및 닉네임 가져오기
+        return myPageUserService.checkIdAndFetchNickname(checkUserIdDTO);
+    }
+
+    // 닉네임 수정 페이지로 이동
+    @GetMapping("/user/nicknameUpdate")
+    public String nicknameUpdatePage(@RequestParam String userId, @RequestParam String nickname, Model model) {
         model.addAttribute("userId", userId);
+        model.addAttribute("nickname", nickname);
         return "nicknameUpdate";
     }
 
-    @PostMapping("/user/check-before-update")
-    public ResponseEntity<Void> checkBeforeUpdate(@RequestBody CheckUserIdDTO checkUserIdDTO) {
-        boolean isValid = myPageUserService.checkId(checkUserIdDTO.getUserId()); // 백엔드 UserId 호출
-        if (isValid) {
-            return ResponseEntity.ok().build();  // 아이디 맞으면 OK
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();  // 아이디 틀리면 401
-        }
+    // 닉네임 중복 검사 요청 처리
+    @PostMapping("/user/check-nickname")
+    @ResponseBody
+    public ResponseEntity<?> checkNickname(@RequestBody CheckNicknameDTO checkNicknameDTO) {
+
+
+        return myPageUserService.checkNickname(checkNicknameDTO);
+
     }
 
-    @PatchMapping("/user/nicknameUpdate")
-    public ResponseEntity<String> updateNickname(@RequestBody UpdateNicknameDTO updateNicknameDTO) {
-        myPageUserService.updateNickname(updateNicknameDTO.getUserId(),updateNicknameDTO.getNickname()); // 백엔드의 updateNickname 호출
-        return ResponseEntity.ok("닉네임이 성공적으로 변경되었습니다.");
+    @PostMapping("/user/update-nickname")
+    @ResponseBody
+    public ResponseEntity<?> updateNickname(@RequestBody UpdateNicknameDTO updateNicknameDTO) {
+        System.out.println("Controller 전달 닉네임: " + updateNicknameDTO.getNickname());
+        System.out.println("Controller 전달 id: " + updateNicknameDTO.getUserId());
+
+        boolean success = myPageUserService.updateNickname(updateNicknameDTO);
+        System.out.println("서비스 호출 결과: " + success);
+        return ResponseEntity.ok(success ? "success" : "fail");
     }
+
+
+
+
+
 }

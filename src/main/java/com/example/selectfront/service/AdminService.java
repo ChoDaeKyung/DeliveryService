@@ -22,14 +22,12 @@ public class AdminService {
         return adminClient.addCompleteProduct(name, price, detail, productsList, image);
     }
 
-    public String addProducts(AddProductRequestDTO addProductRequestDTO) {
-        System.out.println("addProductRequestDTO :: " + addProductRequestDTO);
-        return adminClient.addProduct(addProductRequestDTO);
+    public String addProducts(String name, String category, int price, MultipartFile image) {
+        return adminClient.addProduct(name, category, price, image);
     }
 
-    public String addSideMenu(AddSideMenuRequestDTO addSideMenuRequestDTO) {
-        System.out.println("addSideMenuRequestDTO :: " + addSideMenuRequestDTO);
-        return adminClient.addSideMenu(addSideMenuRequestDTO);
+    public String addSideMenu(String name, String category, int price, String detail, MultipartFile image) {
+        return adminClient.addSideMenu(name, category, price, detail, image);
     }
 }
 

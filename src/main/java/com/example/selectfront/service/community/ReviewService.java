@@ -1,6 +1,5 @@
 package com.example.selectfront.service.community;
 
-import com.example.selectfront.client.NewsClient;
 import com.example.selectfront.client.ReviewClient;
 import com.example.selectfront.dto.community.*;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +61,23 @@ public class ReviewService {
 
     public ReviewDetailDTO getReview(Long id) {
         return reviewClient.getReviewDetail("",id);
+    }
+
+    public ReviewListDTO getReview(int page, int pageSize, String token) {
+        return reviewClient.getReviewList("Bearer " + token, page, pageSize);
+    }
+
+    //작성 가능한 리뷰
+    public MyReviewListDTO getMyReview(int page, int pageSize, String id, String token) {
+        return reviewClient.getMyReviewList("Bearer " + token, id, page, pageSize);
+    }
+
+    //작성한 리뷰
+    public AllMyReviewListDTO getMyReviewList(int page, int pageSize, String id, String token) {
+        return reviewClient.getMyReviewAllList("Bearer " + token, id, page, pageSize);
+    }
+
+    public void deleteReview(String token, Long id) {
+        reviewClient.deleteReview("Bearer " + token, id);
     }
 }

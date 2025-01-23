@@ -5,6 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @FeignClient(name = "reviewClient", url = "${swfm.service-url}/review")
 public interface ReviewClient {
 
@@ -29,5 +31,30 @@ public interface ReviewClient {
     );
 
 
+    @GetMapping
+    ReviewListDTO getReviewList(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestParam("page") int page,
+            @RequestParam("pageSize") int pageSize
+    );
 
+    @GetMapping("/myReview")
+    MyReviewListDTO getMyReviewList(
+            @RequestHeader("Authorization") String authorization, // JWT 토큰
+            @RequestParam String id,
+            @RequestParam int page,
+            @RequestParam int pageSize);
+
+    @GetMapping("/myReviewList")
+    AllMyReviewListDTO getMyReviewAllList(
+            @RequestHeader("Authorization") String authorization, // JWT 토큰
+            @RequestParam String id,
+            @RequestParam int page,
+            @RequestParam int pageSize);
+
+    @DeleteMapping
+    ResponseEntity<?> deleteReview(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody Long id
+    );
 }

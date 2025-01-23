@@ -19,4 +19,6 @@ public class CreateReviewRequestDTO {
     private String img;
     private double rating;
     private Instant createdAt;
+    private String orderId;
+    private String productName;
 }

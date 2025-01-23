@@ -1,61 +1,143 @@
-
-/* 기본 레이아웃 설정 */
+/* 기본 설정 */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
 }
 
-.max-w-4xl {
+/* 컨테이너 */
+.container {
     max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
+/* 채팅 리스트 컨테이너 */
+#chatListContainer {
+    font-size: 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    max-height: 400px;
+    overflow-x: auto; /* 가로 스크롤 */
+    overflow-y: hidden;
+    display: flex;
+    gap: 10px;
+}
+
+/* 채팅 리스트 항목 */
+.chat-list-item {
+    flex: 0 0 auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.chat-list-item:hover {
+    background-color: #f0f0f0;
+}
+
+.current-order {
+    background-color: lightblue;
+    color: white;
+    border: 2px solid #007bff;
+    font-weight: bold;
+}
+
+/* 모바일과 기본 설정 */
+.main-contents {
+    display: flex;
+    flex-direction: column; /* 기본 세로 정렬 (모바일) */
     gap: 20px;
 }
 
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* 카드 스타일 */
+/* 배달 현황, 채팅창 공통 카드 */
 .card {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
     font-size: 18px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.card-title {
-    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
 }
 
 .card-content {
-    margin-top: 16px;
+    font-size: 16px;
+    color: #555;
 }
 
-.card .card-header svg {
-    width: 20px;
-    height: 20px;
+/* 메시지 박스 */
+#chatContainer {
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: lightskyblue;
+    color: white;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.rider-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* 입력 폼 */
+form#message-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+form#message-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form#message-form button {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form#message-form button:hover {
+    background-color: #218838;
+}
+
+/* 배달 현황 */
 .map-placeholder {
     background-color: #e0e0e0;
     width: 100%;
@@ -64,67 +146,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .map-placeholder img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
-    border-radius: 8px;
 }
 
-/* 채팅 부분 */
-#messages {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 16px;
-}
-
-#messages .message {
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    max-width: 70%;
-}
-
-.customer-message {
-    background-color: #007bff;
-    color: white;
-    margin-left: auto;
-}
-
-.rider-message {
-    background-color: #f1f1f1;
-    color: #333;
-    margin-right: auto;
-}
-
-.message-time {
-    font-size: 12px;
-    color: #888;
-    text-align: right;
-    margin-top: 4px;
-}
-
-/* 주문 정보 */
+/* 주문 내역 */
 .order-details {
-    margin-top: 16px;
+    margin-top: 10px;
 }
 
-.order-details .order-item {
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
+.order-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.order-item:last-child {
+    border-bottom: none;
 }
 
 .restaurant-name {
-    font-weight: bold;
     font-size: 16px;
-}
-
-.order-item .price {
-    text-align: right;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .order-item .options {
@@ -132,40 +180,35 @@ body {
     font-size: 12px;
 }
 
-.time-info {
-    color: #888;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.order-item .price {
+    text-align: right;
+    font-weight: bold;
+    color: #28a745;
 }
-
-.info {
-    margin-top: 16px;
+#myElement{
+    display: block;
+    width: 100%
 }
+/* 데스크톱 환경 */
+@media (min-width: 768px) {
+    .main-contents {
+        flex-direction: row; /* 가로 정렬 */
+        justify-content: space-between;
+        gap: 20px;
+    }
+    #myElement{
+     display: flex;
+        width: 80%;        gap: 30px;
+    }
+    #chatListContainer {
+        flex-direction: column; /* 세로 정렬 */
+        max-height: 500px; /* 세로 스크롤 */
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 0 1 300px; /* 고정된 너비 */
+    }
 
-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* 메시지 입력란 */
-input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    flex: 1;
-}
-
-.form {
-    display: flex;
-    gap: 10px;
+    .card {
+        flex: 1; /* 나머지 카드들 가변 크기 */
+    }
 }

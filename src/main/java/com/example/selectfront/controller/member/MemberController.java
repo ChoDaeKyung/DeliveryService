@@ -16,8 +16,18 @@ import java.nio.charset.StandardCharsets;
 
 @Controller
 public class MemberController {
-    @Value("${swfm.service-url}")
+    @Value("${emails-url}")
     private String loginServiceUrl;
+
+    @Value("${swfm.service-url:}")
+    private String edgeServiceUrl; // edge-service URL을 로드밸런서로 지정
+
+    @GetMapping("/oauth2/authorization/google")
+    public String redirectToEdgeService() {
+        String url = edgeServiceUrl + "/oauth2/authorization/google";  // "http://edge-service:80/oauth2/authorization/google"
+        // 요청을 edge-service로 전달하거나 리디렉션
+        return "redirect:" + url;  // edge-service로 리디렉션
+    }
 
     @GetMapping("/login")
     public String login(Model model) {

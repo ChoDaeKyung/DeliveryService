@@ -22,10 +22,21 @@ public interface AdminClient {
             @RequestPart("image") MultipartFile image
     );
 
-    @PostMapping("/addProduct")
-    String addProduct(@RequestBody AddProductRequestDTO addProductRequestDTO);
+    @PostMapping(value = "/addProduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    String addProduct(
+            @RequestParam("name") String name,
+            @RequestParam("category") String category,
+            @RequestParam("price") int price,
+            @RequestPart("image") MultipartFile image
+    );
 
-    @PostMapping("/addSideMenu")
-    String addSideMenu(@RequestBody AddSideMenuRequestDTO addSideMenuRequestDTO);
+    @PostMapping(value = "/addSideMenu", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    String addSideMenu(
+            @RequestParam("name") String name,
+            @RequestParam("category") String category,
+            @RequestParam("price") int price,
+            @RequestParam("detail") String detail,
+            @RequestPart("image") MultipartFile image
+    );
 
 }

@@ -7,7 +7,7 @@
 
 
 body {
-    font-family: 'Arial', sans-serif;
+    /*font-family: 'Arial', sans-serif;*/
     line-height: 1.6;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 .text {
-    font-family: 'Irish Grover', sans-serif;
+    /*font-family: 'Irish Grover', sans-serif;*/
     font-size: 35px;
     color: #000;
     text-align: center;
