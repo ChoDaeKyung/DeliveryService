@@ -2,13 +2,12 @@ package com.example.selectfront.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Builder
 public class GetMenuListResponseDTO {
-    private String name;
-    private int price;
-    private String detail;
-    private String image;
+    List<GetCompleteProductsListResponseDTO> getCompleteProductsList;
+    List<GetSideMenuListResponseDTO> getSideMenuList;
 }

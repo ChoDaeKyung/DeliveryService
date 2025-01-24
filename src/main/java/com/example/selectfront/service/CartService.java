@@ -22,6 +22,10 @@ public class CartService {
         return cartClient.insertCompleteProductToCart(completeCartRequestDTO);
     }
 
+    public String insertSideMenuToCart(CompleteCartRequestDTO completeCartRequestDTO) {
+        return cartClient.insertSideMenuToCart(completeCartRequestDTO);
+    }
+
     public CartResponseDTO getCartList(String nickName) {
         return cartClient.getCartList(nickName);
     }

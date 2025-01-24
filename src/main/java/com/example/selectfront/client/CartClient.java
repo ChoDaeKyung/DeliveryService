@@ -18,6 +18,9 @@ public interface CartClient {
     @PostMapping("/completeProduct")
     String insertCompleteProductToCart(@RequestBody CompleteCartRequestDTO completeCartRequestDTO);
 
+    @PostMapping("/sideMenu")
+    String insertSideMenuToCart(@RequestBody CompleteCartRequestDTO completeCartRequestDTO);
+
     @GetMapping("/getCartList")
     CartResponseDTO getCartList(@RequestParam String nickName);
 

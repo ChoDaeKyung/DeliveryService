@@ -34,6 +34,15 @@ public class CartApiController {
         return ResponseEntity.ok("success");
     }
 
+    @PostMapping("/sideMenu")
+    public ResponseEntity<String> insertSideMenuToCart(
+            @RequestBody CompleteCartRequestDTO completeCartRequestDTO
+    ){
+        System.out.println("completeCartRequestDTO: " + completeCartRequestDTO);
+        cartService.insertSideMenuToCart(completeCartRequestDTO);
+        return ResponseEntity.ok("success");
+    }
+
     @PostMapping("/custom")
     public ResponseEntity<String> insertCustomToCart(
             @RequestBody CustomCartRequestDTO customCartRequestDTO

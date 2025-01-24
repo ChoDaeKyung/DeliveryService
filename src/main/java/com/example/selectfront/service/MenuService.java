@@ -2,7 +2,9 @@ package com.example.selectfront.service;
 
 import com.example.selectfront.client.MenuClient;
 import com.example.selectfront.dto.GetDetailProductsDTO;
+import com.example.selectfront.dto.GetCompleteProductsListResponseDTO;
 import com.example.selectfront.dto.GetMenuListResponseDTO;
+import com.example.selectfront.dto.GetSideMenuListResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class MenuService {
 
     private final MenuClient menuClient;
 
-    public List<GetMenuListResponseDTO> getMenuList() {
+    public GetMenuListResponseDTO getMenuList() {
         return menuClient.getMenuList();
     }
 
@@ -22,8 +24,12 @@ public class MenuService {
         return menuClient.getProductsByCompleteProduct(name);
     }
 
-    public  GetMenuListResponseDTO getMenuListByName(String name) {
+    public GetCompleteProductsListResponseDTO getMenuListByName(String name) {
         return menuClient.getMenuListByName(name);
+    }
+
+    public List<GetSideMenuListResponseDTO> getSideMenuByCategory(String category) {
+        return menuClient.getSideMenuByCategory(category);
     }
 
 }

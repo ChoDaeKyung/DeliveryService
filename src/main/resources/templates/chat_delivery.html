@@ -30,7 +30,8 @@
             <nav class="navbar navbar-expand-lg custom_nav-container ">
                 <a class="navbar-brand" href="index.html">
             <span>
-              Feane
+              SWbyFM
+
             </span>
                 </a>
 
@@ -136,7 +137,25 @@
     <div id="chatListContainer" class="chat-list">
         <!-- 채팅 리스트가 이곳에 추가됩니다 -->
     </div>
-    <div class="left-section">
+
+        <!-- 배달원과 채팅 카드 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">배달원과 채팅</span>
+            </div>
+            <div class="card-content">
+                <div id="chatContainer" class="h-[400px] overflow-y-auto space-y-4"></div>
+            </div>
+            <form id="message-form" class="form">
+                <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
+                <button type="submit">전송</button>
+            </form>
+        </div>
+
+
+
+
+        <div class="left-section">
         <!-- 배달 현황 카드 -->
         <div class="card">
             <div class="card-header">
@@ -153,6 +172,8 @@
             </div>
         </div>
 
+
+
         <!-- 주문 내역 카드 -->
         <div class="card">
             <div class="card-header">
@@ -161,7 +182,7 @@
             <div class="card-content">
                 <div class="order-details">
                     <div>
-                        <p class="restaurant-name">서브웨이</p>
+                        <p class="restaurant-name"></p>
                         <p class="text-sm text-gray-500">주문번호</p>
                     </div>
                     <div>
@@ -173,19 +194,7 @@
         </div>
     </div>
 
-    <!-- 배달원과 채팅 카드 -->
-    <div class="card">
-        <div class="card-header">
-            <span class="card-title">배달원과 채팅</span>
-        </div>
-        <div class="card-content">
-            <div id="chatContainer" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
-            <form id="message-form" class="form">
-                <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
-                <button type="submit">전송</button>
-            </form>
-        </div>
-    </div>
+
 </div>
 </div>
 <!-- footer section -->
@@ -222,7 +231,8 @@
             <div class="col-md-4 footer-col">
                 <div class="footer_detail">
                     <a href="" class="footer-logo">
-                        Feane
+                        SWbyFM
+
                     </a>
                     <p>
                         Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
@@ -268,6 +278,11 @@
         </div>
     </div>
 </footer>
+
+
+
+
+
 
 </body>
 </html>
