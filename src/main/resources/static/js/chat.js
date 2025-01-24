@@ -39,7 +39,7 @@ $(document).ready(function () {
                             data-items="${order.messageBody || ''}" 
                             <h3>주문 번호: ${order.orderId}</h3>
                             <p>고객명: ${order.userId}</p>
-                            <p>메시지: ${order.messageBody}</p>
+                            <p hidden>메시지: ${order.messageBody}</p>
                             <p style="display: none">${order.riderId}</p>
                             <p>${order.status}</p>
                         </div>
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.chat-list-item', function () {
         const newOrderId = $(this).data('order-id');
-
+        $("#new-message").val("");
         // 기존 선택 항목 스타일 제거
         $(".chat-list-item").removeClass('current-order');
 
