@@ -20,4 +20,8 @@ public class OrderListController {
         return "orderList";
     }
 
+    @GetMapping("/location")
+    public String location(){
+        return "rider";
+    }
 }
