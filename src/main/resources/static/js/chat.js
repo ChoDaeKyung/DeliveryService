@@ -31,14 +31,29 @@ $(document).ready(function () {
                 $chatListContainer.empty();
 
                 data.forEach(order => {
+                    // 고객명 또는 배달원명을 조건에 따라 결정
+                    let name = '';
+                    if (decoded.role === 'ROLE_RIDER') {
+                        name = `
+            <p>고객명: ${order.userId}</p>
+            <p style="display: none;">배달원 ID: ${order.riderId}</p>
+        `;
+                    } else if(decoded.role === 'ROLE_USER'){
+                        name = `
+            <p style="display: none;">고객명: ${order.userId}</p>
+            <p>배달원명: ${order.riderId}</p>
+        `;
+                    }
+
                     const orderHtml = `
                         <div class="chat-list-item ${order.orderId === orderId ? 'current-order' : ''}" 
-                            data-order-id="${order.orderId}" 
-                            data-order-number="${order.orderId}" 
+                            data-order-id="${order.orderId}"
+                            data-order-userId="${order.userId}"
+                            data-order-riderId="${order.riderId}"
                              data-order-status="${order.status}" 
                             data-items="${order.messageBody || ''}" 
                             <h3>주문 번호: ${order.orderId}</h3>
-                            <p>고객명: ${order.userId}</p>
+                            ${name}
                             <p hidden>메시지: ${order.messageBody}</p>
                             <p style="display: none">${order.riderId}</p>
                             <p>${order.status}</p>
@@ -52,32 +67,36 @@ $(document).ready(function () {
             }
         });
     }
-
-    $(document).on('click', '.chat-list-item', function () {
-        const newOrderId = $(this).data('order-id');
+    $(document).on("click", ".chat-list-item", function () {
+        const newOrderId = $(this).data("order-id");
+        const riderId = $(this).data("rider-id");
+        const userId = $(this).data("user-id");
         $("#new-message").val("");
-        // 기존 선택 항목 스타일 제거
-        $(".chat-list-item").removeClass('current-order');
 
-        // 새 선택 항목에 스타일 추가
-        $(this).addClass('current-order');
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const userLat = position.coords.latitude;
+                const userLng = position.coords.longitude;
 
-        // 기존 채팅방 내용 지우기
-        const chatContainer = $('#chatContainer');
-        chatContainer.empty();
+                const mapContainer = document.getElementById('map');
+                const map = new kakao.maps.Map(mapContainer, {
+                    center: new kakao.maps.LatLng(userLat, userLng),
+                    level: 5,
+                });
 
-        // 주문 내역 정보 업데이트
-        updateOrderDetails({
-            orderNumber: $(this).data('order-number'),
-            status: $(this).data('order-status'),
-            items: $(this).data('items'),
-        });
 
-        // orderId 업데이트 및 채팅 데이터 갱신
-        orderId = newOrderId;
-        lastTimestamp = -1;
-        fetchMessages(orderId);
+                if (decoded.role === "ROLE_RIDER") {
+                    window.initializeRiderMap(map, userLat, userLng, userId);
+                } else if (decoded.role === "ROLE_USER") {
+                    window.initializeUserMap(map, userLat, userLng, riderId);
+                }
+            },
+            (error) => {
+                console.error("위치 정보를 가져오는 데 실패했습니다:", error);
+            }
+        );
     });
+
 
     function updateOrderDetails(order) {
         const $orderDetails = $(".order-details");
