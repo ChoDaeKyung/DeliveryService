@@ -19,4 +19,6 @@ public interface DeliveryClient {
     ResponseEntity<String> chatSend(@RequestBody ChatRequestDTO chatRequestDTO);
     @GetMapping("/messages")
     ResponseEntity<List<Object>> getMessages(@RequestParam String orderId,  @RequestParam Long fromTimestamp);
+
+
 }

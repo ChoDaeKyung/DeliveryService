@@ -15,10 +15,11 @@
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=306fad2bdfd3b5c98b04d336d0fa10b7&libraries=services,clusterer"></script>
 
     <!-- 카카오 지도 API가 로드되면 자동으로 호출되는 함수 -->
-    <script th:src="@{/js/map.js}"></script>
-    <script th:src="@{/js/chat.js}"></script>
+<!--    <script th:src="@{/js/map.js}"></script>-->
+
 
 </head>
+
 <body class="sub_page">
 <div class="hero_area">
     <div class="bg-box">
@@ -162,13 +163,8 @@
                 <span class="card-title">배달 현황</span>
             </div>
             <div class="card-content">
-                <div class="map-placeholder">
-
-                </div>
-                <div class="info">
-                    <p class="time-info">예상 도착 시간: 14:40</p>
-                    <p>배달원까지의 거리: 1.2km</p>
-                </div>
+                <div id="map"></div>
+                <div id="info">배달원과의 거리 및 도착 예상 시간이 여기 표시됩니다.</div>
             </div>
         </div>
 
@@ -283,6 +279,7 @@
 
 
 
-
+<script th:src="@{/js/rider.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
 </body>
 </html>
