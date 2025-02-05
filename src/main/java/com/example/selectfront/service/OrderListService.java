@@ -51,5 +51,21 @@ public class OrderListService {
     public List<OrderResponseDTO> receiveRiderId(String userId){
         return orderListClient.receiveRiderIdMessage(userId);
     }
+    public int receiveOrderCount(String userId, String role) {
+        return orderListClient.getUserOrderCount(userId, normalizeRole(role));
+    }
+
+    public int receiveCountChatList(String userId, String role) {
+        return orderListClient.receiveCountChatList(userId, normalizeRole(role));
+    }
+
+    private String normalizeRole(String role) {
+        if ("ROLE_USER".equals(role)) {
+            return "USER";
+        } else if ("ROLE_RIDER".equals(role)) {
+            return "RIDER";
+        }
+        return role.trim();
+    }
 
 }

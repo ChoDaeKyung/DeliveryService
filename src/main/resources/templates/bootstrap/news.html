@@ -16,7 +16,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
-  <title> Feane </title>
+  <title> SWbyFM </title>
 
   <!-- bootstrap core css -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -36,7 +36,9 @@
 
   <!-- Responsive Style -->
   <link rel="stylesheet" th:href="@{/css/bootstrap/responsive.css}" />
-
+  <!-- 로그인 버튼 처리-->
+  <link th:href="@{/css/commonMain.css}" rel="stylesheet">
+  <script th:src="@{/js/common.js}"></script>
 </head>
 
 <body class="sub_page">
@@ -50,9 +52,9 @@
   <header class="header_section">
     <div class="container">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" th:href="@{/index}">
                     <span>
-                      Feane
+                      SWbyFM
                     </span>
         </a>
 
@@ -82,7 +84,7 @@
             <a href="" class="user_link">
               <i class="fa fa-user" aria-hidden="true"></i>
             </a>
-            <a class="cart_link" href="#">
+            <a class="cart_link" th:href="@{/mypage/cartList}">
               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                 <g>
                                     <g>
@@ -189,7 +191,7 @@
       <div class="col-md-4 footer-col">
         <div class="footer_detail">
           <a href="" class="footer-logo">
-            Feane
+            SWbyFM
           </a>
           <p>
             Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with

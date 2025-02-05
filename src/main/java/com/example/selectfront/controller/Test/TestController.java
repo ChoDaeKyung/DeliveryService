@@ -9,5 +9,8 @@ public class TestController {
     public String menu() {
         return "/Test/test";
     }
-
+    @GetMapping("/locationTest")
+    public String locationTest() {
+        return "/Test/location_test";
+    }
 }

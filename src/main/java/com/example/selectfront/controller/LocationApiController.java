@@ -35,8 +35,6 @@ public class LocationApiController {
         ResponseEntity<Map<String, Double>> deliveryLocation = locationService.getDeliveryLocation(deliveryPersonId);
         System.out.println("deliveryLocation: " + deliveryLocation.getStatusCode());
         System.out.println("deliveryLocation: " + Objects.requireNonNull(deliveryLocation.getBody()).toString());
-        System.out.println("deliveryLocation: " + deliveryLocation.getBody());
-        System.out.println("deliveryLocation: " + deliveryLocation.getHeaders().getLocation());
         return deliveryLocation;
     }
 
@@ -47,13 +45,23 @@ public class LocationApiController {
             @RequestParam double userLat,
             @RequestParam double userLng) {
         try {
-            // 서비스 호출
-            System.out.println("deliveryLat: " + deliveryLat+"deliveryLng: "+deliveryLng+"userLat: "+userLat+"userLng: "+userLng);
+            System.out.println("Request Params - deliveryLat: " + deliveryLat +
+                    ", deliveryLng: " + deliveryLng + ", userLat: " + userLat + ", userLng: " + userLng);
+
             DistanceResponse response = locationService.getDistanceAndTime(deliveryLat, deliveryLng, userLat, userLng).block();
-            System.out.println("response: "+response);
+
+            if (response == null) {
+                System.err.println("DistanceResponse is null");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new DistanceResponse(0, 0)); // 기본값 반환
+            }
+
+            System.out.println("Response: " + response);
             return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (Exception e) {
+            System.err.println("Error in getDistanceAndTime: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new DistanceResponse(0, 0));
         }
     }
+
 }

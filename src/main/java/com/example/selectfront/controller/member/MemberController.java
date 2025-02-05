@@ -45,23 +45,28 @@ public class MemberController {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing tokens");
             return null;
         }
-
+        CookieUtil.deleteCookie(request,response,"accessToken");
         // 쿠키에서 refreshToken 저장
         System.out.println("access token: " + accessToken);
         System.out.println("refresh token: " + refreshToken);
 
         // Ensure the access token is properly encoded for JavaScript
         String encodedAccessToken = URLEncoder.encode(accessToken, StandardCharsets.UTF_8).replace("+", "%20");
-        CookieUtil.deleteCookie(request,response,"accessToken");
-        // Set response character encoding to UTF-8
+
+        // 응답 문자 인코딩과 콘텐츠 유형 설정
         response.setCharacterEncoding("UTF-8");
-
-        // Store the access token in localStorage using JavaScript
-        String script = "window.localStorage.setItem('accessToken', '" + encodedAccessToken + "');";
         response.setContentType("text/html");
-        response.getWriter().write("<script>" + script + "</script>");
 
-        return "login"; // Return the login view
+        // 액세스 토큰을 로컬 스토리지에 저장하는 자바스크립트 코드
+        String script = "<script>" +
+                "window.localStorage.setItem('accessToken', '" + encodedAccessToken + "');" +
+                "window.location.href = '@{/index}';" + // 메인 페이지로 리다이렉션
+                "</script>";
+
+
+        response.getWriter().write(script);  // HTML 내에 자바스크립트를 삽입하여 실행
+
+        return null; // 뷰 리졸버를 통한 리턴을 막고, 직접 응답 처리
     }
 
     // 쿠키에서 값을 읽는 유틸리티 메서드

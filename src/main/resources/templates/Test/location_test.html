@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!-- 위치 저장 버튼 -->
+<input type="text" id="userIdInput" placeholder="User ID를 입력하세요" />
+<button class="orderButton">위치 저장</button>
+
+<script>
+  $(document).on('click', '.orderButton', function (event) {
+    // 텍스트 입력 필드에서 userId를 가져옵니다
+    let userId = document.getElementById("userIdInput").value;
+
+    // 임의의 좌표를 설정 (예: 서울의 좌표)
+    const latitude = 37.5665479;
+    const longitude = 126.9780431;
+
+    // 위치 저장 함수 호출
+    saveDeliveryLocation(userId, latitude, longitude);
+
+
+    function saveDeliveryLocation(userId, latitude, longitude) {
+      console.log('userId:', userId, 'latitude:', latitude, 'longitude:', longitude);
+      fetch(`/api/location/update-location`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deliveryPersonId: userId,  // 여기서 userId를 사용
+          latitude: latitude,
+          longitude: longitude,
+        }),
+      })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // 응답을 텍스트로 확인하여 JSON으로 변환 가능 여부를 확인
+                return response.text();
+              })
+              .then((text) => {
+                try {
+                  const data = JSON.parse(text);  // 텍스트를 JSON으로 변환
+                  console.log("유저 위치 저장 성공:", data);
+                } catch (error) {
+                  console.error("응답이 JSON 형식이 아닙니다:", text);
+                }
+              })
+              .catch((error) => {
+                console.error("유저 위치 저장 실패:", error);
+              });
+
+    }
+
+
+  });
+</script>
+</body>
+</html>
