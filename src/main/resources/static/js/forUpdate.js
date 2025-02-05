@@ -1,7 +1,4 @@
-function idForUpdate() {
-    // 비밀번호 확인 없이 그냥 페이지 리디렉션
-    window.location.href = '/user/idForUpdate';  // 아이디 확인 페이지로 이동
-}
+
 
 function checkAndFetchNickname() {
     const userIdElement = document.getElementById('userId');
@@ -34,80 +31,6 @@ function checkAndFetchNickname() {
     });
 }
 
-// $(function () {
-//     $('#checkNicknameButton').on('click', function () {
-//         const newNickname = $('#newNickname').val();
-//
-//         if (!newNickname) {
-//             alert('닉네임을 입력해주세요.');
-//             return;
-//         }
-//
-//         $.ajax({
-//             type: 'POST',
-//             url: '/user/check-nickname', // 프론트엔드 컨트롤러 API
-//             contentType: 'application/json',
-//             data: JSON.stringify({ nickname: newNickname }),
-//             success: function (response) {
-//                 console.log(response);
-//                 if (response) {
-//                     alert('이미 사용 중인 닉네임입니다.');
-//                 } else {
-//                     alert('사용 가능한 닉네임입니다!');
-//                 }
-//             },
-//             error: function (xhr, status, error) {  // xhr, status, error 인자를 추가
-//                 console.error('에러 발생:', xhr.responseText);  // xhr.responseText로 에러 메시지 출력
-//                 alert('중복 검사 중 오류가 발생했습니다.');
-//             }
-//         });
-//     });
-// });
-//
-// function updateNickname() {
-//     const newNickname = document.getElementById('newNickname').value;
-//     const userid = document.getElementById('userid').value;
-//     if (!newNickname) {
-//         alert('닉네임을 입력해 주세요.');
-//         return;
-//     }
-//     // 버튼 비활성화 (중복 클릭 방지)
-//     const updateButton = document.getElementById('updateNicknameButton');
-//     updateButton.disabled = true;
-//
-//     // AJAX 요청: 닉네임 수정
-//     $.ajax({
-//         type: 'POST',
-//         url: '/user/update-nickname',
-//         contentType: 'application/json',
-//         data: JSON.stringify({ nickname: newNickname, userId: userid  }),
-//         success: function(response) {
-//             console.log('응답:', response); // 응답 확인
-//             if (response === "success") {
-//                 alert('닉네임이 성공적으로 변경되었습니다!');
-//                 window.location.replace('/mypage');
-//
-//             } else {
-//                 alert('닉네임 변경에 실패했습니다.');
-//             }
-//         },
-//         error: function(xhr, status, error) {
-//             console.error('닉네임 수정 실패:', xhr.responseText);
-//             alert('닉네임 수정 중 오류가 발생했습니다.');
-//         },
-//         complete: function() {
-//             // 요청이 끝난 후 버튼 활성화
-//             updateButton.disabled = false;
-//         }
-//     });
-//
-// }
-//
-// $(function () {
-//     $('#updateNicknameButton').on('click', function () {
-//         updateNickname();
-//     });
-// });
 
 let isNicknameValid = false; // 닉네임 중복 체크 여부를 저장하는 변수
 

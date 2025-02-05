@@ -17,6 +17,7 @@ public interface LocationClient {
     @PostMapping("/update-location")
     ResponseEntity<String> updateLocation(@RequestBody LocationRequestDTO locationRequestDTO);
 
+
     @GetMapping("/get-delivery-location")
-    ResponseEntity<Map<String, Double>>  getDeliveryLocation(@RequestParam String deliveryPersonId);
+    ResponseEntity<Map<String, Double>> getDeliveryLocation(@RequestParam("deliveryPersonId") String deliveryPersonId);
 }

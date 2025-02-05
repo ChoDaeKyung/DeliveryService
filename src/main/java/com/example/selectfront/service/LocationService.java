@@ -35,18 +35,18 @@ public class LocationService {
     }
 
     public Mono<DistanceResponse> getDistanceAndTime(double deliveryLat, double deliveryLng, double userLat, double userLng) {
-        String kakaoApiUrl = "https://apis-navi.kakao.com/v1/directions";
-
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(kakaoApiUrl)
+                        .path("/v1/directions") // 정확한 경로 사용
                         .queryParam("origin", deliveryLng + "," + deliveryLat)
                         .queryParam("destination", userLng + "," + userLat)
-                        .queryParam("priority", "1")
+                        .queryParam("priority", "RECOMMEND") // "RECOMMEND"로 우선순위 설정
                         .queryParam("car_fuel", "GASOLINE")
                         .queryParam("car_hipass", "false")
+                        .queryParam("alternatives", "false") // 대체 경로 사용 안 함
+                        .queryParam("road_details", "false") // 도로 세부사항 사용 안 함
                         .build())
-                .header("Authorization", kakaoApiKey)
+                .header(HttpHeaders.AUTHORIZATION, "KakaoAK " + kakaoApiKey) // 카카오 API 키 포함
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(this::parseDistanceResponse);
@@ -56,12 +56,19 @@ public class LocationService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode responseJson = objectMapper.readTree(responseBody);
-            double distance = responseJson.path("routes").get(0).path("summary").path("distance").asDouble();
-            int duration = responseJson.path("routes").get(0).path("summary").path("duration").asInt();
+
+            if (!responseJson.has("routes") || responseJson.get("routes").isEmpty()) {
+                throw new RuntimeException("Kakao API 응답에 'routes' 데이터가 없습니다.");
+            }
+
+            JsonNode summary = responseJson.path("routes").get(0).path("summary");
+            double distance = summary.path("distance").asDouble();
+            int duration = summary.path("duration").asInt();
 
             return new DistanceResponse(distance, duration);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse Kakao API response", e);
         }
     }
+
 }

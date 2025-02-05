@@ -1,6 +1,11 @@
 $(document).ready(function () {
     let orderId = $(".hidden-order-id").text().trim();
+    const firstOrderElement = $(`.chat-list-item[data-order-id="${orderId}"]`);
 
+    if (firstOrderElement.length > 0) {
+        // 첫 번째 아이템을 자동으로 클릭한 것처럼 trigger
+        firstOrderElement.trigger('click');
+    }
     const token = localStorage.getItem("accessToken");
 
     if (!token) {
@@ -22,6 +27,7 @@ $(document).ready(function () {
     fetchMessages(orderId);
 
     function chatList() {
+        console.log(decoded.sub)
         $.ajax({
             url: '/orderList/orderList',
             method: 'GET',
@@ -46,19 +52,19 @@ $(document).ready(function () {
                     }
 
                     const orderHtml = `
-                        <div class="chat-list-item ${order.orderId === orderId ? 'current-order' : ''}" 
-                            data-order-id="${order.orderId}"
-                            data-order-userId="${order.userId}"
-                            data-order-riderId="${order.riderId}"
-                             data-order-status="${order.status}" 
-                            data-items="${order.messageBody || ''}" 
-                            <h3>주문 번호: ${order.orderId}</h3>
-                            ${name}
-                            <p hidden>메시지: ${order.messageBody}</p>
-                            <p style="display: none">${order.riderId}</p>
-                            <p>${order.status}</p>
-                        </div>
-                    `;
+    <div class="chat-list-item ${order.orderId === orderId ? 'current-order' : ''}" 
+        data-order-id="${order.orderId}"
+        data-user-id="${order.userId}"
+        data-rider-id="${order.riderId}"
+        data-status="${order.status}" 
+        data-items="${order.messageBody || ''}">
+        <h3>주문 번호: ${order.orderId}</h3>
+        ${name}
+        <p hidden>메시지: ${order.messageBody}</p>
+        <p style="display: none">${order.riderId}</p>
+        <p>${order.status}</p>
+    </div>
+`;
                     $chatListContainer.append(orderHtml);
                 });
             },
@@ -67,28 +73,30 @@ $(document).ready(function () {
             }
         });
     }
+
     $(document).on("click", ".chat-list-item", function () {
-        const newOrderId = $(this).data("order-id");
         const riderId = $(this).data("rider-id");
         const userId = $(this).data("user-id");
+        console.log('userId',userId)
+        console.log('riderId',riderId)
         $("#new-message").val("");
-
+        updateOrderDetails({
+            orderNumber: $(this).data('order-id'),
+            status: $(this).data('status'),
+            items: $(this).data('items'),
+        });
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
 
-                const mapContainer = document.getElementById('map');
-                const map = new kakao.maps.Map(mapContainer, {
-                    center: new kakao.maps.LatLng(userLat, userLng),
-                    level: 5,
-                });
 
 
+                console.log('checkMap','userLat',userLat,'userLng',userLng,'userId',userId);
                 if (decoded.role === "ROLE_RIDER") {
-                    window.initializeRiderMap(map, userLat, userLng, userId);
+                    window.initializeRiderMap( userLat, userLng, userId);
                 } else if (decoded.role === "ROLE_USER") {
-                    window.initializeUserMap(map, userLat, userLng, riderId);
+                    window.initializeUserMap( userLat, userLng, riderId);
                 }
             },
             (error) => {
@@ -102,7 +110,6 @@ $(document).ready(function () {
         const $orderDetails = $(".order-details");
         $orderDetails.empty();
         // 디버깅: 전달된 order 객체 확인
-        console.log("Order 객체:", order);
 
         // order.items가 없는 경우 기본값 설정
         const items = order.items || ""; // items가 없을 경우 빈 문자열로 처리
