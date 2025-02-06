@@ -1,22 +1,23 @@
 package com.example.selectfront.client;
 
-import com.example.selectfront.dto.community.CreateNewsRequestDTO;
-import com.example.selectfront.dto.community.CreateNewsResponseDTO;
-import com.example.selectfront.dto.community.NewsDetailDTO;
-import com.example.selectfront.dto.community.NewsListDTO;
+import com.example.selectfront.dto.community.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @FeignClient(name = "newsClient", url = "${swfm.service-url}/news")
 public interface NewsClient {
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<CreateNewsResponseDTO> createNews(
             @RequestHeader("Authorization") String authorizationHeader,
-            @RequestBody CreateNewsRequestDTO createNewsRequestDTO
+            @RequestPart("title") String title,
+            @RequestPart("content") String content,
+            @RequestPart(value = "img",required = false) List<MultipartFile> images
     );
 
     @GetMapping
@@ -38,10 +39,12 @@ public interface NewsClient {
             @RequestBody List<Long> ids
     );
 
-    @PutMapping
-    ResponseEntity<CreateNewsResponseDTO> updateNews(
+    @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<UpdateNewsDTO> updateNews(
             @RequestHeader("Authorization") String authorizationHeader,
-            @RequestBody CreateNewsRequestDTO createNewsRequestDTO
-    );
+            @RequestParam("id") Long id,
+            @RequestPart("title") String title,  // 제목 받기
+            @RequestPart("content") String content,  // 내용 받기
+            @RequestPart(value = "img", required = false) List<MultipartFile> images);
 
 }

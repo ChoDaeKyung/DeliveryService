@@ -20,7 +20,3 @@ user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
 kakao:
   api-key: 118f545aa38dcd31bad414ade22b9cd6
-file:
-  upload-dir: /Users/chodaekyung/Desktop/uploads
-#  upload-dir: C:/Users/jjjkk/Desktop/파이널프로젝트이미지
-#  upload-dir: C:/Users/admin/Desktop/uploud

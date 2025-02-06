@@ -6,7 +6,7 @@ $(document).ready(function () {
         return;
     }
 
-    let timeout = 6000000;
+    let timeout = 60000;
     const mapContainer = document.getElementById("map");
     const infoDiv = document.getElementById("info");
     let  userMarker, deliveryMarker, polyline;

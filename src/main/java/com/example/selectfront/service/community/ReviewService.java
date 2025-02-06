@@ -21,42 +21,33 @@ import java.util.UUID;
 public class ReviewService {
     private final ReviewClient reviewClient;
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
 
     public CreateReviewResponseDTO createReview(CreateReviewRequestDTO createReviewRequestDTO, List<MultipartFile> images) {
         // 이미지 업로드 처리
-        String imgPaths = uploadImages(images);
-        createReviewRequestDTO.setImg(imgPaths);
-        System.out.println("img"+createReviewRequestDTO.getImg());
-        ResponseEntity<CreateReviewResponseDTO> response = reviewClient.createReview("",createReviewRequestDTO);
-        return response.getBody();
-    }
-
-    private String uploadImages(List<MultipartFile> images) {
-        List<String> paths = new ArrayList<>();
-
-        for (MultipartFile image : images) {
-            String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-            Path filePath = Paths.get(uploadDir, fileName);
-
-            try {
-                Files.copy(image.getInputStream(), filePath);
-                paths.add(filePath.toString());
-            } catch (IOException e) {
-                throw new RuntimeException("이미지 업로드 실패: " + fileName, e);
-            }
+        if (images != null && !images.isEmpty()) {
+            System.out.println("img === " + images);
+        } else {
+            System.out.println("이미지 없음");
+            images = null;
         }
 
-        return String.join(";", paths); // 경로를 구분자로 연결
-    }
-
-    public CreateReviewResponseDTO updateReview(CreateReviewRequestDTO createReviewRequestDTO, List<MultipartFile> images) {
-        String imgPaths = uploadImages(images);
-        createReviewRequestDTO.setImg(imgPaths);
-        System.out.println("img"+createReviewRequestDTO.getImg());
-        ResponseEntity<CreateReviewResponseDTO> response = reviewClient.updateReview("",createReviewRequestDTO);
-        return response.getBody();
+        // FeignClient를 통해 데이터 전송 (이미지가 없으면 null 전달)
+        ResponseEntity<CreateReviewResponseDTO> response = reviewClient.createReview(
+                "",  // 인증 헤더
+                createReviewRequestDTO.getTitle(),  // 제목
+                createReviewRequestDTO.getContent(),  // 내용
+                createReviewRequestDTO.getRating(),
+                createReviewRequestDTO.getAuthorId(),
+                createReviewRequestDTO.getOrderId(),
+                createReviewRequestDTO.getProductName(),
+                images  // 이미지 목록
+        );
+        // 응답이 정상인지 확인 후 반환
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } else {
+            throw new RuntimeException("뉴스 생성 실패: " + response.getStatusCode());
+        }
     }
 
     public ReviewDetailDTO getReview(Long id) {
