@@ -1,0 +1,49 @@
+.user_logged_in {
+    position: relative;
+}
+
+.user_logged_in .dropdown-menus {
+    border-radius: 10px;
+    background: ghostwhite;
+    visibility: hidden; /* 기본적으로 숨김 */
+    opacity: 0;         /* 기본적으로 투명 */
+    width: 140px;
+    position: absolute;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border-radius: 10px;
+}
+
+/* hover 시 드롭다운 메뉴 표시 */
+.user_logged_in:hover .dropdown-menus {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(10px);
+}
+
+/* 클릭 시 드롭다운 메뉴 표시 */
+.user_logged_in.active .dropdown-menus {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(10px);
+}
+
+.dropdown-items {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    margin: 0;
+    border-radius: 10px;
+    display: block;
+}
+.dropdown-menus a{
+ margin: 0;
+}
+.dropdown-items:hover {
+    background-color: #ffbe33;
+}

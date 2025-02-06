@@ -153,7 +153,7 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: white;
   text-decoration: none;
   background-color: transparent;
 }
@@ -1208,8 +1208,8 @@ pre code {
   }
   .col-lg-6 {
     -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
+    flex: 0 0 60%;
+    max-width: 60%;
   }
   .col-lg-7 {
     -ms-flex: 0 0 58.333333%;

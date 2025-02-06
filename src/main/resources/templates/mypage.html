@@ -17,6 +17,7 @@
 
   <title> SWbyFM </title>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- bootstrap core css -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -28,7 +29,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.css}" />
 
   <!-- Font Awesome Style -->
-  <link rel="stylesheet" th:href="@{/css/bootstrap/font-awesome.min.css}" />
+<!--  <link rel="stylesheet" th:href="@{/css/bootstrap/font-awesome.min.css}" />-->
 
   <!-- Custom styles for this template -->
   <link rel="stylesheet" th:href="@{/css/bootstrap/style.css}" />
@@ -37,7 +38,10 @@
   <link rel="stylesheet" th:href="@{/css/bootstrap/responsive.css}" />
 
   <link th:href="@{/css/mypage.css}" rel="stylesheet">
-
+  <!-- 로그인 버튼 처리-->
+  <link th:href="@{/css/commonMain.css}" rel="stylesheet">
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/mypage.js}"></script>
 </head>
 
 <body class="sub_page">
@@ -50,7 +54,7 @@
   <header class="header_section">
     <div class="container">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" th:href="@{/index}">
             <span>
               SWbyFM
             </span>
@@ -76,10 +80,25 @@
             </li>
           </ul>
           <div class="user_option">
-            <a href="" class="user_link">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </a>
-            <a class="cart_link" href="#">
+            <!-- 로그인된 상태일 때 보이는 부분 -->
+            <div class="user_logged_in" style="display: none;">
+              <a href="#" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+              <!-- 드롭다운 메뉴 (마이페이지, 로그아웃) -->
+              <div class="dropdown-menus"  >
+                <a href="/mypage" class="dropdown-items">마이페이지</a>
+                <a href="#" class="dropdown-items" id="logout">로그아웃</a>
+              </div>
+            </div>
+
+            <!-- 로그인되지 않은 상태일 때 보이는 로그인 아이콘 -->
+            <div class="user_not_logged_in" style="display: none;">
+              <a href="login" class="login_link">
+                <i class="fa fa-sign-in" aria-hidden="true"></i> 로그인
+              </a>
+            </div>
+            <a class="cart_link" th:href="@{/mypage/cartList}">
               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                   <g>
                     <g>
@@ -160,26 +179,30 @@
         <h2 class="black">사용자 님</h2>
         <button onclick="idForUpdate()" class="gray-button">회원 정보 변경</button>
       </div>
-
-      <!-- Card: 멤버십 포인트 -->
+<script>
+  function idForUpdate() {
+    // 비밀번호 확인 없이 그냥 페이지 리디렉션
+    window.location.href = '/user/idForUpdate';  // 아이디 확인 페이지로 이동
+  }
+</script>
       <div class="card membership-card">
-        <h2>멤버십 포인트</h2>
-        <p>0P</p>
-        <button>포인트 관리</button>
+        <h2>주문 목록</h2>
+        <p class="orderCount"></p>
+        <button  th:onclick="|location.href='@{/order}'|">주문 목록으로</button>
       </div>
 
-      <!-- Card: 써브카드 -->
+      <!-- 채팅 -->
       <div class="card sub-card">
-        <h2>써브카드</h2>
-        <p>0원</p>
-        <button>카드 관리</button>
+        <h2>채팅목록</h2>
+        <p class="chatCount"></p>
+        <button th:onclick="|location.href='@{/chat}'|">채팅 목록으로</button>
       </div>
 
       <!-- Card: 주문내역 -->
       <div class="card order-card">
-        <h2>주문내역</h2>
+        <h2>장바구니</h2>
         <p>0개</p>
-        <button>주문 내역 관리</button>
+        <button th:onclick="|location.href='@{/mypage/cartList}'|">장바구니로</button>
       </div>
 
       <!-- Card: e-Gift -->
@@ -281,34 +304,7 @@
     </div>
   </div>
 </footer>
-<!-- footer section -->
 
-<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}" crossorigin="anonymous"></script>
-
-<!-- Popper JS -->
-<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-<!-- Bootstrap JS -->
-<script th:src="@{${'/js/bootstrap/bootstrap.js'}}"></script>
-
-<!-- Owl slider -->
-<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js}"></script>
-
-<!-- Isotope JS -->
-<script th:src="@{https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js}"></script>
-
-<!-- Nice select -->
-<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js}"></script>
-
-<!-- Custom JS -->
-<script th:src="@{${'/js/bootstrap/custom.js'}}"></script>
-
-<!-- Google Map -->
-<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap}"></script>
-
-<script th:src="@{/js/forUpdate.js}"></script>
-
-<!-- End Google Map -->
 </body>
 
 </html>

@@ -60,13 +60,15 @@ public class MemberController {
         // 액세스 토큰을 로컬 스토리지에 저장하는 자바스크립트 코드
         String script = "<script>" +
                 "window.localStorage.setItem('accessToken', '" + encodedAccessToken + "');" +
-                "window.location.href = '/index';" + // 메인 페이지로 리다이렉션
+                "window.location.href = '@{/index}';" + // 메인 페이지로 리다이렉션
                 "</script>";
+
 
         response.getWriter().write(script);  // HTML 내에 자바스크립트를 삽입하여 실행
 
         return null; // 뷰 리졸버를 통한 리턴을 막고, 직접 응답 처리
     }
+
     // 쿠키에서 값을 읽는 유틸리티 메서드
     private String getCookieValue(HttpServletRequest request, String cookieName) {
         if (request.getCookies() != null) {

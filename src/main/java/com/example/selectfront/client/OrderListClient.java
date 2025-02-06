@@ -32,5 +32,8 @@ public interface OrderListClient {
 
     @GetMapping("/getRiderOrdersList")
     List<OrderResponseDTO> receiveRiderIdMessage(@RequestParam String riderId);
-
+    @GetMapping("/userOrderCount")
+    int  getUserOrderCount(@RequestParam String userId,@RequestParam String role);
+    @GetMapping("/userChatCount")
+    int  receiveCountChatList(@RequestParam String userId,@RequestParam String role);
 }

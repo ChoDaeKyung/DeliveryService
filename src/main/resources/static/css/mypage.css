@@ -1,7 +1,7 @@
 /* 기본 스타일 */
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    /*font-family: 'Arial', sans-serif;*/
     color: #333;
     background-color: #f9f9f9;
 }
@@ -43,7 +43,7 @@ html, body {
 
 .main {
     position: relative;
-    padding-top: 300px;
+    padding-top: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,11 +51,13 @@ html, body {
 
 .main h1 {
     position: absolute;
-    top: 29.2%;
+    top: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
     text-align: center;
+    font-weight: 700; /* 굵게 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
 }
 
 
@@ -87,6 +89,9 @@ html, body {
     padding-bottom: 40px; /* 아래쪽 여백 */
     text-align: center;
     color: #FFFFFF; /* 텍스트 색상 흰색 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
+    font-weight: bold;
+
 }
 
 .card p {
@@ -95,6 +100,7 @@ html, body {
     position: relative;
     top: -16px; /* 0P만 위로 올림 */
     color: #FFFFFF;
+    font-weight: bold;
 }
 
 .card button {
@@ -107,6 +113,8 @@ html, body {
     transition: background 0.3s, color 0.3s; /* 배경과 텍스트 색상 전환 */
     position: relative; /* 독립적 위치 설정 */
     top: 0; /* 버튼의 위치는 변경하지 않음 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
+    font-weight: bold;
 }
 
 
@@ -121,15 +129,18 @@ button.gray-button {
     cursor: pointer;
     transition: background 0.3s, color 0.3s; /* 배경과 텍스트 색상 전환 */
     position: relative; /* 독립적 위치 설정 */
-    top: 24px; /* 아래로 10px 이동 */
+    top: 40px; /* 아래로 10px 이동 */
     left: 0px; /* 왼쪽으로 20px 이동 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
+    font-weight: bold;
 }
 h2.black {
     font-size: 1.5rem;
     margin-bottom: 10px; /* 버튼과 간격 조절 */
     position: relative;
     top: 16px; /* 0P만 위로 올림 */
-    color: #000000;
+    color: #434242;
+    font-weight: bold;
 }
 
 .cards-wrapper {
@@ -142,6 +153,7 @@ h2.black {
     max-width: 940px; /* 3열 * 300px + 2 * 20px */
     justify-content: center; /* 수평 방향 중앙 정렬 */
     align-content: center; /* 수직 방향 중앙 정렬 */
+    padding-top: 20px; /* 불필요한 위쪽 여백 제거 */
 }
 
 
@@ -151,41 +163,57 @@ h2.black {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     background-color: #FFFFFF;
-    border: 5px solid #F1D221;
+    border: 5px solid #ffca00;
     border-radius: 36px;
 }
 
 .membership-card {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    background-color: #057426;
+    background-color: rgb(60, 179, 113); /* RGB 값으로 변경 */
     border-radius: 36px;
 }
+
 
 .sub-card {
     grid-column: 3 / 4;
     grid-row: 1 / 2;
-    background-color: #FFDD1E;
+    background-color: rgb(91, 94, 253); /* RGB 값으로 변경 */
     border-radius: 36px;
 }
 
 .order-card {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-    background-color: #6F4FCE;
+    background-color: rgb(160, 103, 173); /* RGB 값으로 변경 */
     border-radius: 36px;
 }
 
 .egift-card {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    background-color: #00CEDD;
+    background-color: rgb(070, 163, 210); /* RGB 값으로 변경 */
     border-radius: 36px;
 }
 
 .coupon-card {
     grid-column: 3 / 4;
     grid-row: 2 / 3;
-    background-color: #FD7E00;
+    background-color: rgb(255, 165, 0); /* RGB 값으로 변경 */
     border-radius: 36px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    background-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+}
+
+/* Focus 상태에서도 텍스트 색상을 강제로 흰색으로 유지 */
+input:-webkit-autofill:focus {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background-color: transparent !important;
 }

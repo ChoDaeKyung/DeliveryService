@@ -3,7 +3,7 @@ body {
     margin: 0;
     color: #6a6f8c;
     background: #c8c8c8;
-    font: 600 16px/18px 'Open Sans', sans-serif;
+    font: 600 16px/18px 'Noto Sans', sans-serif;
 }
 
 *,:after,:before {
@@ -21,7 +21,6 @@ body {
 }
 
 a {
-    color: inherit;
     text-decoration: none;
 }
 
@@ -31,8 +30,9 @@ a {
     max-width: 525px;
     min-height: 780px;
     position: relative;
-    background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
+    /*background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;*/
     box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    border-radius: 15px; /* 로그인 박스 모서리 둥글게 */
 }
 
 .login-html {
@@ -40,7 +40,8 @@ a {
     height: 100%;
     position: absolute;
     padding: 15px 70px 50px 70px;
-    background: rgba(40, 57, 101, .9);
+    background: rgb(10 12 20 / 90%);
+    border-radius: 20px; /* 로그인 박스 모서리 둥글게 */
 }
 
 .login-html .sign-in-htm,
@@ -73,6 +74,7 @@ a {
     margin: 0 15px 10px 0;
     display: inline-block;
     border-bottom: 2px solid transparent;
+    color: RGB(128, 128, 128);
 }
 
 .login-html .sign-in:checked + .tab,
@@ -188,15 +190,23 @@ a {
     text-align: center;
 }/* Style for the input fields */
 input[type="text"], input[type="password"], input[type="email"], select {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    background-color: #fff;
-    font-size: 16px;
-    color: #333;
-    transition: border-color 0.3s ease-in-out;
+    width: 90%;
+    padding: 15px 0;
+    font-size: 20px;
+    height: 50px;
+    color: rgb(219 134 14);
+    /*margin-bottom: 50px;*/
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: none;
+    background: transparent;
+    /*position: absolute;*/
+    /*top: 25%;*/
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 40px; /* 아래 여백 추가 */
+    position: relative; /* absolute에서 relative로 변경 */
+    top: 100px; /* top 위치 자동 조정 */
 }
 
 /* Focus state for inputs */
@@ -204,30 +214,63 @@ input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 select:focus {
-    border-color: #1161ee;
-    outline: none;
-    box-shadow: 0 0 5px rgba(17, 97, 238, 0.6);
+    /*     border-color: #1161ee;
+        outline: none;
+        box-shadow: 0 0 5px rgba(17, 97, 238, 0.6); */
+}
+
+#login-button {
+    position: relative;
+    bottom: auto;
+    margin-top: 10px; /* 상단 여백 추가 */
+    left: 0%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: rgb(219 134 14);
+    color: #FFFFFF;
+    border: none;
+    width: 400px;
+    height: 45px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    margin: 180px auto;
+    display: block;
 }
 
 /* Placeholder styling */
 input::placeholder {
     color: #aaa;
-    font-style: italic;
+    /*     font-style: italic; */
 }
 
 /* Styling for the select dropdown */
 select {
-    padding: 15px;
-    border-radius: 25px;
-    background-color: #fff;
-    border: 2px solid #ddd;
-    font-size: 16px;
-    color: #333;
+    width: 90%;
+    padding: 0px 0;
+    font-size: 20px;
+    height: 50px;
+
+    /*margin-bottom: 50px;*/
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: none;
+    background: transparent;
+    /*position: absolute;*/
+    /*top: 25%;*/
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 40px; /* 아래 여백 추가 */
+    position: relative; /* absolute에서 relative로 변경 */
+    top: 100px; /* top 위치 자동 조정 */
+    color: rgb(219 134 14);
 }
 
 select:focus {
-    border-color: #1161ee;
-    box-shadow: 0 0 5px rgba(17, 97, 238, 0.6);
+    outline: none;
+    box-shadow: none;
+    border-color: 2px solid #fff; /* 필요하다면 추가 */
+
 }
 /* 소셜 로그인 버튼 스타일 */
 .social-login button {
@@ -244,6 +287,9 @@ select:focus {
     background-position: center;
     background-repeat: no-repeat;
     height: 58px; /* 버튼 높이 설정 */
+    position: relative;
+    top: -90px; /* 아래로 10px 이동 */
+    left: 0px; /* 오른쪽으로 20px 이동 */
 }
 
 /* 네이버 로그인 버튼 */
@@ -251,6 +297,7 @@ select:focus {
     margin: 10px;
     background-image: url('/images/email/naver.png');
     background-color: #1ec800; /* 로고 배경 색상 */
+    border-radius: 50%;
 }
 
 .social-login .naver:hover {
@@ -261,6 +308,7 @@ select:focus {
 .social-login .kakao-login {
     margin: 10px;
     background-image: url('/images/email/kakao.png');
+    border-radius: 50%;
     background-color: #fee500;
 }
 
@@ -272,6 +320,7 @@ select:focus {
 .social-login .google {
     margin: 10px;
     background-image: url('/images/email/google.png');
+    border-radius: 50%;
     background-color: #4285f4;
 }
 
@@ -287,4 +336,187 @@ select:focus {
     text-align: center;
     font-weight: normal;
     display :inline-block;
+}
+
+
+/* ID 입력창 */
+#signup-id {
+    position: relative;
+    top: 0px; /* 위로 20px 이동 */
+    left: 190px; /* 왼쪽으로 10px 이동 */
+    margin-bottom: 20px; /* 아래 여백 */
+    z-index: 1; /* 버튼이 입력창 위로 오도록 설정 */
+}
+
+/* ID 중복 검사 버튼 */
+#check-id-btn {
+    background-color: rgb(81 81 81);
+    color: #fff;
+    font-size: 0.7rem; /* 글자 크기 */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 1px 2px; /* 버튼 내부 여백 */
+    width: 70px; /* 버튼 너비 */
+    height: 35px; /* 버튼 높이 */
+    position: relative;
+    top: -65px; /* 부모 요소 기준 상단에서 100px */
+    left: 330px; /* 수평 중앙 정렬 */
+    transform: translateX(-50%); /* 버튼 중심 정렬 */
+    cursor: pointer;
+    z-index: 2; /* 버튼이 입력창 위로 오도록 설정 */
+    transition: background-color 0.3s;
+
+}
+
+/* Password 입력창 */
+#signup-password {
+    position: relative;
+    top: -23px; /* 위로 40px 이동 */
+    left: 190px; /* 기준 위치 */
+}
+
+/* Full Name 입력창 */
+#signup-name {
+    position: relative;
+    top: -29px; /* 위로 60px 이동 */
+    left: 190px; /* 오른쪽으로 10px 이동 */
+
+}
+
+/* Nickname 입력창 */
+#signup-nickname {
+    position: relative;
+    top: -33px; /* 위로 80px 이동 */
+    left: 190px; /* 왼쪽으로 15px 이동 */
+    z-index: 1; /* 버튼이 입력창 위로 오도록 설정 */
+}
+
+/* Nickname 중복 검사 버튼 */
+/* Nickname 중복 검사 버튼 */
+#check-nickname-btn {
+    background-color: rgb(81 81 81);
+    color: #fff;
+    font-size: 0.7rem; /* 글자 크기 */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 1px 2px; /* 버튼 내부 여백 */
+    width: 70px; /* 버튼 너비 */
+    height: 35px; /* 버튼 높이 */
+    position: relative;
+    top: -117px; /* 위로 120px 이동 (기존보다 작은 값으로 조정) */
+    left: 330px; /* 수평 중앙 정렬 */
+    transform: translateX(-50%); /* 버튼 중심 정렬 */
+    cursor: pointer;
+    z-index: 2; /* 버튼이 입력창 위로 오도록 설정 */
+    transition: background-color 0.3s;
+}
+
+
+/* Role 선택 드롭다운 */
+#signup-role {
+    position: relative;
+    top: -85px; /* 위로 100px 이동 */
+    left: 190; /* 기준 위치 */
+}
+
+/* Email 입력창 */
+#signup-email {
+    position: relative;
+    top: -65px; /* 위로 120px 이동 */
+    left: 190px; /* 왼쪽으로 10px 이동 */
+}
+
+/* 이메일 전송 버튼 */
+#send-verification-btn {
+    background-color: rgb(81 81 81);
+    color: #fff;
+    font-size: 0.7rem; /* 글자 크기 */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 1px 2px; /* 버튼 내부 여백 */
+    width: 70px; /* 버튼 너비 */
+    height: 35px; /* 버튼 높이 */
+    position: relative;
+    top: -149px; /* 위로 120px 이동 (기존보다 작은 값으로 조정) */
+    left: 330px; /* 수평 중앙 정렬 */
+    transform: translateX(-50%); /* 버튼 중심 정렬 */
+    cursor: pointer;
+    z-index: 2; /* 버튼이 입력창 위로 오도록 설정 */
+    transition: background-color 0.3s;
+}
+
+/* 인증번호 입력창 */
+#verification-code {
+    position: relative;
+    top: -100px; /* 위로 140px 이동 */
+    left: 190px; /* 기준 위치 */
+}
+
+/* 인증번호 확인 버튼 */
+#verify-button {
+    background-color: rgb(81 81 81);
+    color: #fff;
+    font-size: 0.7rem; /* 글자 크기 */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 1px 2px; /* 버튼 내부 여백 */
+    width: 90px; /* 버튼 너비 */
+    height: 35px; /* 버튼 높이 */
+    position: relative;
+    top: -185px; /* 위로 120px 이동 (기존보다 작은 값으로 조정) */
+    left: 320px; /* 수평 중앙 정렬 */
+    transform: translateX(-50%); /* 버튼 중심 정렬 */
+    cursor: pointer;
+    z-index: 2; /* 버튼이 입력창 위로 오도록 설정 */
+    transition: background-color 0.3s;
+}
+
+/* Sign Up 버튼 */
+#submit-button {
+    position: relative;
+
+    top: -300px; /* 위로 160px 이동 */
+    left: -8px; /* 기준 위치 */
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: rgb(219 134 14);
+    color: #FFFFFF;
+    border: none;
+    width: 400px;
+    height: 45px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    margin: 180px auto;
+    display: block;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    background-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+}
+
+/* Focus 상태에서도 텍스트 색상을 강제로 흰색으로 유지 */
+input:-webkit-autofill:focus {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background-color: transparent !important;
+}
+
+/* Change the color to your own background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 9999s ease-out;
+    /*-webkit-box-shadow: 0 0 0px 1000px white inset !important;*/
+    -webkit-text-fill-color: rgb(219 134 14) !important;
 }

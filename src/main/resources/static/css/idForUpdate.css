@@ -12,82 +12,114 @@ body {
 }
 
 #main-wrapper {
-    margin-top: 225px; /* 네브바 높이만큼 마진 추가 */
-    margin-bottom: 100px; /* 푸터 높이만큼 마진 추가 */
-    min-height: calc(100vh - 225px - 100px); /* 뷰포트 높이에서 네브바와 푸터 높이 차감 */
+    margin-top: 200px; /* 네브바 높이만큼 마진 추가 */
+    margin-bottom: 700px; /* 푸터 높이만큼 마진 추가 */
+    /*min-height: calc(100vh - 225px - 100px); !* 뷰포트 높이에서 네브바와 푸터 높이 차감 *!*/
 }
 
-/* main 영역 */
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 
 h1 {
-    margin-top: 80px; /* 필요에 따라 조정 */
-    margin-bottom: -190px; /* 필요에 따라 조정 */
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 700; /* 굵게 */
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
 }
 
 /* container 클래스 스타일링 */
-.container {
-    /* 중앙 정렬을 위한 flexbox */
-    display: flex;
-    flex-direction: column; /* 세로 정렬 */
-    align-items: center; /* 가로 중앙 정렬 */
-    justify-content: center; /* 세로 중앙 정렬 */
+.login-box {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    width: 500px;
+    height: 400px; /* 높이 추가 */
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 21, 30, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
 
-    /* 크기 및 여백 */
-    width: 100%;
-    max-width: 500px; /* 최대 너비 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 20px; /* 내부 여백 */
-    margin-top: 270px; /* 필요에 따라 조정 */
-    margin-bottom: 90px; /* 필요에 따라 조정 */
-
-    /* 시각적 효과 */
-    background-color: #f9f9f9; /* 밝은 배경 색 */
-    border: 1px solid #ddd; /* 테두리 */
-    border-radius: 8px; /* 둥근 모서리 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
 }
 
-/* 폼 내부 요소 정렬 */
-#id-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* 요소 간격 */
-    align-items: center; /* 가로 중앙 정렬 */
-}
+.login-box h5 {
 
-label {
-    font-size: 16px;
-    color: #333;
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
     font-weight: bold;
+    /*font-family: 'Jeju Gothic', sans-serif; !* 제주 고딕 적용 *!*/
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* 패딩 포함한 박스 크기 계산 */
+.login-box .user-box {
+    position: relative;
 }
+
+.login-box .user-box input {
+    width: 80%; /* 입력 필드 너비 */
+    padding: 15px 0; /* 입력 필드 높이 */
+    font-size: 20px; /* 입력 필드 글자 크기 */
+    height: 50px; /* 높이 추가 */
+    color: #fff;
+    margin-bottom: 50px;
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: none ;
+    background: transparent;
+    position: absolute; /* 절대 위치로 설정 */
+    top: 25%;  /* 상단 10% 위치 */
+    left: 50%;  /* 좌측 50% 위치 */
+    transform: translateX(-50%); /* 수평 중앙 정렬 */
+    /*border-bottom: 2px solid #fff;*/
+}
+
+.login-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+}
+
 
 button {
     font-size: 1.2rem;
     font-weight: 600; /* 중간 굵기 */
-    background: #057426; /* 배경 색상 초록색 */
+    background-color: rgb(219 134 14); /* RGB 값으로 변경 */
     color: #FFFFFF; /* 텍스트 색상 흰색 */
     border: none; /* 테두리 없애기 */
-    width: 140px; /* 버튼의 너비 설정 */
-    height: 50px; /* 버튼의 높이 설정 */
+    width: 400px; /* 버튼의 너비 설정 */
+    height: 45px; /* 버튼의 높이 설정 */
     border-radius: 100px;
     cursor: pointer;
     transition: background 0.3s, color 0.3s; /* 배경과 텍스트 색상 전환 */
 
-    top: 0; /* 버튼의 위치는 변경하지 않음 */
+    margin: 180px auto; /* 상단 여백 50px, 좌우 자동 중앙 정렬 */
+    display: block; /* 블록 요소로 변경 (중앙 정렬 적용 가능) */
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    background-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+}
+
+/* Focus 상태에서도 텍스트 색상을 강제로 흰색으로 유지 */
+input:-webkit-autofill:focus {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background-color: transparent !important;
 }

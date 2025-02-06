@@ -2,13 +2,18 @@ package com.example.selectfront.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-class WebClientConfig {
-
+public class WebClientConfig {
     @Bean
     public WebClient webClient(WebClient.Builder builder) {
-        return builder.build();
+        return builder
+                .baseUrl("https://apis-navi.kakaomobility.com") // 정확한 API URL 설정
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
     }
 }
+
