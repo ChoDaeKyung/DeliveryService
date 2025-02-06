@@ -33,6 +33,7 @@ $(document).ready(function () {
         userId = JSON.stringify(decoded.sub);// 문자열로 변환
         console.log("Type of sub:", typeof userId);
         console.log("UserId as string:", userId); // 변환된 값 확인
+        $('#hiddenUserId').val(userId); // 상품 이름 출력 가공
     } else {
         alert("로그인해주세요.");
         return;
@@ -40,50 +41,84 @@ $(document).ready(function () {
 
     console.log('userId :: ', userId);
 
-    // Ajax로 데이터 가져오기
     $.ajax({
-        url: '/webs/api/cart/getCartList', type: 'GET', data: {nickName: userId}, success: function (response) {
-            console.log('response :: ', response)
+        url: '/webs/api/cart/getCartList',
+        type: 'GET',
+        data: {nickName: userId},
+        success: function (response) {
+            console.log('response :: ', response);
+
             // 가져온 데이터를 처리
             renderCartList(response);
-        }, error: function (xhr, status, error) {
+
+            // 렌더링 이후에 amount와 products 계산
+            let products = [];
+            let amount = 0;
+
+            $('.rectangle').each(function () {
+                const totalPrice = parseFloat($(this).data('total-price')) || 0;
+                const product = $(this).data('name');
+                amount += totalPrice;
+
+                if (product) {
+                    products.push(product); // 상품 이름 배열에 추가
+                }
+            });
+
+            console.log('amount :: ', amount);
+            console.log('products :: ', products);
+
+            // 상품 개수 가공
+            let displayProducts;
+            if (products.length > 1) {
+                displayProducts = `${products[0]} 외 ${products.length - 1}개 상품`;
+            } else if (products.length === 1) {
+                displayProducts = products[0];
+            } else {
+                displayProducts = '상품이 없습니다.';
+            }
+
+            console.log('displayProducts :: ', displayProducts);
+
+            // HTML input 요소에 값 주입
+            $('#hiddenTotalMoney').val(amount);       // 총 금액 설정
+            $('#hiddenProducts').val(displayProducts); // 상품 이름 출력 가공
+        },
+        error: function (xhr, status, error) {
             console.error('Error fetching cart data:', error);
         }
     });
-
-
 });
 
-
 // 데이터를 HTML에 렌더링하는 함수
-function renderCartList(data) {
-    // Container 요소 가져오기
-    const cartContainer = $('#cartContainer');
-    cartContainer.empty(); // 기존 내용 삭제
+    function renderCartList(data) {
+        // Container 요소 가져오기
+        const cartContainer = $('#cartContainer');
+        cartContainer.empty(); // 기존 내용 삭제
 
-    // CompleteCartList와 CartProductList 가져오기
-    const completeCartList = data.completeCartList;
-    const cartProductList = data.cartProductList;
+        // CompleteCartList와 CartProductList 가져오기
+        const completeCartList = data.completeCartList;
+        const cartProductList = data.cartProductList;
 
-    // 고정된 카테고리 순서
-    const fixedCategoryOrder = ['bread', 'vegetable', 'meat', 'source', 'cheese'];
+        // 고정된 카테고리 순서
+        const fixedCategoryOrder = ['bread', 'vegetable', 'meat', 'source', 'cheese'];
 
-    // 각 CompleteCartResponseDTO에 맞는 Product를 매핑
-    completeCartList.forEach(cart => {
-        // `id`에 맞는 CartProductResponseDTO 찾기
-        const products = cartProductList.filter(product => product.id === cart.id);
+        // 각 CompleteCartResponseDTO에 맞는 Product를 매핑
+        completeCartList.forEach(cart => {
+            // `id`에 맞는 CartProductResponseDTO 찾기
+            const products = cartProductList.filter(product => product.id === cart.id);
 
-        // 카테고리별로 제품을 그룹화
-        const categorizedProducts = products.reduce((acc, product) => {
-            if (!acc[product.category]) {
-                acc[product.category] = [];
-            }
-            acc[product.category].push(product.name);  // 상품 이름만 저장
-            return acc;
-        }, {});
+            // 카테고리별로 제품을 그룹화
+            const categorizedProducts = products.reduce((acc, product) => {
+                if (!acc[product.category]) {
+                    acc[product.category] = [];
+                }
+                acc[product.category].push(product.name);  // 상품 이름만 저장
+                return acc;
+            }, {});
 
-        // `CompleteCartResponseDTO`를 렌더링
-        const cartHtml = `
+            // `CompleteCartResponseDTO`를 렌더링
+            const cartHtml = `
     <div class="rectangle" data-name="${cart.name}" data-total-price="${cart.totalPrice}">
         <div class="cart-header">
             <strong>${cart.name}</strong> (가격 : ${cart.totalPrice}₩)
@@ -92,7 +127,7 @@ function renderCartList(data) {
             ${fixedCategoryOrder.map(category => `
                 ${categorizedProducts[category] ? `
                     <div class="category-section">
-                        <strong>${category}:</strong> 
+                        <strong>${category}:</strong>
                         <span class="category-items">${categorizedProducts[category].join(', ')}</span>
                     </div>
                 ` : ''}
@@ -101,69 +136,44 @@ function renderCartList(data) {
     </div>
 `;
 
-        // 컨테이너에 추가
-        cartContainer.append(cartHtml);
+            // 컨테이너에 추가
+            cartContainer.append(cartHtml);
+        });
+    }
+
+    $(document).on('click', '.rectangle', function () {
+        const name = $(this).data('name'); // data-name 속성에서 값 가져오기
+        console.log('Clicked cart name:', name);
+
+        $.ajax({
+            url: '/webs/api/menu/getMenuListByName', // 서버에서 메뉴 목록을 가져오는 API URL
+            method: 'GET',
+            dataType: 'json', // 응답 데이터 타입은 JSON
+            data: {name: name},
+            success: function (data) {
+
+            }
+
+        });
     });
+
+
+
+// 모달 열기
+function openModal() {
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'flex';
 }
 
-$(document).on('click', '.rectangle', function () {
-    const name = $(this).data('name'); // data-name 속성에서 값 가져오기
-    console.log('Clicked cart name:', name);
+// 모달 닫기
+function closeModal() {
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'none';
+}
 
-    $.ajax({
-        url: '/webs/api/menu/getMenuListByName', // 서버에서 메뉴 목록을 가져오는 API URL
-        method: 'GET',
-        dataType: 'json', // 응답 데이터 타입은 JSON
-        data: {name: name},
-        success: function(data) {
-
-        }
-
-    });
-});
-
-$(document).on('click', '.orderButton', function () {
-    alert('hi');
-
-    let payPrice = 0;
-    $('.rectangle').each(function () {
-        const totalPrice = parseFloat($(this).data('total-price')) || 0;
-        payPrice += totalPrice;
-    });
-
-    if (payPrice === 0) {
-        alert('장바구니에 상품을 먼저 담아주세요.');
-        window.location.href = '/mypage/cartList';
-        return;
-    }
-
-    const clientKey = "test_ck_vZnjEJeQVxeEnpv2LGobrPmOoBN0";
-    const tossPayments = TossPayments(clientKey);
-
-    async function requestPayment() {
-        try {
-            await tossPayments.requestPayment({
-                method: "CARD",
-                amount: 50000,
-                orderId: "4nvQh0QW-7Pqp4YwxLwHT",
-                orderName: "토스 티셔츠 외 2건",
-                successUrl: window.location.origin + "/success",
-                failUrl: window.location.origin + "/fail",
-                customerEmail: "customer123@gmail.com",
-                customerName: "김토스",
-                customerMobilePhone: "01012341234",
-                card: {
-                    useEscrow: false,
-                    flowMode: "DEFAULT",
-                    useCardPoint: false,
-                    useAppCardOnly: false,
-                },
-            });
-        } catch (error) {
-            console.error('결제 요청 중 오류:', error);
-            alert('결제 요청에 실패했습니다. 다시 시도해주세요.');
-        }
-    }
-
-    requestPayment();
+// '주문하기' 버튼 클릭 이벤트
+$(document).on('click', '.orderButton', function (event) {
+    event.preventDefault(); // 기본 동작 방지
+    alert('hi')
+    openModal();
 });

@@ -12,23 +12,27 @@ public class FrontController {
     }
     @GetMapping("/index")
     public String index() {
-        return "/bootstrap/index";
+        return "bootstrap/index";
+    }
+    @GetMapping("/")
+    public String main() {
+        return "bootstrap/index";
     }
     @GetMapping("/book")
     public String book() {
-        return "/bootstrap/book";
+        return "bootstrap/book";
     }
     @GetMapping("/news")
     public String about() {
-        return "/bootstrap/news";
+        return "bootstrap/news";
     }
     @GetMapping("/review")
     public String review() {
-        return "/bootstrap/review";
+        return "bootstrap/review";
     }
     @GetMapping("/menus")
     public String menus() {
-        return "/bootstrap/menu";
+        return "bootstrap/menu";
     }
     @GetMapping("/market")
     public String market() {
@@ -71,10 +75,6 @@ public class FrontController {
         return "cartList";
     }
 
-    @GetMapping("/chat")
-    public String chat() {
-        return "chat_delivery";
-    }
 
     @GetMapping("/mypage/availableReview")
     public String availableReview() {

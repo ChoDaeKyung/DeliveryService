@@ -2,8 +2,10 @@ package com.example.selectfront.client;
 
 import com.example.selectfront.dto.community.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,10 +13,16 @@ import java.util.List;
 public interface ReviewClient {
 
     //리뷰 작성
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<CreateReviewResponseDTO> createReview(
             @RequestHeader("Authorization") String authorizationHeader,
-            @RequestBody CreateReviewRequestDTO createReviewRequestDTO
+            @RequestPart("title") String title,
+            @RequestPart("content") String content,
+            @RequestParam("rating") double rating,
+            @RequestPart("userId") String userId,
+            @RequestPart("orderId") String orderId,
+            @RequestPart("productName") String productName,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images // images는 선택적으로 받음
     );
 
     //리뷰 수정

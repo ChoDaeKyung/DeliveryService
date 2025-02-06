@@ -45,6 +45,7 @@ public interface LoginClient {
 
     @PostMapping("/auths/claims")
     ClaimsResponseDTO getClaims(@RequestBody ClaimsRequestDTO claimsRequestDTO);
+
     @PostMapping("/auths/validToken")
     LoginSussesResponseDTO getLogin(@RequestBody ValidTokenRequestDTO token);
 }

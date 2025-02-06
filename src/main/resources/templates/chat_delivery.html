@@ -1,32 +1,176 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 기본 설정 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>배달 추적</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/responsive.css}">
     <link th:href="@{/css/delivery-tracking.css}" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=306fad2bdfd3b5c98b04d336d0fa10b7&libraries=services,clusterer"></script>
+
+    <!-- 카카오 지도 API가 로드되면 자동으로 호출되는 함수 -->
+<!--    <script th:src="@{/js/map.js}"></script>-->
+
+
 </head>
-<body>
-<div class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="left-section">
-        <!-- 배달 현황 -->
+
+<body class="sub_page">
+<div class="hero_area">
+    <div class="bg-box">
+        <img src="images/hero-bg.jpg" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="index.html">
+            <span>
+              SWbyFM
+
+            </span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=""> </span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  mx-auto ">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/index}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href="@{/menus}" >Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href="@{/about}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/book}">MAP</a>
+                        </li>
+                    </ul>
+                    <div class="user_option">
+                        <a href="" class="user_link">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </a>
+                        <a class="cart_link" href="#">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  <g>
+                    <g>
+                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                    </g>
+                  </g>
+                                <g>
+                    <g>
+                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                    </g>
+                  </g>
+                                <g>
+                    <g>
+                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                    </g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                                <g>
+                  </g>
+                </svg>
+                        </a>
+                        <form class="form-inline">
+                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        <a href="" class="order_online">
+                            Order Online
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- end header section -->
+</div>
+<p class="hidden-order-id" style="display: none;">[[${orderId}]]</p>
+<div class="main-contents">
+
+
+    <div id="myElement" class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <!-- 배달 추적 섹션 (원래 HTML) -->
+    <div id="chatListContainer" class="chat-list">
+        <!-- 채팅 리스트가 이곳에 추가됩니다 -->
+    </div>
+
+        <!-- 배달원과 채팅 카드 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">배달원과 채팅</span>
+            </div>
+            <div class="card-content">
+                <div id="chatContainer" class="h-[400px] overflow-y-auto space-y-4"></div>
+            </div>
+            <form id="message-form" class="form">
+                <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
+                <button type="submit">전송</button>
+            </form>
+        </div>
+
+
+
+
+        <div class="left-section">
+        <!-- 배달 현황 카드 -->
         <div class="card">
             <div class="card-header">
                 <span class="card-title">배달 현황</span>
             </div>
             <div class="card-content">
-                <div class="map-placeholder">
-                    <img src="/api/placeholder/400/320" alt="지도">
-                </div>
-                <div class="info">
-                    <p class="time-info">예상 도착 시간: 14:40</p>
-                    <p>배달원까지의 거리: 1.2km</p>
-                </div>
+                <div id="map"></div>
+                <div id="info">배달원과의 거리 및 도착 예상 시간이 여기 표시됩니다.</div>
             </div>
         </div>
 
-        <!-- 주문 내역 -->
+
+
+        <!-- 주문 내역 카드 -->
         <div class="card">
             <div class="card-header">
                 <span class="card-title">주문 내역</span>
@@ -34,83 +178,108 @@
             <div class="card-content">
                 <div class="order-details">
                     <div>
-                        <p class="restaurant-name">서브웨이 강남점</p>
-                        <p class="text-sm text-gray-500">주문번호: ORDER-123456</p>
+                        <p class="restaurant-name"></p>
+                        <p class="text-sm text-gray-500">주문번호</p>
                     </div>
                     <div>
-                        <div class="order-item">
-                            <p>이탈리안 BMT</p>
-                            <p class="options">15cm, 화이트, 양상추, 토마토</p>
-                            <p class="price">8,900원</p>
-                        </div>
-                        <div class="order-item">
-                            <p>쿠키</p>
-                            <p class="options">더블 초코칩</p>
-                            <p class="price">1,500원</p>
-                        </div>
+
                     </div>
-                    <p class="text-right font-bold">총 결제금액: 10,400원</p>
+                    <p class="text-right font-bold">총 결제금액: </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 오른쪽 섹션: 채팅 -->
-    <div class="card">
-        <div class="card-header">
-            <span class="card-title">배달원과 채팅</span>
+
+</div>
+</div>
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 footer-col">
+                <div class="footer_contact">
+                    <h4>
+                        Contact Us
+                    </h4>
+                    <div class="contact_link_box">
+                        <a href="">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span>
+                  Location
+                </span>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <span>
+                  Call +01 1234567890
+                </span>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <span>
+                  demo@gmail.com
+                </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 footer-col">
+                <div class="footer_detail">
+                    <a href="" class="footer-logo">
+                        SWbyFM
+
+                    </a>
+                    <p>
+                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                    </p>
+                    <div class="footer_social">
+                        <a href="">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-pinterest" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>
+                    Opening Hours
+                </h4>
+                <p>
+                    Everyday
+                </p>
+                <p>
+                    10.00 Am -10.00 Pm
+                </p>
+            </div>
         </div>
-        <div class="card-content">
-            <div id="messages" class="h-[400px] overflow-y-auto space-y-4 mb-4"></div>
-            <form id="message-form" class="form">
-                <input type="text" id="new-message" placeholder="메시지를 입력하세요" />
-                <button type="submit">전송</button>
-            </form>
+        <div class="footer-info">
+            <p>
+                &copy; <span id="displayYear"></span> All Rights Reserved By
+                <a href="https://html.design/">Free Html Templates</a><br><br>
+                &copy; <span id="displayYear"></span> Distributed By
+                <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+            </p>
         </div>
     </div>
-</div>
+</footer>
 
-<script>
-    $(document).ready(function () {
-        const messages = [
-            { id: 1, sender: 'customer', text: '문 앞에 놓아주세요', time: '14:30' },
-            { id: 2, sender: 'rider', text: '알겠습니다. 10분 후 도착예정입니다', time: '14:31' }
-        ];
 
-        // 메시지 표시
-        function displayMessages() {
-            $('#messages').empty();
-            messages.forEach(message => {
-                const messageClass = message.sender === 'customer' ? 'customer-message' : 'rider-message';
-                $('#messages').append(`
-            <div class="message ${messageClass}">
-              <p>${message.text}</p>
-              <p class="message-time">${message.time}</p>
-            </div>
-          `);
-            });
-        }
 
-        displayMessages();
 
-        // 메시지 전송
-        $('#message-form').on('submit', function (e) {
-            e.preventDefault();
-            const newMessage = $('#new-message').val().trim();
-            if (!newMessage) return;
 
-            const currentTime = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-            const newMsg = {
-                id: messages.length + 1,
-                sender: 'customer',
-                text: newMessage,
-                time: currentTime
-            };
-            messages.push(newMsg);
-            displayMessages();
-            $('#new-message').val('');
-        });
-    });
-</script>
+<script th:src="@{/js/rider.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
 </body>
 </html>

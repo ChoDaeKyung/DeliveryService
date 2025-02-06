@@ -12,5 +12,4 @@ public class AddCompleteProductRequestDTO {
     private List<AddCompleteProductDetailDto> productsList;
     private int price;
     private String detail;
-    private String imagePath;
 }

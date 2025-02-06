@@ -23,13 +23,13 @@ public class ReviewApiController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CreateReviewResponseDTO> createReview(
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam(value = "images", required = false) List<MultipartFile> images, // images는 선택적으로 받음
+            @RequestPart("title") String title,
+            @RequestPart("content") String content,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images, // images는 선택적으로 받음
             @RequestParam("rating") double rating,
-            @RequestParam("userId") String userId,
-            @RequestParam("orderId") String orderId,
-            @RequestParam("productName") String productName
+            @RequestPart("userId") String userId,
+            @RequestPart("orderId") String orderId,
+            @RequestPart("productName") String productName
 
     ) {
         System.out.println("title : " + title);
@@ -56,38 +56,19 @@ public class ReviewApiController {
         return ResponseEntity.ok(reviewService.createReview(requestDTO, images));
     }
 
-    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<CreateReviewResponseDTO> updateReview(
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam(value = "images", required = false) List<MultipartFile> images,
-            @RequestParam("rating") double rating,
-            @RequestParam("postId") Long postId
-    ) {
-        // images가 null인 경우 빈 리스트로 처리
-        if (images == null) {
-            images = new ArrayList<>();
-        }
-
-        CreateReviewRequestDTO requestDTO = new CreateReviewRequestDTO();
-        requestDTO.setTitle(title);
-        requestDTO.setContent(content);
-        requestDTO.setRating(rating);
-        requestDTO.setId(postId);
-
-        // 리뷰 수정 서비스 호출
-        return ResponseEntity.ok(reviewService.updateReview(requestDTO, images));
-    }
-
     @GetMapping
-    public ResponseEntity<?> getReview(@RequestParam int page, @RequestParam int pageSize,String token) {
-        System.out.println("revew"+page+pageSize+token);
+    public ResponseEntity<?> getReview(@RequestParam int page, @RequestParam int pageSize,
+                                       @RequestHeader("Authorization") String authorizationHeader) {
+        // "Bearer " 부분을 제거
+        String token = authorizationHeader.startsWith("Bearer ") ? authorizationHeader.substring(7) : authorizationHeader;
+
+        System.out.println("review " + page + " " + pageSize + " " + token);
         try {
-            ReviewListDTO reviewList = reviewService.getReview(page, pageSize,token);
+            ReviewListDTO reviewList = reviewService.getReview(page, pageSize, token);
             System.out.println("reviewList.getReviewList() :: " + reviewList.getReviewList());
             return ResponseEntity.ok(reviewList); // JSON 응답 반환
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching news");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching reviews");
         }
     }
 

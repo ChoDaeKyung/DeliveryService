@@ -1,10 +1,7 @@
 package com.example.selectfront.service.community;
 
 import com.example.selectfront.client.NewsClient;
-import com.example.selectfront.dto.community.CreateNewsRequestDTO;
-import com.example.selectfront.dto.community.CreateNewsResponseDTO;
-import com.example.selectfront.dto.community.NewsDetailDTO;
-import com.example.selectfront.dto.community.NewsListDTO;
+import com.example.selectfront.dto.community.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,34 +23,30 @@ public class NewsService {
 
     private final NewsClient newsClient;
 
-    @Value("${file.upload-dir}")
     private String uploadDir;
 
     public CreateNewsResponseDTO createNews(CreateNewsRequestDTO createNewsRequestDTO, List<MultipartFile> images) {
-        // 이미지 업로드 처리
-        String imgPaths = uploadImages(images);
-        createNewsRequestDTO.setImg(imgPaths);
-        System.out.println("img"+createNewsRequestDTO.getImg());
-        ResponseEntity<CreateNewsResponseDTO> response = newsClient.createNews("",createNewsRequestDTO);
-        return response.getBody();
-    }
-
-    private String uploadImages(List<MultipartFile> images) {
-        List<String> paths = new ArrayList<>();
-
-        for (MultipartFile image : images) {
-            String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-            Path filePath = Paths.get(uploadDir, fileName);
-
-            try {
-                Files.copy(image.getInputStream(), filePath);
-                paths.add(filePath.toString());
-            } catch (IOException e) {
-                throw new RuntimeException("이미지 업로드 실패: " + fileName, e);
-            }
+        // 이미지가 있을 경우만 로그 출력
+        if (images != null && !images.isEmpty()) {
+            System.out.println("img === " + images);
+        } else {
+            System.out.println("이미지 없음");
+            images = null;
         }
 
-        return String.join(";", paths); // 경로를 구분자로 연결
+        // FeignClient를 통해 데이터 전송 (이미지가 없으면 null 전달)
+        ResponseEntity<CreateNewsResponseDTO> response = newsClient.createNews(
+                "",  // 인증 헤더
+                createNewsRequestDTO.getTitle(),  // 제목
+                createNewsRequestDTO.getContent(),  // 내용
+                images  // 이미지 목록
+        );
+        // 응답이 정상인지 확인 후 반환
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } else {
+            throw new RuntimeException("뉴스 생성 실패: " + response.getStatusCode());
+        }
     }
 
 
@@ -69,12 +63,30 @@ public class NewsService {
         newsClient.deleteNews("Bearer " + token, ids);
     }
 
-    public CreateNewsResponseDTO updateNews(CreateNewsRequestDTO createNewsRequestDTO, List<MultipartFile> images) {
-        String imgPaths = uploadImages(images);
-        createNewsRequestDTO.setImg(imgPaths);
-        System.out.println("img"+createNewsRequestDTO.getImg());
-        ResponseEntity<CreateNewsResponseDTO> response = newsClient.updateNews("",createNewsRequestDTO);
-        return response.getBody();
+    public UpdateNewsDTO updateNews(CreateNewsRequestDTO createNewsRequestDTO,List<MultipartFile> images) {
+        System.out.println("타입::" + createNewsRequestDTO.getId().getClass().getName());
+        System.out.println("img::: "+images);
+        // 이미지가 있을 경우만 로그 출력
+        if (images != null && !images.isEmpty()) {
+            System.out.println("img === " + images);
+        } else {
+            System.out.println("이미지 없음");
+            images = null;
+        }
+
+        ResponseEntity<UpdateNewsDTO> response = newsClient.updateNews(
+                "",  // 인증 헤더
+                createNewsRequestDTO.getId(),
+                createNewsRequestDTO.getTitle(),  // 제목
+                createNewsRequestDTO.getContent(),  // 내용
+                images  // 이미지 목록
+        );
+        // 응답이 정상인지 확인 후 반환
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } else {
+            throw new RuntimeException("뉴스 생성 실패: " + response.getStatusCode());
+        }
     }
 
 

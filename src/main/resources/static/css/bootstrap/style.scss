@@ -6,17 +6,19 @@ $textCol: #1f1f1f;
 
 // import fonts -  font-family: 'Open Sans', sans-serif and  font-family: 'Dancing Script', cursive;
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
-
+//@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @mixin main-font {
-  font-family: "Open Sans", sans-serif;
+  //font-family: "Open Sans", sans-serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 @mixin second-font {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Noto Sans', sans-serif;
+  //font-family: 'Dancing Script', cursive;
 }
 
-@mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius) {
+@mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius  ) {
   display: inline-block;
   padding: $pad1 $pad2;
   background-color: $col1;
@@ -470,6 +472,9 @@ a:focus {
 
 .food_section {
 
+  position: relative; /* 부모 컨테이너 위치 명시 */
+  margin-bottom: 50px; /* 다음 섹션과 간격 확보 */
+
   .filters_menu {
     padding: 0;
     display: flex;
@@ -573,6 +578,7 @@ a:focus {
     }
   }
 }
+
 
 // end food section
 

@@ -7,13 +7,13 @@
 
 
 body {
-    font-family: 'Arial', sans-serif;
+    /*font-family: 'Arial', sans-serif;*/
     line-height: 1.6;
 }
 
 .main-content {
     position: relative;
-    top: 225px; /* navbar의 높이를 고려하여 그 아래에서 시작 */
+    top: 50px; /* navbar의 높이를 고려하여 그 아래에서 시작 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +22,7 @@ body {
 }
 
 .text {
-    font-family: 'Irish Grover', sans-serif;
+    /*font-family: 'Irish Grover', sans-serif;*/
     font-size: 35px;
     color: #000;
     text-align: center;

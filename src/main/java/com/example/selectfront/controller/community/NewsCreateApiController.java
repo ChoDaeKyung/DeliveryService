@@ -1,12 +1,8 @@
 package com.example.selectfront.controller.community;
 
-import com.example.selectfront.dto.community.CreateNewsRequestDTO;
-import com.example.selectfront.dto.community.CreateNewsResponseDTO;
-import com.example.selectfront.dto.community.NewsDetailDTO;
-import com.example.selectfront.dto.community.NewsListDTO;
+import com.example.selectfront.dto.community.*;
 import com.example.selectfront.service.community.NewsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -41,17 +36,18 @@ public class NewsCreateApiController {
         requestDTO.setContent(content);
 
         // 뉴스 생성 서비스 호출
-        return ResponseEntity.ok(newsService.createNews(requestDTO, images));
+        return ResponseEntity.ok(newsService.createNews(requestDTO,images));
     }
 
 
-    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<CreateNewsResponseDTO> updateNews(
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam(value = "images", required = false) List<MultipartFile> images,
-            @RequestParam("postId") Long postId
+    @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<UpdateNewsDTO> updateNews(
+            @RequestPart("title") String title,
+            @RequestPart("content") String content,
+            @RequestPart("postId") String postId,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images
     ) {
+        System.out.println("이미지이미지"+images);
         // images가 null인 경우 빈 리스트로 처리
         if (images == null) {
             images = new ArrayList<>();
@@ -60,10 +56,10 @@ public class NewsCreateApiController {
         CreateNewsRequestDTO requestDTO = new CreateNewsRequestDTO();
         requestDTO.setTitle(title);
         requestDTO.setContent(content);
-        requestDTO.setId(postId);
+        requestDTO.setId(Long.valueOf(postId));
 
         // 뉴스 수정 서비스 호출
-        return ResponseEntity.ok(newsService.updateNews(requestDTO, images));
+        return ResponseEntity.ok(newsService.updateNews(requestDTO,images));
     }
 
 

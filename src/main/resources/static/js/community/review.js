@@ -70,6 +70,7 @@ $(document).ready(function () {
             data: {
                 page: page,
                 pageSize: pageSize
+
             },
             success: function (data) {
                 if (data && data.reviewList) {
@@ -277,48 +278,3 @@ $(document).ready(function () {
         }
     });
 });
-
-
-
-
-// 리뷰 수정
-const updateReview = () => {
-    let title = $('#title').val();
-    let content = $('#content').val();
-    let rating = $('#rating').val();
-    let files = $('#image')[0].files;
-    let reviewId = $('#reviewId').val();
-
-    let formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('rating', rating);
-    formData.append('reviewId', reviewId);
-
-    if (files.length > 0) {
-        Array.from(files).forEach((file, index) => {
-            formData.append('images', file);
-        });
-    }
-
-    $.ajax({
-        method: 'PUT',
-        url: '/webs/api/review',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: (response) => {
-            alert('리뷰가 성공적으로 수정되었습니다.');
-            window.location.href = '/review';
-        },
-        error: (xhr) => {
-            if (xhr.status === 419) {
-                handleTokenExpiration();
-                alert('다시 한번 시도해주세요.');
-            } else {
-                console.error('요청 오류 발생:', xhr);
-                alert('리뷰 수정 요청 중 오류가 발생했습니다. 다시 시도해주세요.');
-            }
-        }
-    });
-};

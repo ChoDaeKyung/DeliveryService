@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name="userClient",url = "${user.api-url}")
+@FeignClient(name="userClient",url = "${swfm.service-url}/checkUser}")
 public interface UserClient {
     @PostMapping (value = "/user/check-id-and-fetch-nickname", consumes = "application/json")
     ResponseEntity<?> checkIdAndFetchNickname(@RequestBody CheckUserIdDTO checkUserIdDTO);

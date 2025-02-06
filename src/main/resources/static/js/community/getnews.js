@@ -16,7 +16,7 @@ $(document).ready(function () {
                 console.log("User ID:", data.userId);
                 console.log("Roles:", data.roles);
 
-                // 권한에 따라 버튼 표시 (지금은 일단 USER 만 보이게 바꿔둠 추후에 변경 예정)
+                // 권한에 따라 버튼 표시
                 if (data.roles.includes("ROLE_USER")) {
                     // 관리자 권한이 있을 경우 버튼 표시
                     document.getElementById("createButton").style.display = "inline-block";

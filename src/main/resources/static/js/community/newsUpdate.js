@@ -25,8 +25,8 @@ let updateNews = () => {
     console.log('postId ::', postId);
 
     $.ajax({
-        method: 'PUT',
-        url: `/webs/api/news`,
+        method: 'POST',
+        url: `/webs/api/news/update`,
         data: formData,
         processData: false,
         contentType: false, // 응답을 문자열로 처리

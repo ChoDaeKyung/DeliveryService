@@ -53,6 +53,7 @@ public class MemberApiController {
     public ResponseEntity<UserLoginResponseDTO> login(HttpServletResponse response, @RequestBody LoginRequestDTO loginRequestDTO) {
         UserLoginResponseDTO userLoginResponseDTO = memberService.loginMember(loginRequestDTO);
         if (userLoginResponseDTO.isLoggedIn()) {
+            System.out.println("로그인성공");
             CookieUtil.addCookie(response,"refreshToken",userLoginResponseDTO.getRefreshToken(),7*24*60*60);
             return ResponseEntity.ok(
                     UserLoginResponseDTO.builder()
@@ -60,6 +61,7 @@ public class MemberApiController {
                             .build()
             );
         } else {
+            System.out.println("로그인 실패");
             // 로그인 실패 시 Unauthorized 상태 코드와 함께 실패 응답 반환
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(UserLoginResponseDTO.builder()
