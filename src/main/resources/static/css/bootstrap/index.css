@@ -32,8 +32,8 @@
 /* 닫기 버튼 */
 .closeMenu {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 0px;
+    right: 10px;
     font-size: 24px;
     color: #333;
     cursor: pointer;
@@ -82,7 +82,7 @@
 #modal-price {
     font-size: 20px;
     font-weight: bold;
-    color: #ffcc00; /* 강조된 노란색 */
+    color: #ffbe33; /* 강조된 노란색 */
     margin-top: 15px;
 }
 
@@ -97,7 +97,7 @@
 .orderButton,
 .insertCustomCartButton,
 .insertSideMenuButton {
-    background-color: #ffcc00;
+    background-color: #ffbe33;
     color: #333;
     border: none;
     padding: 10px 20px;
