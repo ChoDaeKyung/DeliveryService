@@ -331,7 +331,11 @@ $(document).ready(function () {
         formData.append("productsList", JSON.stringify(mainList));  // 이미 존재하는 구성품 리스트
         formData.append("image", file);  // 이미지 파일 추가
 
-        console.log('formData :: ', formData)
+        console.log("🔍 FormData 내용:");
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
+
 
         // AJAX 요청 보내기
         $.ajax({

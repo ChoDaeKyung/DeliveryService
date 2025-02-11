@@ -46,7 +46,10 @@
               <a class="nav-link"  th:href="@{/menus}" >Menu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link"  th:href="@{/about}">About</a>
+              <a class="nav-link"  th:href="@{/news}">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  th:href="@{/review}">Review</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/book}">MAP</a>
@@ -130,7 +133,7 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
-            <a href="" class="order_online">
+            <a th:href="@{/menus}" class="order_online">
               Order Online
             </a>
           </div>

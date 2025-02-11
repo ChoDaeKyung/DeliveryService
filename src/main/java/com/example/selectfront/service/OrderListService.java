@@ -67,5 +67,7 @@ public class OrderListService {
         }
         return role.trim();
     }
-
+    public OrderResponseDTO receiveOrderIdStatusMessages(String orderId, String status){
+        return orderListClient.receiveOrderIdStatusMessages(orderId,status);
+    }
 }

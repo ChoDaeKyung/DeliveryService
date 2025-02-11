@@ -78,11 +78,11 @@ public class FrontController {
 
     @GetMapping("/mypage/availableReview")
     public String availableReview() {
-        return "/review/availableReview";
+        return "review/availableReview";
     }
 
     @GetMapping("/mypage/myReviewList")
     public String MyReviewList() {
-        return "/review/myReview";
+        return "review/myReview";
     }
 }

@@ -17,7 +17,7 @@ $(document).ready(function () {
                 console.log("Roles:", data.roles);
 
                 // 권한에 따라 버튼 표시
-                if (data.roles.includes("ROLE_USER")) {
+                if (data.roles.includes("ROLE_ADMIN")) {
                     // 관리자 권한이 있을 경우 버튼 표시
                     document.getElementById("createButton").style.display = "inline-block";
                     document.getElementById("updateCheckboxes").style.display = "inline-block";

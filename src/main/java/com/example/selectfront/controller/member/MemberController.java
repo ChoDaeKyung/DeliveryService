@@ -60,8 +60,9 @@ public class MemberController {
         // 액세스 토큰을 로컬 스토리지에 저장하는 자바스크립트 코드
         String script = "<script>" +
                 "window.localStorage.setItem('accessToken', '" + encodedAccessToken + "');" +
-                "window.location.href = '@{/index}';" + // 메인 페이지로 리다이렉션
+                "window.location.href = '/index';" +  // 직접 URL 입력
                 "</script>";
+
 
 
         response.getWriter().write(script);  // HTML 내에 자바스크립트를 삽입하여 실행

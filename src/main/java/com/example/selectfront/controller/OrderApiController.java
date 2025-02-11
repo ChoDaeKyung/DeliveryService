@@ -5,6 +5,7 @@ import com.example.selectfront.dto.order.OrderResponseDTO;
 import com.example.selectfront.service.OrderListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,4 +67,20 @@ public class OrderApiController {
         log.info("✅ 채팅 개수 반환: {}", count); // 결과 값도 log로 출력
         return count;
     }
+    @GetMapping("/orderSussesCheck")
+    public ResponseEntity<OrderResponseDTO> OrderSusses(@RequestParam String orderId, @RequestParam String status) {
+        log.info("🔍 주문 완료 확인, orderId: {}, status: {}", orderId, status);
+
+        OrderResponseDTO susses = orderListService.receiveOrderIdStatusMessages(orderId, status);
+
+        if (susses == null) {
+            log.warn("⚠️ 주문 완료 데이터가 없음: orderId={}, status={}", orderId, status);
+            return ResponseEntity.noContent().build(); // 204 No Content 반환
+        }
+
+        log.info("✅ 주문 완료 확인 반환: {}", susses);
+        return ResponseEntity.ok(susses);
+    }
+
+
 }

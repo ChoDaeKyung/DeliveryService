@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     initLoginButton()
         .then(() => {
             console.log("로그인 버튼 초기화 완료");
@@ -8,7 +9,9 @@ $(document).ready(function () {
         });
 
     // 로그아웃 버튼 클릭 시 처리
-    $(document).on('click', '#logout', function () {
+    $(".dropdown-menus").on("click", "#logout", function () {
+        event.preventDefault(); // 기본 동작 방지
+        console.log('logout');
         logOut();
     });
 
@@ -121,6 +124,7 @@ function logOut() {
             localStorage.removeItem('accessToken');
             deleteCookies();
             clearStorage();
+            serverLogout();
         },
         error: function(error) {
             console.log('Spring Security 로그아웃 오류', error);
@@ -128,22 +132,30 @@ function logOut() {
     });
 
     // 서버 로그아웃 처리 후 리다이렉트
-    serverLogout();
-}
 
+}
 function serverLogout() {
+    console.log('서버 로그아웃 실행');
+
     fetch('/member/api/server-logout', {
         method: 'POST',
         credentials: 'include'
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.redirectUrl) {
-                window.location.href = data.redirectUrl;
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`서버 오류: ${response.status}`);
             }
+            return response.json(); // ✅ 서버가 JSON을 반환하므로, JSON으로 받기
         })
-        .catch(error => console.error('Logout error:', error));
+        .then(data => {
+            console.log("✅ 로그아웃 성공:", data);
+
+            // 🔹 로그아웃 성공 후 리다이렉트 처리
+            window.location.href = "/login";
+        })
+        .catch(error => console.error('❌ 서버 로그아웃 실패:', error));
 }
+
 
 function deleteCookies() {
     document.cookie = "nid_autologin=; max-age=0; path=/; domain=.naver.com"; // 네이버 자동 로그인 쿠키
@@ -163,11 +175,14 @@ function deleteCookies() {
 
 // 로컬 스토리지 및 세션 스토리지 삭제
 function clearStorage() {
+    console.log("🗑️ 로컬스토리지 및 세션스토리지 삭제");
     localStorage.clear();   // 로컬 스토리지 삭제
     sessionStorage.clear(); // 세션 스토리지 삭제
 }
 
 function decodeJWT(token) {
+    if (!token) return null; // 🔹 토큰이 없으면 즉시 null 반환
+
     try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -176,19 +191,40 @@ function decodeJWT(token) {
         }).join(''));
         return JSON.parse(jsonPayload);
     } catch (error) {
-        console.error('JWT 디코딩 실패:', error);
+        console.error('❌ JWT 디코딩 실패:', error);
         return null;
     }
 }
 
 // JWT 유효성 검사 함수 (비동기적으로 수정)
 async function isTokenValid(token) {
+    if (!token) return false;
     const decoded = decodeJWT(token);
     if (!decoded) {
         console.error('JWT 디코딩에 실패했습니다.');
         return false;
     }
+    const userMenu = document.querySelector(".user_logged_in");
+    const dropdownMenu = document.querySelector(".dropdown-menus");
+    const adminPage = document.querySelector("#admin");
 
+    if (userMenu) {
+        userMenu.addEventListener("click", function (event) {
+            event.stopPropagation(); // 클릭 이벤트가 상위 요소로 전파되지 않도록 방지
+            if (decoded.role === "ROLE_ADMIN") { // 공백 제거
+                adminPage.style.display = "block"; // 오타 수정
+            }
+            if(decodeJWT())
+                this.classList.toggle("active");
+        });
+
+        // 페이지 어디를 클릭해도 닫히도록 설정
+        document.addEventListener("click", function (event) {
+            if (!userMenu.contains(event.target)) {
+                userMenu.classList.remove("active");
+            }
+        });
+    }
     const currentTime = Math.floor(Date.now() / 1000);
     return currentTime >= decoded.iat && currentTime <= decoded.exp;
 }

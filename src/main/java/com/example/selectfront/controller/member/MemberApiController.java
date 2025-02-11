@@ -14,11 +14,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import util.CookieUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +36,7 @@ public class MemberApiController {
     private final EmailValidationService emailValidationService;
     private final MemberFindService memberFindService;
 
+    private final RestTemplate restTemplate;
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody JoinRequestDTO loginRequestDTO) {
         return memberService.joinMember(loginRequestDTO);
@@ -82,11 +88,27 @@ public class MemberApiController {
     }
     @Value("${swfm.service-url}")
     private String loginServiceUrl;
-
     @PostMapping("/server-logout")
-    public ResponseEntity<LogoutServerResponseDTO> logout() {
-        LogoutServerResponseDTO build = LogoutServerResponseDTO.builder().redirectUrl(loginServiceUrl + "/logout").build();
-        return ResponseEntity.ok(build);
+    public ResponseEntity<Map<String, String>> logout() {
+        String logoutUrl = loginServiceUrl + "/logout";
+        Map<String, String> responseMap = new HashMap<>();
+
+        System.out.println("🔍 로그아웃 URL: " + logoutUrl);
+
+        try {
+            // 🚀 RestTemplate 사용하여 로그아웃 요청
+            ResponseEntity<String> response = restTemplate.postForEntity(logoutUrl, null, String.class);
+            System.out.println("✅ 로그아웃 요청 성공: " + response.getBody());
+
+            // 🔹 로그아웃 후 JSON 응답 반환 (리다이렉트 제거)
+            responseMap.put("message", "로그아웃 성공");
+            return ResponseEntity.ok(responseMap);
+        } catch (Exception e) {
+            System.err.println("❌ 로그아웃 요청 실패: " + e.getMessage());
+            e.printStackTrace();
+            responseMap.put("error", "로그아웃 요청 실패: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMap);
+        }
     }
 
 

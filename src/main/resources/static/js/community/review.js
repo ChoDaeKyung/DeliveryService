@@ -123,11 +123,9 @@ $(document).ready(function () {
                     </div>
                     <div class="review-body">
                         <h3 class="review-title">${review.title}</h3>
-                        <div class="review-content">${review.content || '내용이 없음'}</div>
                     </div>
                     <div class="review-footer">
                         <div class="review-id">#${review.id}</div>
-                        <div class="review-date">${review.createdAt || '날짜 정보 없음'}</div>
                     </div>
                 </div>
             `);

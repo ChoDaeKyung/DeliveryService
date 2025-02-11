@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 public class News {
     private Long id;
     private String title;
-    private Long authorId;
+    private String authorId;
     private LocalDateTime createdAt;
 }

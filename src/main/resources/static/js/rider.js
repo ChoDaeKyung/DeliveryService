@@ -33,23 +33,23 @@ $(document).ready(function () {
         }, timeout);
     };
 
-    /** 배달원용 지도 초기화 */
-    window.initializeRiderMap = function (riderLat, riderLng, userId) {
-        console.log('riderLocationinit',map,riderLat,riderLng,userId);
-        deliveryMarker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(riderLat, riderLng),
-            map: map,
-            title: "배달원 위치",
-        });
+        /** 배달원용 지도 초기화 */
+        window.initializeRiderMap = function (riderLat, riderLng, userId) {
+            console.log('riderLocationinit',map,riderLat,riderLng,userId);
+            deliveryMarker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(riderLat, riderLng),
+                map: map,
+                title: "배달원 위치",
+            });
 
-        saveDeliveryLocation(riderLat, riderLng);
-        fetchDeliveryLocation(riderLat, riderLng, userId);
-
-        setInterval(() => {
             saveDeliveryLocation(riderLat, riderLng);
             fetchDeliveryLocation(riderLat, riderLng, userId);
-        }, timeout);
-    };
+
+            setInterval(() => {
+                saveDeliveryLocation(riderLat, riderLng);
+                fetchDeliveryLocation(riderLat, riderLng, userId);
+            }, timeout);
+        };
 
     /** 배달원 위치 가져오기 */
     function fetchDeliveryLocation(userLat, userLng, userInfo) {
