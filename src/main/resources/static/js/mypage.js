@@ -1,4 +1,3 @@
-//주문 갯수
 $(document).ready(function () {
     console.log("✅ jQuery document.ready 실행됨");
 
@@ -13,37 +12,61 @@ $(document).ready(function () {
     let decodeJWT1 = decodeJWT(token);
     const orderCountElement = $('.orderCount');
     const chatCountElement = $('.chatCount');
-    console.log('✅ orderCountElement:', orderCountElement);
+
     console.log('✅ decodeJWT1:', decodeJWT1);
 
-    $.ajax({
-        url: `/orderList/orderCount?userId=${encodeURIComponent(decodeJWT1.sub)}&role=${encodeURIComponent(decodeJWT1.role)}`,// userId를 쿼리 파라미터로 직접 추가
-        type: 'GET',
-        success: function (orders) {
-            console.log("✅ AJAX 성공:", orders);
-            orderCountElement.text(orders+"개"); // HTML 요소에 주문 개수 표시
-        },
-        error: function (xhr, status, error) {
-            console.error("🚨 AJAX 에러:", error);
-            alert(`${status} 상태의 주문 목록을 가져오는 데 실패했습니다.`);
+    // ✅ 개수 가져와서 UI 업데이트
+    function updateCountDisplay(url, element) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (count) {
+                console.log("✅ 개수 조회 성공:", count);
+                element.text(count + "개"); // ✅ 개수 표시 업데이트
+            },
+            error: function (xhr, status, error) {
+                console.error("🚨 개수 조회 실패:", error);
+                element.text("0개");
+            }
+        });
+    }
+
+    // ✅ 주문 & 채팅 개수 업데이트 실행 (페이지 로드 시)
+    updateCountDisplay(
+        `/orderList/orderCount?userId=${encodeURIComponent(decodeJWT1.sub)}&role=${encodeURIComponent(decodeJWT1.role)}`,
+        orderCountElement
+    );
+    updateCountDisplay(
+        `/orderList/chatListCount?userId=${encodeURIComponent(decodeJWT1.sub)}&role=${encodeURIComponent(decodeJWT1.role)}`,
+        chatCountElement
+    );
+
+    // ✅ 클릭 시 개수 확인 후 페이지 이동
+    function checkCountAndRedirect(url, countElement, alertMessage) {
+        const countText = countElement.text(); // ✅ 현재 표시된 개수 가져오기
+        const count = parseInt(countText); // ✅ 숫자로 변환
+
+        if (isNaN(count) || count === 0) {
+            alert(alertMessage); // 🚨 0개일 경우 알림 표시
         }
+
+        window.location.href = url; // ✅ 개수가 있으면 이동
+    }
+
+    // ✅ 주문 목록 버튼 클릭 이벤트
+    $(".membership-card button").on("click", function (e) {
+        e.preventDefault();
+        checkCountAndRedirect("/order", orderCountElement, "🚨 주문 내역이 없습니다!");
     });
-    $.ajax({
-        url: `/orderList/chatListCount?userId=${encodeURIComponent(decodeJWT1.sub)}&role=${encodeURIComponent(decodeJWT1.role)}`, // userId를 쿼리 파라미터로 직접 추가
-        type: 'GET',
-        success: function (orders) {
-            console.log("✅ AJAX 성공:", orders);
-            chatCountElement.text(orders+"개"); // HTML 요소에 채팅 개수 표시
-        },
-        error: function (xhr, status, error) {
-            console.error("🚨 AJAX 에러:", error);
-            alert(`${status} 상태의 주문 목록을 가져오는 데 실패했습니다.`);
-        }
+
+    // ✅ 채팅 목록 버튼 클릭 이벤트
+    $(".sub-card button").on("click", function (e) {
+        e.preventDefault();
+        checkCountAndRedirect("/chat", chatCountElement, "🚨 채팅 내역이 없습니다!");
     });
 });
 
-
-// JWT 디코딩 함수
+// ✅ JWT 디코딩 함수
 function decodeJWT(token) {
     try {
         const base64Url = token.split('.')[1];
@@ -58,7 +81,7 @@ function decodeJWT(token) {
     }
 }
 
-// JWT 유효성 검사 함수
+// ✅ JWT 유효성 검사 함수
 function isTokenValid(token) {
     const decoded = decodeJWT(token);
     if (!decoded) {
@@ -66,10 +89,6 @@ function isTokenValid(token) {
         return false;
     }
 
-    const currentTime = Math.floor(Date.now() / 1000); // 현재 시각 (초 단위)
-    const issuedAt = decoded.iat; // 발급 시간
-    const expiration = decoded.exp; // 만료 시간
-
-    console.log(`현재 시각: ${currentTime}, iat: ${issuedAt}, exp: ${expiration}`);
-    return currentTime >= issuedAt && currentTime <= expiration;
+    const currentTime = Math.floor(Date.now() / 1000);
+    return currentTime >= decoded.iat && currentTime <= decoded.exp;
 }

@@ -66,14 +66,17 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  mx-auto ">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" th:href="@{/index}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link"  th:href="@{/menus}" >Menu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link"  th:href="@{/about}">About</a>
+              <a class="nav-link"  th:href="@{/news}">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  th:href="@{/review}">Review</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/book}">MAP</a>
@@ -157,7 +160,7 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
-            <a href="" class="order_online">
+            <a th:href="@{/menus}" class="order_online">
               Order Online
             </a>
           </div>
@@ -185,17 +188,18 @@
     window.location.href = '/user/idForUpdate';  // 아이디 확인 페이지로 이동
   }
 </script>
+      <!-- 주문 목록 -->
       <div class="card membership-card">
         <h2>주문 목록</h2>
-        <p class="orderCount"></p>
-        <button  th:onclick="|location.href='@{/order}'|">주문 목록으로</button>
+        <p class="orderCount">조회 중...</p> <!-- ✅ 개수 표시 (초기값) -->
+        <button>주문 목록으로</button>
       </div>
 
-      <!-- 채팅 -->
+      <!-- 채팅 목록 -->
       <div class="card sub-card">
         <h2>채팅목록</h2>
-        <p class="chatCount"></p>
-        <button th:onclick="|location.href='@{/chat}'|">채팅 목록으로</button>
+        <p class="chatCount">조회 중...</p> <!-- ✅ 개수 표시 (초기값) -->
+        <button>채팅 목록으로</button>
       </div>
 
       <!-- Card: 주문내역 -->

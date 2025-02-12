@@ -2,36 +2,32 @@ $(document).ready(function () {
     const token = localStorage.getItem("accessToken"); // 저장된 JWT 토큰 가져오기
     console.log("token ::" + token);
 
-    fetch("/member/api/claims", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` // JWT 토큰을 헤더에 포함
-        },
-        body: JSON.stringify({ token: token })
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.roles) {
-                console.log("User ID:", data.userId);
-                console.log("Roles:", data.roles);
 
-                // 권한에 따라 버튼 표시
-                if (data.roles.includes("ROLE_USER")) {
-                    // 관리자 권한이 있을 경우 버튼 표시
-                    document.getElementById("createButton").style.display = "inline-block";
-                    document.getElementById("updateCheckboxes").style.display = "inline-block";
-                    document.getElementById("toggleCheckboxes").style.display = "inline-block";
-                }
-            } else {
-                console.error("Invalid token or unauthorized access");
-            }
-        })
-        .catch((error) => console.error("Error:", error));
+    const decodeJWT = (token) => {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        } catch (error) {
+            console.error('JWT 디코딩 실패:', error);
+            return null;
+        }
+    };
+    let decodeJWT1 = decodeJWT(token);
+
+    if (decodeJWT1.role) {
+        // 권한에 따라 버튼 표시
+        if (decodeJWT1.role.includes("ROLE_ADMIN")) {
+            // 관리자 권한이 있을 경우 버튼 표시
+            document.getElementById("createButton").style.display = "inline-block";
+            document.getElementById("updateCheckboxes").style.display = "inline-block";
+            document.getElementById("toggleCheckboxes").style.display = "inline-block";
+        }
+    }
 });
-
-
-
 
 
 $(document).ready(function () {

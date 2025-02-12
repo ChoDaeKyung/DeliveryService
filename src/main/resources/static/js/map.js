@@ -4,70 +4,85 @@ document.addEventListener("DOMContentLoaded", function () {
     let infowindows = []; // 여러 개의 infowindow를 관리
     let storeMarkers = []; // 매장 마커 관리
     let userInfoWindow; // 사용자 정보창 저장
-    loadMap();
-
+    //loadMap();
+    setDefaultLocation();
     function loadMap() {
         const mapContainer = document.querySelector(".map-placeholder");
         let storeList = document.getElementById("storeList");
 
         if (!navigator.geolocation) {
             alert("현재 브라우저에서 위치 정보를 지원하지 않습니다.");
+            setDefaultLocation(); // 기본 위치 설정
             return;
         }
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const { latitude, longitude } = position.coords;
-                userPosition = new kakao.maps.LatLng(latitude, longitude);
-
-                map = new kakao.maps.Map(mapContainer, {
-                    center: userPosition,
-                    level: 3,
-                });
-
-                const markerImage = new kakao.maps.MarkerImage(
-                    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-                    new kakao.maps.Size(24, 35)
-                );
-
-                userMarker = new kakao.maps.Marker({
-                    position: userPosition,
-                    map: map,
-                    image: markerImage,
-                });
-
-                const userLabel = new kakao.maps.CustomOverlay({
-                    position: userPosition,
-                    content: `<div class="custom-label">현재 위치</div>`,
-                    yAnchor: 1.5
-                });
-                userLabel.setMap(map);
-
-                userInfoWindow = new kakao.maps.InfoWindow({ zIndex: 2 });
-                infowindows.push(userInfoWindow);
-
-                kakao.maps.event.addListener(userMarker, 'click', function () {
-                    toggleInfoWindow(userInfoWindow, userMarker, userPosition, "현재 위치");
-                });
-
-                userLabel.a.addEventListener('click', function () {
-                    toggleInfoWindow(userInfoWindow, userMarker, userPosition, "현재 위치");
-                });
-
-                document.getElementById("moveToMyLocationBtn").addEventListener("click", function () {
-                    if (userPosition) {
-                        map.setCenter(userPosition);
-                        ensureAllMarkersVisible();
-                    }
-                });
-
-                fetchSubwayStores(latitude, longitude, map, storeList);
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                initializeMap(latitude, longitude);
             },
             (error) => {
-                alert("위치 정보를 가져오는 데 실패했습니다.");
-                console.error(error);
+                console.warn("⚠ 위치 정보를 가져올 수 없습니다. 기본 좌표를 사용합니다.");
+                setDefaultLocation();
             }
         );
+    }
+
+    function setDefaultLocation() {
+        let latitude = 37.5381655;
+        let longitude = 127.1263928;
+        initializeMap(latitude, longitude);
+    }
+
+    function initializeMap(latitude, longitude) {
+        const mapContainer = document.querySelector(".map-placeholder");
+        let storeList = document.getElementById("storeList");
+
+        userPosition = new kakao.maps.LatLng(latitude, longitude);
+
+        map = new kakao.maps.Map(mapContainer, {
+            center: userPosition,
+            level: 3,
+        });
+
+        const markerImage = new kakao.maps.MarkerImage(
+            'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+            new kakao.maps.Size(24, 35)
+        );
+
+        userMarker = new kakao.maps.Marker({
+            position: userPosition,
+            map: map,
+            image: markerImage,
+        });
+
+        const userLabel = new kakao.maps.CustomOverlay({
+            position: userPosition,
+            content: `<div class="custom-label">현재 위치</div>`,
+            yAnchor: 1.5
+        });
+        userLabel.setMap(map);
+
+        userInfoWindow = new kakao.maps.InfoWindow({ zIndex: 2 });
+        infowindows.push(userInfoWindow);
+
+        kakao.maps.event.addListener(userMarker, 'click', function () {
+            toggleInfoWindow(userInfoWindow, userMarker, userPosition, "현재 위치");
+        });
+
+        document.querySelector(".custom-label").addEventListener('click', function () {
+            toggleInfoWindow(userInfoWindow, userMarker, userPosition, "현재 위치");
+        });
+
+        document.getElementById("moveToMyLocationBtn").addEventListener("click", function () {
+            if (userPosition) {
+                map.setCenter(userPosition);
+                ensureAllMarkersVisible();
+            }
+        });
+
+        fetchSubwayStores(latitude, longitude, map, storeList);
     }
 
     async function getKakaoApiKey() {
@@ -131,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             toggleInfoWindow(storeInfoWindow, storeMarker, storePosition, place_name, road_address_name);
                         });
 
-                        storeLabel.a.addEventListener('click', function () {
+                        document.querySelector(`.custom-label`).addEventListener('click', function () {
                             toggleInfoWindow(storeInfoWindow, storeMarker, storePosition, place_name, road_address_name);
                         });
 
@@ -158,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
             closeAllInfoWindows();
 
             if (address) {
-                infowindow.setContent(`<div style="padding:3px;    font-size: 15px;">${title}<br>${address}</div>`);
+                infowindow.setContent(`<div style="padding:3px; font-size: 15px;">${title}<br>${address}</div>`);
             } else {
                 geocoder.coord2Address(position.getLng(), position.getLat(), function(result, status) {
                     if (status === kakao.maps.services.Status.OK) {
@@ -178,9 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function ensureAllMarkersVisible() {
-        // 내 위치 마커 유지
         if (userMarker) userMarker.setMap(map);
-        // 모든 매장 마커 유지
         storeMarkers.forEach(marker => marker.setMap(map));
     }
 });

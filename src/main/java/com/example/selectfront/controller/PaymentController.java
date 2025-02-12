@@ -15,7 +15,7 @@ public class PaymentController {
     private final OrderService orderService;
 
     @GetMapping("/success")
-    public ResponseEntity<String> handleSuccess(
+    public String handleSuccess(
             @RequestParam String paymentKey,
             @RequestParam String orderId,
             @RequestParam String amount
@@ -25,6 +25,6 @@ public class PaymentController {
         System.out.println("amount is :: " + amount);
 
         orderService.CompleteOrder(paymentKey, orderId, amount);
-        return ResponseEntity.ok("success");
+        return "mypage";
     }
 }

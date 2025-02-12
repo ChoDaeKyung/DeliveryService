@@ -93,7 +93,6 @@
   </main>
 </div>
 </body>
-
 <script>
 
   let payPrice = parseFloat($('#hiddenTotalMoney').val());
@@ -102,8 +101,8 @@
   let jsons;
 
   let path = "/";
-  let successUrl = window.location.origin + path + "success";
-  let failUrl = window.location.origin + path + "fail";
+  let successUrl = window.location.origin + path + "/success";
+  let failUrl = window.location.origin + path + "mypage/cartList";
   let callbackUrl = window.location.origin + path + "va_callback";
   let orderId = new Date().getTime();
   function decodeJWT(token) {
@@ -188,9 +187,9 @@
     console.log("userId is :: ", userId);
     jsons = {
       "card": {
-        "amount": 1,
+        "amount": payPrice,
         "orderId": "sample-" + orderId,
-        "orderName": "상품 외 1개상품",
+        "orderName": products,
         "successUrl": successUrl,
         "failUrl": failUrl,
         "cardCompany": null,
@@ -253,9 +252,9 @@
       },
       "phone": { // 휴대폰 결제창
 
-        "amount": 1,
+        "amount": payPrice,
         "orderId": "sample-" + orderId,
-        "orderName": "상품 외 1개상품",
+        "orderName": products,
         "successUrl": successUrl,
         "failUrl": failUrl,
         "mobileCarrier": null,
@@ -323,6 +322,5 @@
   }
 
 </script>
-
 
 </html>
