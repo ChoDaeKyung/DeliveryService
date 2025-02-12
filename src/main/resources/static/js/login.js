@@ -1,20 +1,5 @@
 $(document).ready(function () {
 
-        // Toggle between Sign In and Sign Up forms
-        $("#signin-tab").click(function () {
-            $("#signin-form").addClass("active");
-            $("#signup-form").removeClass("active");
-            $(this).addClass("active");
-            $("#signup-tab").removeClass("active");
-        });
-
-        $("#signup-tab").click(function () {
-            $("#signup-form").addClass("active");
-            $("#signin-form").removeClass("active");
-            $(this).addClass("active");
-            $("#signin-tab").removeClass("active");
-        });
-
     $('#login-button').click(function (event) {
         const loginButton = document.getElementById('login-button');
         loginButton.disabled = true; // 버튼 비활성화
@@ -104,4 +89,6 @@ $(document).ready(function () {
     $('#logout-button').click(function () {
         logOut();
     });
+
+
 });

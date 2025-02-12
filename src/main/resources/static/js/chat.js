@@ -11,16 +11,16 @@ let lastRiderLat,lastRiderLng;
 let lastLatitude = null;
 let lastLongitude = null;
 const coordinates = [
-    {minute: 1, latitude: 37.5381655, longitude: 127.1263928},
-    {minute: 2, latitude: 37.537995, longitude: 127.1373118},
-    {minute: 3, latitude: 37.5378245, longitude: 127.1482308},
-    {minute: 4, latitude: 37.5376539, longitude: 127.1591498},
-    {minute: 5, latitude: 37.5374834, longitude: 127.1700688},
-    {minute: 6, latitude: 37.5373129, longitude: 127.1809879},
-    {minute: 7, latitude: 37.5371424, longitude: 127.1919069},
-    {minute: 8, latitude: 37.5369718, longitude: 127.2028259},
-    {minute: 9, latitude: 37.5368013, longitude: 127.2137449},
-    {minute: 10, latitude: 37.5366308, longitude: 127.2246639}
+    {minute: 1, latitude: 37.5366308, longitude: 127.2246639},
+    {minute: 2, latitude: 37.5368013, longitude: 127.2137449},
+    {minute: 3, latitude: 37.5369718, longitude: 127.2028259},
+    {minute: 4, latitude: 37.5371424, longitude: 127.1919069},
+    {minute: 5, latitude: 37.5373129, longitude: 127.1809879},
+    {minute: 6, latitude: 37.5374834, longitude: 127.1700688},
+    {minute: 7, latitude: 37.5376539, longitude: 127.1591498},
+    {minute: 8, latitude: 37.5378245, longitude: 127.1482308},
+    {minute: 9, latitude: 37.537995, longitude: 127.1373118},
+    {minute: 10, latitude: 37.5381655, longitude: 127.1263928}
 ];
 
 
@@ -98,6 +98,7 @@ $(document).ready(function () {
     $(document).on("click", ".chat-list-item", function () {
         //삭제
         currentIndex = 0;
+
         $('#chatContainer').empty();
 
         lastTimestamp = -1;
@@ -114,7 +115,7 @@ $(document).ready(function () {
 
         fetchMessages(orderId); // 선택한 orderId에 맞는 메시지 가져오기
 
-        if (decoded.role === 'ROLE_RIDER') {
+
             $(".deliver-btn").remove(); // 기존 버튼 제거 후 다시 추가
             const orderHtml = `
                 <button class="deliver-btn" style="background-color: #068acb;
@@ -132,7 +133,7 @@ $(document).ready(function () {
                 </button>
             `;
             $("#orderList").append(orderHtml);
-        }
+
 
             //지도 업데이트
 
@@ -596,8 +597,12 @@ function clearPreviousData() {
 //     currentIndex++;  // 다음 좌표로 이동
 // }
 // ✅ 배달원 위치 가져오기
+// ❗ 배달원 위치 가져오기
 function fetchDeliveryLocation(userLat, userLng, riderId) {
+    const token = localStorage.getItem("accessToken");
+    const decoded = decodeJWT(token);
     console.log("📡 배달원 위치 요청:", riderId);
+
     fetch(`${API_BASE}/get-delivery-location?deliveryPersonId=${riderId}`)
         .then((response) => {
             if (!response.ok) throw new Error(`🚨 서버 응답 오류: ${response.status}`);
@@ -605,9 +610,23 @@ function fetchDeliveryLocation(userLat, userLng, riderId) {
         })
         .then((data) => {
             const { latitude, longitude } = data;
+
+            // ✅ 배달원 위치 데이터가 없는 경우 (마커만 삭제, 추가 요청 없음)
             if (!latitude || !longitude) {
-                console.error("❌ 배달원 위치 데이터 없음");
-                return;
+                console.warn("🚨 위치 데이터 없음! 배달원 마커 제거");
+
+                if (decoded.role === "ROLE_RIDER") {
+                    console.error("❌ 유저 위치 데이터 없음");
+                } else {
+                    console.error("❌ 배달원 위치 데이터 없음");
+                }
+
+                // ✅ 기존 마커 삭제 (지도에서 배달원 위치 제거)
+                if (deliveryMarker) {
+                    deliveryMarker.setMap(null);
+                    deliveryMarker = null;
+                }
+                return; // 추가 요청 없음
             }
 
             console.log("📍 배달원 위치 업데이트:", latitude, longitude);
@@ -624,10 +643,12 @@ function fetchDeliveryLocation(userLat, userLng, riderId) {
 
             addMarkerClickEvent(deliveryMarker, latitude, longitude, "배달원 위치");
 
-            // ✅ 거리 및 예상 시간 계산
+            // ✅ 거리 및 예상 시간 강제 업데이트
             fetchDistanceAndTime(userLat, userLng, latitude, longitude);
         })
-        .catch((error) => console.error("❌ 배달원 위치 가져오기 실패:", error));
+        .catch((error) => {
+            console.error("❌ 배달원 위치 가져오기 실패:", error);
+        });
 }
 
 
@@ -649,10 +670,13 @@ function saveDeliveryLocation(latitude, longitude) {
 }
 
 // ✅ 거리 및 예상 시간 계산
+// ❗ 거리 및 예상 시간 계산
 function fetchDistanceAndTime(userLat, userLng, deliveryLat, deliveryLng) {
     console.log("📏 거리 계산 요청:", userLat, userLng, deliveryLat, deliveryLng);
+
+    // ✅ 배달원 위치가 없으면 거리 계산 중단
     if (!deliveryLat || !deliveryLng) {
-        console.error("🚨 오류: 배달원 위치 없음");
+        console.error("🚨 오류: 배달원 위치 없음, 거리 계산 불가");
         return;
     }
 
@@ -663,7 +687,11 @@ function fetchDistanceAndTime(userLat, userLng, deliveryLat, deliveryLng) {
             let distance = (data.distance / 1000).toFixed(2);
             let duration = Math.ceil(data.duration / 60);
 
-            if (distance < 0.01) distance = "0.01";
+            // ✅ 거리가 너무 가까운 경우에도 다시 요청하지 않고 그대로 표시
+            if (distance < 0.01) {
+                console.warn("🚨 거리 계산 결과: 0.01km (너무 가까움) → 그대로 표시");
+            }
+
             if (duration < 1) duration = "1";
 
             infoDiv.innerHTML = `
@@ -671,11 +699,13 @@ function fetchDistanceAndTime(userLat, userLng, deliveryLat, deliveryLng) {
                 <strong>⏳ 예상 도착 시간:</strong> ${duration} 분
             `;
 
+            // ✅ 지도에 경로 표시
             drawPolyline(userLat, userLng, deliveryLat, deliveryLng);
         })
-        .catch((error) => console.error("❌ 거리 계산 실패:", error));
+        .catch((error) => {
+            console.error("❌ 거리 계산 실패:", error);
+        });
 }
-
 // ✅ 지도에 경로 표시
 function drawPolyline(userLat, userLng, deliveryLat, deliveryLng) {
     if (polyline) {
