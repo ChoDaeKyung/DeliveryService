@@ -591,28 +591,25 @@ a:focus {
           transform: scale(1.1);
 }
 
-.food_section .btn-box {
-  display: -webkit-box;
-  display: -ms-flexbox;
+.food_section .food-btn-box {
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 45px;
+  justify-content: center; /* 가운데 정렬 */
+  margin: 20px auto; /* 상하 간격 및 중앙 정렬 */
+  position: relative; /* 상품 위로 겹치지 않도록 설정 */
+  z-index: 1; /* 다른 요소보다 낮게 설정 */
 }
 
-.food_section .btn-box a {
+.food_section .food-btn-box a {
   display: inline-block;
   padding: 10px 55px;
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  border: none;
+  text-decoration: none;
 }
 
-.food_section .btn-box a:hover {
+.food_section .food-btn-box a:hover {
   background-color: #e69c00;
 }
 

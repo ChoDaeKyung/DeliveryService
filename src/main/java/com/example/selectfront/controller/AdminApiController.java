@@ -85,6 +85,7 @@ public class AdminApiController {
         System.out.println("name: " + name);
         System.out.println("category: " + category);
         System.out.println("price: " + price);
+        System.out.println("detail: " + detail);
         System.out.println("image: " + image.getOriginalFilename());
 
 

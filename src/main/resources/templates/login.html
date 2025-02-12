@@ -51,7 +51,7 @@
     <header class="header_section">
         <div class="container">
             <nav style="    height: 88px;" class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" th:href="@{/index}">
+                <a class="navbar-brand" href="index.html">
             <span>
               SWbyFM
             </span>
@@ -63,42 +63,24 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  mx-auto ">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" th:href="@{/index}">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"  th:href="@{/menus}" >Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  th:href="@{/news}">News</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"  th:href="@{/review}">Review</a>
+                            <a class="nav-link"  th:href="@{/about}">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/book}">MAP</a>
                         </li>
                     </ul>
                     <div class="user_option">
-                        <!-- 로그인된 상태일 때 보이는 부분 -->
-                        <div class="user_logged_in" style="display: none;">
-                            <a href="#" class="user_link">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                            </a>
-                            <!-- 드롭다운 메뉴 (마이페이지, 로그아웃) -->
-                            <div class="dropdown-menus"  >
-                                <a href="/mypage" class="dropdown-items">마이페이지</a>
-                                <a href="#" class="dropdown-items" id="logout">로그아웃</a>
-                            </div>
-                        </div>
-
-                        <!-- 로그인되지 않은 상태일 때 보이는 로그인 아이콘 -->
-                        <div class="user_not_logged_in" style="display: none;">
-                            <a href="login" class="login_link">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> 로그인
-                            </a>
-                        </div>
-                        <a class="cart_link" th:href="@{/mypage/cartList}">
+                        <a href="" class="user_link">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </a>
+                        <a class="cart_link" href="#">
                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                   <g>
                     <g>
@@ -157,7 +139,7 @@
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
                         </form>
-                        <a th:href="@{/menus}" class="order_online">
+                        <a href="" class="order_online">
                             Order Online
                         </a>
                     </div>
@@ -223,7 +205,7 @@
 
                                     <option value="ROLE_USER" selected>User</option>
                                     <option value="ROLE_RIDER">Rider</option>
-                                    <option value="ROLE_ADMIN">Manager</option>
+                                    <option value="ROLE_MANAGER">Manager</option>
                                 </select>
                             </div>
                             <div class="group">
@@ -246,9 +228,6 @@
                     </div>
 
                 </div>
-
-
-
             </div>
         </div>
     </main>
