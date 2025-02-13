@@ -33,8 +33,17 @@ public class MemberController {
     public String login(Model model) {
         model.addAttribute("loginServiceUrl", loginServiceUrl);
         model.addAttribute("title", "로그인 페이지");
+
         return "login";
     }
+    //비밀번호 재설정
+    @GetMapping("/reset-password")
+    public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
+        model.addAttribute("resetToken", token); // token을 모델에 담아서 전달
+        System.out.println("token: " + token);
+        return "login"; // reset-password.html로 이동
+    }
+    //이메일 로그인
     @GetMapping("/login/callback")
     public String loginWithTokens(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 쿠키에서 accessToken과 refreshToken을 읽음
@@ -90,12 +99,7 @@ public class MemberController {
     public String join() {
         return "join";
     }
-    @GetMapping("/reset-password")
-    public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
-        model.addAttribute("resetToken", token); // token을 모델에 담아서 전달
-        System.out.println("token: " + token);
-        return "update_pw"; // reset-password.html로 이동
-    }
+
     @GetMapping("findId")
     public String findId() {
         return "find_id";

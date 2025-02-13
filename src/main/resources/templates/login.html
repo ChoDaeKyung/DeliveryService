@@ -157,9 +157,88 @@
                 <label for="sign-up" class="tab">Sign Up</label>
 
                 <div class="login-form">
+                    <input type="hidden" id="resetToken" th:value="${resetToken}">
+                    <div id="resetPasswordContainer" class="modal" >
+                        <h2>비밀번호 재설정</h2>
+                        <form id="resetPasswordForm">
+                            <label for="newPassword">새 비밀번호:</label>
+                            <input style="    border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;    top: 0px;
+    margin-right: 50px;" type="password" id="newPassword" required>
+
+                            <label for="confirmPassword">비밀번호 확인:</label>
+                            <input  style="    border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;    top: 0px;
+    margin-right: 50px;" type="password" id="confirmPassword" required>
+
+                            <button style="    background-color: rgb(10 134 14);
+    color: #FFFFFF;
+    border: none;
+    width: 200px;
+    height: 45px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;    margin-left: 70px;" type="submit">비밀번호 변경</button>
+                        </form>
+                    </div>
+                    <!-- 비밀번호 찾기 모달 -->
+                    <div id="forgot-password-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>비밀번호 찾기</h2>
+                            <form id="resetPasswordRequestForm">
+
+                                <label for="reset-email">이메일:</label>
+                                <input style="    border: 2px solid #007bff; border-radius: 5px;  padding: 10px;    top: 0px;  margin-right: 50px;" type="email" id="reset-email" required>
+
+                                <label for="reset-userId">아이디:</label>
+                                <input style="    border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;    top: 0px;
+    margin-right: 50px;" type="text" id="reset-userId" required>
+
+                                <button style="    background-color: rgb(10 134 14);
+    color: #FFFFFF;
+    border: none;
+    width: 200px;
+    height: 45px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;" type="submit">비밀번호 재설정 요청</button>
+                            </form>
+                            <p id="reset-password-result"></p>
+                        </div>
+                    </div>
+
+                    <!-- 아이디 찾기 모달 -->
+                    <div id="find-id-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>아이디 찾기</h2>
+                            <form id="findIdForm">
+                                <label for="find-email">이메일:</label>
+                                <input style="top:0;border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 50px;" type="email" id="find-email" required>
+                                <button style="    background-color: rgb(10 134 14);
+    color: #FFFFFF;
+    border: none;
+    width: 200px;
+    height: 45px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;" type="submit">아이디 찾기</button>
+                            </form>
+                            <p id="find-id-result"></p>
+                        </div>
+                    </div>
+
+                    <!-- Sign In Form -->
                     <!-- Sign In Form -->
                     <div class="sign-in-htm">
-                        <!--                <h2>로그인</h2>-->
                         <form id="signin-form-content">
                             <div class="group">
                                 <input type="text" id="signin-id" placeholder="ID" spellcheck="false" required>
@@ -171,6 +250,11 @@
                                 <button id="login-button" class="btn btn-success">Sign In</button>
                             </div>
                         </form>
+                        <div style="text-align: center;    margin-top: -150px;
+    margin-bottom: 150px;">
+                            <button id="find-id-btn" class="btn btn-link">아이디 찾기</button>
+                            <button id="forgot-password-btn" class="btn btn-link">비밀번호 찾기</button>
+                        </div>
                         <div class="social-login">
                             <div class="rectangle-10">
                                 <button class="naver">네이버 로그인</button>
@@ -227,9 +311,10 @@
                         </form>
                     </div>
 
+
+                </div>
                 </div>
             </div>
-        </div>
     </main>
 </div>
 <!-- footer section -->
@@ -316,6 +401,7 @@
 
     <body th:data-login-service-url="${loginServiceUrl}"></body>
     <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/findId.js}"></script>
     <script th:src="@{/js/join.js}"></script>
 </footer>
 

@@ -20,3 +20,9 @@ user:
   api-url: http://localhost:9010  # 백엔드 API URL 설정
 kakao:
   api-key: 118f545aa38dcd31bad414ade22b9cd6
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000  # 5초 (기본값)
+        readTimeout: 15000

@@ -184,7 +184,6 @@ $(document).ready(function() {
             event.preventDefault();
             return;
         }
-
         password = password.replace(/\s+/g, '');
 
         var formData = {
