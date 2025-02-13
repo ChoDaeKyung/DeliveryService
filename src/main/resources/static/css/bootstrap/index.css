@@ -130,3 +130,15 @@
     flex: 1 1 auto;
     padding: 1rem;
 }
+
+.filters-content {
+    margin-bottom: 20px; /* 버튼과 상품 간의 간격 확보 */
+}
+
+.custom {
+    order: -1; /* 항상 맨 앞으로 배치 */
+}
+
+.dynamic-item, .side-menu {
+    order: 0; /* 기본 정렬 순서 */
+}

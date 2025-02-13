@@ -30,6 +30,7 @@ $(document).ready(function () {
             // 동적으로 추가할 상품들만 관리하기 위해 기본 상품을 제외하고 나머지를 초기화
             const dynamicItemsContainer = $('.filters-content .grid');
             dynamicItemsContainer.find('.dynamic-item').remove(); // 동적으로 추가된 항목만 제거
+            dynamicItemsContainer.find('.side-menu').remove(); // 동적으로 추가된 항목만 제거
 
             // 1. Complete Products 리스트 처리
             data.getCompleteProductsList.forEach(item => {
